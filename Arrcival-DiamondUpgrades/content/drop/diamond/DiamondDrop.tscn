@@ -1,0 +1,52 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://content/drop/MineralDrop.tscn" type="PackedScene" id=1]
+[ext_resource path="res://mods-unpacked/Arrcival-DiamondUpgrades/content/drop/diamond/diamond_carried.png" type="Texture" id=2]
+[ext_resource path="res://mods-unpacked/Arrcival-DiamondUpgrades/content/drop/diamond/diamond_small.png" type="Texture" id=3]
+[ext_resource path="res://content/drop/sand/sand_shred_particles.tscn" type="PackedScene" id=4]
+[ext_resource path="res://mods-unpacked/Arrcival-DiamondUpgrades/content/drop/diamond/diamond_focused.png" type="Texture" id=5]
+[ext_resource path="res://content/sounds/drops/Metaltest_02.wav" type="AudioStream" id=6]
+[ext_resource path="res://content/sounds/drops/Metaltest_01.wav" type="AudioStream" id=7]
+[ext_resource path="res://content/sounds/drops/Metaltest_03.wav" type="AudioStream" id=8]
+
+[sub_resource type="PhysicsMaterial" id=1]
+resource_local_to_scene = true
+friction = 0.15
+bounce = 0.05
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 3.0
+
+[node name="DiamondDrop" groups=["saveable"] instance=ExtResource( 1 )]
+physics_material_override = SubResource( 1 )
+type = "diamond"
+
+[node name="Sprite" parent="." index="0"]
+position = Vector2( 0.5, 0 )
+texture = ExtResource( 3 )
+
+[node name="CarrySprite" parent="." index="1"]
+position = Vector2( 0.5, 0 )
+texture = ExtResource( 2 )
+
+[node name="FocusSprite" parent="." index="2"]
+visible = false
+position = Vector2( 0.5, 0 )
+texture = ExtResource( 5 )
+
+[node name="BumpSound" parent="." index="6"]
+volume_db = -10.142
+pitch_scale = 1.23
+bus = "NoMusic"
+streams = [ ExtResource( 7 ), ExtResource( 6 ), ExtResource( 8 ) ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="7"]
+position = Vector2( -0.5, -1 )
+rotation = 3.14159
+polygon = PoolVector2Array( -5, 4, -5, 2, -0.5, -5, 4, 2, 4, 4 )
+
+[node name="ShredParticles" parent="." index="8" instance=ExtResource( 4 )]
+position = Vector2( 0, -1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="9"]
+shape = SubResource( 2 )

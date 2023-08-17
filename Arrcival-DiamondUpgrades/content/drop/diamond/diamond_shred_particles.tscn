@@ -1,0 +1,28 @@
+[gd_scene format=2]
+
+[node name="ShredParticles" type="Node2D"]
+show_behind_parent = true
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 12
+lifetime = 0.4
+local_coords = false
+direction = Vector2( 0, -1 )
+spread = 119.66
+gravity = Vector2( 0, 20 )
+initial_velocity = 35.0
+initial_velocity_random = 1.0
+color = Color( 0.0509804, 0.168627, 0.270588, 1 )
+
+[node name="CPUParticles2D2" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 6
+lifetime = 0.4
+local_coords = false
+direction = Vector2( 0, -1 )
+spread = 119.66
+gravity = Vector2( 0, 20 )
+initial_velocity = 35.0
+initial_velocity_random = 1.0
+color = Color( 0.552941, 0.411765, 0.478431, 1 )

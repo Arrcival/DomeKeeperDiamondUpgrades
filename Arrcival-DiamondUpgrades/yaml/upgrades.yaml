@@ -1,0 +1,2632 @@
+migration:
+  title: Migration
+  desc: Migrate from world to world, stripping each of resources and relics before you get overrun.
+
+relichunt:
+  modifiers: [difficulty]
+
+prestige:
+  propertyChanges: 
+    - prestige.score = 0.0/h
+    - prestige.sentiron = 0/h
+    - prestige.sentwater = 0/h
+    - prestige.sentcobalt = 0/h
+  hud: content/gamemode/prestige/PrestigeScoreHud.tscn
+
+miner:
+  propertyChanges: 
+    - prestige.score = 0.0/h
+    - prestige.sentiron = 0/h
+    - prestige.sentwater = 0/h
+    - prestige.sentcobalt = 0/h
+    - keeper.maxfuel = 50.0
+
+relaxed:
+  title: Relaxed
+  desc: how do you call it if you are not under a lot of pressure?
+
+minerRefuel:
+  limit: [fuel]
+  cost: water=1
+  predecessors: [miner]
+  repeatable:
+    - cost.water += 0
+  propertyChanges: 
+    - keeper.domefuel += 10.0
+minerFuel1:
+  limit: [fuel]
+  cost: iron=8
+  predecessors: [miner]
+  propertyChanges: 
+    - keeper.maxfuel = 10.0
+minorIron:
+  limit: [highscore]
+  cost: iron=4
+  predecessors: [miner]
+  repeatable:
+    - cost.iron += 0
+  propertyChanges: 
+    - prestige.baseperwave += 4.0
+    - prestige.sentiron += 4/h
+minerWater:
+  limit: [highscore]
+  cost: water=2
+  predecessors: [miner]
+  repeatable:
+    - cost.water += 0
+  propertyChanges: 
+    - prestige.baseperwave += 2.0
+    - prestige.sentwater += 2/h
+
+prestigeIron:
+  excludelimit: [carnage]
+  cost: iron=2
+  predecessors: [prestige]
+  repeatable:
+    - cost.iron += 2
+  propertyChanges: 
+    - prestige.baseperwave += 1.0
+    - prestige.sentiron += 1/h
+prestigeWater:
+  excludelimit: [carnage]
+  cost: water=1
+  predecessors: [prestige]
+  repeatable:
+    - cost.water += 1
+  propertyChanges: 
+    - prestige.baseperwave += 1.0
+    - prestige.sentwater += 1/h
+prestigecobalt:
+  limit: [prestige_endless]
+  cost: sand=2
+  predecessors: [prestige]
+  repeatable:
+  propertyChanges:
+    - prestige.multiplier += 1.0
+    - prestige.sentcobalt += 1/h
+prestigecobaltcountdown:
+  limit: [prestige_countdown]
+  shadowing: prestigecobalt
+  cost: sand=1
+  predecessors: [prestige]
+  repeatable:
+    - cost.sand += 1
+  propertyChanges:
+    - prestige.multiplier += 1.0
+    - prestige.sentcobalt += 1/h
+prestigecobaltnocobalt:
+  limit: [nocobalt]
+  shadowing: prestigecobalt
+  cost: sand=1
+  predecessors: [prestige]
+  repeatable:
+  propertyChanges: 
+    - prestige.multiplier += 1.0
+    - prestige.sentcobalt += 1/h
+prestigeFinish:
+  limit: [cobaltgeneration, hostile]
+  cost: iron=30,sand=2
+  predecessors: [prestigeIron]
+  propertyChanges: 
+    - prestige.score *= 2.0
+    - upgrade.gameover = true
+prestigefinishnocobalt:
+  limit: [nocobalt, hostile]
+  shadowing: prestigefinish
+  cost: iron=30
+  predecessors: [prestigeIron]
+  propertyChanges: 
+    - prestige.score *= 2.0
+    - upgrade.gameover = true
+prestigespeedup:
+  limit: [prestige-pro, hostile]
+  cost: iron=0
+  predecessors: [prestigeWater]
+  repeatable:
+    - times = 10
+    - cost.iron += 0
+  propertyChanges:
+    - monstermodifiers.timebetweenwavesmodifier *= 0.75
+
+
+domewavemeter:
+  limit: [hostile]
+  cost: iron=2
+  predecessors: [dome1,dome2,dome3,dome4]
+  predecessorsAny: true
+  propertyChanges: 
+    - wavemeter.stage += 2
+domewavewarner:
+  cost: iron=2
+  predecessors: [domewavemeter]
+  propertyChanges:
+    - wavemeter.warner = true
+domewavepathtodome:
+  cost: iron=2
+  predecessors: [domewavewarner]
+  propertyChanges:
+    - wavemeter.pathtodome = true
+domewavecount:
+  cost: water=1
+  predecessors: [domeResourceCounters]
+  propertyChanges: 
+    - wavemeter.stage += 4
+domeHealthMeter:
+  limit: [hostile]
+  cost: iron=1
+  predecessors: [dome1,dome2,dome3]
+  predecessorsAny: true
+  hud: content/hud/healthmeter/HealthMeter.tscn
+domeResourceCounters:
+  cost: water=1
+  predecessors: [dome1,dome2,dome3,dome4]
+  predecessorsAny: true
+  hud: content/hud/inventory/Inventory.tscn
+domesandrepair:
+  limit: [cobaltgeneration, hostile]
+  cost: sand=1
+  propertyChanges:
+    - dome.baserepair = 80
+    - dome.healthfractionrepair = 0.15
+  predecessors: [domeHealthMeter]
+  repeatable: true
+domesandrepairstrong:
+  limit: [nocobalt, hostile]
+  shadowing: domesandrepair
+  cost: sand=1
+  propertyChanges:
+    - dome.healthfractionrepair = 0.5
+  predecessors: [domeHealthMeter]
+  repeatable: true
+domeautorepair:
+  cost: water=1
+  propertyChanges:
+    - dome.autorepair = true
+  predecessors: [dome1health1,dome2health1]
+  predecessorsAny: true
+
+
+dome1:
+  slots: [primary, cellar, cellar, shaft, domesurface, backside]
+  propertyChanges: 
+    - dome.maxhealth = 800
+    - dome.meleedamageReduction = 0.0/h
+    - dome.healthbar = 0/h
+  primaryWeapon: laser
+dome1health1:
+  limit: [dome1, hostile]
+  cost: iron=5
+  propertyChanges: 
+    - dome.maxhealth += 300
+    - dome.health += 300
+    - dome.healthbar += 1
+  predecessors: [domesandRepair, domeSandRepairStrong]
+  predecessorsAny: true
+dome1health2:
+  cost: iron=10
+  propertyChanges: 
+    - dome.maxhealth += 300
+    - dome.health += 300
+    - dome.healthbar += 1
+  predecessors: [dome1health1]
+dome1damageReduction1:
+  limit: [dome1, hostile]
+  cost: sand=2
+  propertyChanges: 
+    - dome.meleedamageReduction = 0.15
+  predecessors: [domesandRepair, domeSandRepairStrong]
+  predecessorsAny: true
+dome1damageReduction2:
+  cost: sand=5
+  propertyChanges: 
+    - dome.meleedamageReduction = 0.4
+  predecessors: [dome1DamageReduction1]
+diamonddome1:
+  cost: diamond=1
+  propertyChanges:
+    - dome.maxhealth += 300
+  predecessors: [dome1]
+  repeatable: true
+
+
+dome2:
+  slots: [primary, cellar, cellar, shaft, domesurface, backside]
+  propertyChanges: 
+    - dome.maxhealth = 1000
+    - dome.damageReduction = 0.0/h
+    - dome.baserepair = 0/h
+    - dome.healthfractionrepair = 0/h
+    - dome.healthbar = 0/h
+    - dome.autohealdamagethreshold = 0/h
+    - dome.autohealamount = 0/h
+  primaryWeapon: sword
+dome2Health1:
+  limit: [dome2, hostile]
+  cost: iron=6
+  propertyChanges: 
+    - dome.maxhealth += 400
+    - dome.health += 400
+    - dome.healthbar = 1
+  predecessors: [domesandRepair, domeSandRepairStrong]
+  predecessorsAny: true
+dome2Health2:
+  cost: iron=12
+  propertyChanges: 
+    - dome.maxhealth += 400
+    - dome.health += 400
+    - dome.healthbar = 2
+  predecessors: [dome2Health1]
+dome2badrepair1:
+  limit: [dome2, hostile]
+  cost: sand=2
+  propertyChanges: 
+    - dome.autohealdamagethreshold = 200
+    - dome.autohealamount = 80
+  predecessors: [domesandRepair, domeSandRepairStrong]
+  predecessorsAny: true
+dome2badrepair2:
+  cost: sand=3
+  propertyChanges: 
+    - dome.autohealdamagethreshold = 300
+    - dome.autohealamount = 200
+  predecessors: [dome2badRepair1]
+diamonddome2:
+  cost: diamond=1
+  propertyChanges:
+    - dome.maxhealth += 400
+  predecessors: [dome2]
+  repeatable: true
+
+
+dome3:
+  slots: [primary, cellar, cellar, shaft, backside]
+  primaryWeapon: artillery
+  propertyChanges: 
+    - dome.maxhealth = 1000
+    - dome.damageReduction = 0.0/h
+    - dome.baserepair = 0/h
+    - dome.healthfractionrepair = 0/h
+    - dome.healthbar = 0/h
+dome3Health1:
+  limit: [dome3, hostile]
+  cost: iron=6
+  shadowing: dome1health1
+  propertyChanges: 
+    - dome.maxhealth += 400
+    - dome.health += 400
+    - dome.healthbar = 1
+  predecessors: [domesandRepair, domeSandRepairStrong]
+  predecessorsAny: true
+dome3Health2:
+  cost: iron=14
+  shadowing: dome2health1
+  propertyChanges: 
+    - dome.maxhealth += 400
+    - dome.health += 400
+    - dome.healthbar = 2
+  predecessors: [dome3Health1]
+dome3badrepair1:
+  limit: [dome3, hostile]
+  cost: sand=2
+  shadowing: dome2badrepair1
+  propertyChanges: 
+    - dome.autohealdamagethreshold = 200
+    - dome.autohealamount = 80
+  predecessors: [domesandRepair, domeSandRepairStrong]
+  predecessorsAny: true
+dome3badrepair2:
+  cost: sand=3
+  shadowing: dome2badrepair2
+  propertyChanges: 
+    - dome.autohealdamagethreshold = 300
+    - dome.autohealamount = 200
+  predecessors: [dome3badRepair1]
+
+
+dome4:
+  slots: [primary, cellar, cellar, shaft, domesurface, backside]
+  propertyChanges: 
+    - dome.maxhealth = 800
+  primaryWeapon: obelisk
+dome4HealthMeter:
+  limit: [hostile]
+  cost: iron=1
+  predecessors: [dome4]
+  predecessorsAny: true
+  hud: content/hud/healthmeter/HealthMeter.tscn
+dome4IronRepair:
+  limit: [dome4, cobaltgeneration, hostile]
+  cost: iron=1
+  propertyChanges:
+    - dome.baserepair = 100
+    - dome.healthfractionrepair = 0.18
+    - dome.maxhealth -= 55
+  predecessors: [dome4HealthMeter]
+  repeatable: true
+dome4Adaptation:
+  limit: [dome4, hostile]
+  cost: iron=7
+  propertyChanges:
+    - dome.adaptationDuration = 4.0
+    - dome.adaptationGain = 0.08
+    - dome.adaptationMax = 0.75
+  predecessors: [dome4HealthMeter]
+dome4AdaptationDuration:
+  limit: [dome4, cobaltgeneration, hostile]
+  cost: sand=1
+  propertyChanges:
+    - dome.adaptationDuration += 1.0
+  repeatable:
+    - cost.sand += 1
+  predecessors: [dome4Adaptation]
+dome4Health2:
+  cost: iron=8
+  propertyChanges: 
+    - dome.maxhealth += 200
+    - dome.health += 500
+  predecessors: [dome4IronRepair]
+dome4MaxRestore:
+  limit: [dome4, hostile]
+  cost: sand=4
+  propertyChanges:
+    - dome.maxhealth = 1000
+    - dome.health = 1000
+  predecessors: [dome4Health2]
+  repeatable:
+    - cost.sand += 1
+
+keeper1:
+  propertyChanges:
+    - keeper1.drillStrength = 2
+    - keeper1.maxSpeed = 56
+    - keeper1.speedLossPerCarry = 5.7
+    - keeper1.jetpackStage = 0
+    - keeper1.acceleration = 5
+    - keeper1.deceleration = 4
+    - keeper1.slowdownRecovery = 4
+    - keeper1.tileKnockback = 7
+    - keeper1.tileHitCooldown = 0.35
+    - keeper1.speedMod = 1.0
+    - keeper1.drillMod = 1.0
+drill1:
+  limit: [mining]
+  cost: iron=4
+  propertyChanges: 
+    - keeper1.drillStrength += 4
+  predecessors: [keeper1]
+drill2:
+  cost: iron=8
+  propertyChanges: 
+    - keeper1.drillStrength += 8
+  predecessors: [drill1]
+drill3:
+  cost: iron=12
+  propertyChanges: 
+    - keeper1.drillStrength += 20
+  predecessors: [drill2]
+drill4:
+  cost: iron=20
+  repeatable:
+    - cost.iron += 10
+    - property.keeper1.drillStrength *= 2.2
+  propertyChanges: 
+    - keeper1.drillStrength += 40
+  predecessors: [drill3]
+jetpackSpeed1:
+  cost: iron=4
+  propertyChanges: 
+    - keeper1.maxSpeed += 16
+    - keeper1.jetpackStage += 1
+  predecessors: [keeper1]
+jetpackSpeed2:
+  cost: iron=8
+  propertyChanges: 
+    - keeper1.maxSpeed += 18
+    - keeper1.jetpackStage += 1
+  predecessors: [jetpackSpeed1]
+jetpackSpeed3:
+  cost: iron=12
+  propertyChanges: 
+    - keeper1.maxSpeed += 20
+    - keeper1.jetpackStage += 1
+  predecessors: [jetpackSpeed2]
+jetpackSpeed4:
+  cost: iron=16
+  propertyChanges: 
+    - keeper1.maxSpeed += 20
+    - keeper1.jetpackStage += 1
+  predecessors: [jetpackSpeed3]
+jetpackStrength1:
+  cost: iron=4
+  propertyChanges: 
+    - keeper1.speedLossPerCarry = 2.15
+  predecessors: [keeper1]
+jetpackStrength2:
+  cost: iron=8
+  propertyChanges: 
+    - keeper1.speedLossPerCarry = 1.0
+  predecessors: [jetpackStrength1]
+jetpackStrength3:
+  cost: iron=12
+  propertyChanges: 
+    - keeper1.speedLossPerCarry = 0.42
+  predecessors: [jetpackStrength2]
+jetpackStrength4:
+  cost: iron=16
+  propertyChanges: 
+    - keeper1.speedLossPerCarry = 0.17
+  predecessors: [jetpackStrength3]
+diamondkeeper1:
+  cost: diamond=1
+  propertyChanges:
+    - keeper1.speedMod += 0.1
+    - keeper1.drillMod += 0.2
+  predecessors: [keeper1]
+  repeatable: true
+
+
+keeper2:
+  propertyChanges:
+    - keeper2.maxSpeed = 65
+    - keeper2.minspeed = 1.0/h
+    - keeper2.acceleration = 70
+    - keeper2.deceleration = 3
+    - keeper2.totalspheres = 1
+    - keeper2.spherereload = 10.0
+    - keeper2.directminingdamage = 0.4
+    - keeper2.directmininghardness = 1.0
+    - keeper2.directminingstage = 1
+    - keeper2.spherebasedamage = 1.0
+    - keeper2.spherefractiondamage = 0.03/h
+    - keeper2.spherebaselifetime = 9.0
+    - keeper2.sphereadditionalfirsthitdamage = 2.0
+    - keeper2.actioncooldown = 0.0/h
+    - keeper2.actionstage = 0/h
+    - keeper2.spheresplit = false/h
+    - keeper2.splitlifetime = 0.0/h
+    - keeper2.explodespheres = false/h
+    - keeper2.explodespheresradius = 0.0/h
+    - keeper2.reflectsphere = false/h
+    - keeper2.reflectspeed = 0.0/h
+    - keeper2.reflectnexthitdamage = 0.0/h
+    - keeper2.reflectlifetime = 0.0/h
+    - keeper2.bundleduration = 15.0
+    - keeper2.bundlespeed = 30.0
+    - keeper2.bundlestopcenter = false/h
+    - keeper2.bundlecentralmarker = false/h
+    - keeper2.bundleguide = false/h
+    - keeper2.speedMod = 1.0
+    - keeper2.sphereDamageMod = 1.0
+keeper2movement1:
+  cost: iron=4
+  propertyChanges: 
+    - keeper2.maxSpeed = 90
+    - keeper2.acceleration += 6
+    - keeper2.deceleration += 0.4
+    - keeper2.minspeed += 0.1
+  predecessors: [keeper2]
+keeper2Movement2:
+  cost: iron=8
+  propertyChanges: 
+    - keeper2.maxSpeed = 120
+    - keeper2.acceleration += 6
+    - keeper2.deceleration += 0.4
+    - keeper2.minspeed += 0.1
+  predecessors: [keeper2Movement1]
+keeper2Movement3:
+  cost: iron=14
+  propertyChanges: 
+    - keeper2.maxSpeed = 160
+    - keeper2.acceleration += 6
+    - keeper2.deceleration += 0.4
+    - keeper2.minspeed += 0.1
+  predecessors: [keeper2Movement2]
+keeper2Movement4:
+  cost: iron=16
+  propertyChanges: 
+    - keeper2.maxSpeed = 180
+    - keeper2.minspeed = 1.7
+  predecessors: [keeper2Movement3]
+keeper2PinballDamage1:
+  limit: [mining]
+  cost: iron=4
+  propertyChanges:
+    - keeper2.spherebasedamage = 3.5
+    - keeper2.spherereload += 2.0
+  predecessors: [keeper2]
+keeper2PinballDamage2:
+  cost: iron=6
+  propertyChanges:
+    - keeper2.spherebasedamage = 8.0
+    - keeper2.spherereload += 2.0
+  predecessors: [keeper2PinballDamage1]
+keeper2PinballDamage3:
+  cost: iron=12
+  propertyChanges:
+    - keeper2.spherebasedamage = 20.0
+    - keeper2.spherereload += 2.0
+  predecessors: [keeper2PinballDamage2]
+keeper2PinballDamage4:
+  cost: iron=24
+  propertyChanges:
+    - keeper2.spherebasedamage *= 2.2
+  repeatable:
+    - cost.iron += 12
+  predecessors: [keeper2PinballDamage3]
+keeper2bundle1:
+  cost: iron=4
+  propertyChanges:
+    - keeper2.bundleduration = 25
+    - keeper2.bundlecentralmarker = true
+  predecessors: [keeper2]
+keeper2bundle2:
+  cost: iron=6
+  propertyChanges:
+    - keeper2.bundleguide = true
+    - keeper2.bundleduration = 40
+    - keeper2.bundlespeed = 40.0
+  predecessors: [keeper2Bundle1]
+keeper2bundle3:
+  cost: iron=10
+  propertyChanges:
+    - keeper2.bundlestopcenter = true
+    - keeper2.bundlespeed = 50.0
+    - keeper2.bundleduration = 80
+  predecessors: [keeper2bundle2]
+keeper2bundle4:
+  cost: iron=16
+  propertyChanges:
+    - keeper2.bundlespeed = 80.0
+    - keeper2.bundleduration = 300
+  predecessors: [keeper2bundle3]
+keeper2pinballreflect:
+  cost: iron=6
+  propertyChanges:
+    - keeper2.reflectsphere = true
+    - keeper2.reflectnexthitdamage = 0.3
+    - keeper2.actioncooldown = 20.0
+    - keeper2.reflectlifetime = 20.0
+    - keeper2.actionstage = 1
+  predecessors: [keeper2pinballspherelifetime]
+  locks: [keeper2pinballsplit,keeper2pinballexplode]
+keeper2pinballreflect2:
+  cost: iron=14
+  propertyChanges:
+    - keeper2.reflectspeed = 0.2
+    - keeper2.reflectnexthitdamage = 0.6
+    - keeper2.actioncooldown = 15.0
+    - keeper2.reflectlifetime = 40.0
+    - keeper2.actionstage = 2
+  predecessors: [keeper2pinballreflect]
+keeper2pinballexplode:
+  cost: iron=6
+  propertyChanges:
+    - keeper2.explodespheres = true
+    - keeper2.explodespheresradius = 1.8
+    - keeper2.actioncooldown = 20.0
+    - keeper2.actionstage = 1
+  predecessors: [keeper2pinballspherelifetime]
+  locks: [keeper2pinballsplit,keeper2pinballreflect]
+keeper2pinballexplode2:
+  cost: iron=14
+  propertyChanges:
+    - keeper2.explodespheresradius = 2.5
+    - keeper2.actioncooldown = 15.0
+    - keeper2.actionstage = 2
+  predecessors: [keeper2pinballexplode]
+keeper2pinballsplit:
+  cost: iron=6
+  propertyChanges:
+    - keeper2.spheresplit = true
+    - keeper2.actioncooldown = 10.0
+    - keeper2.splitlifetime = 0.65
+    - keeper2.actionstage = 1
+  predecessors: [keeper2pinballspherelifetime]
+  locks: [keeper2pinballexplode,keeper2pinballreflect]
+keeper2pinballsplit2:
+  cost: iron=14
+  propertyChanges:
+    - keeper2.actioncooldown = 6.0
+    - keeper2.splitlifetime = 0.85
+    - keeper2.actionstage = 2
+  predecessors: [keeper2pinballsplit]
+keeper2pinballmorespheres1:
+  limit: [mining]
+  cost: iron=2
+  propertyChanges:
+    - keeper2.totalspheres += 1
+  repeatable:
+    - times = 6
+    - cost.iron += 3
+  predecessors: [keeper2]
+keeper2pinballspherelifetime:
+  cost: iron=4
+  propertyChanges:
+    - keeper2.spherebaselifetime += 2.0
+  repeatable:
+    - cost.iron += 2
+    - property.keeper2.spherebaselifetime += 0.5
+  predecessors: [keeper2pinballmorespheres1]
+keeper2rotationalmining1:
+  limit: [mining]
+  cost: iron=6
+  propertyChanges:
+    - keeper2.directminingdamage += 0.25
+    - keeper2.directmininghardness = 0.0
+    - keeper2.directminingstage = 2
+  predecessors: [keeper2]
+keeper2RotationalMining2:
+  cost: iron=12
+  propertyChanges:
+    - keeper2.directminingdamage += 0.85
+    - keeper2.directminingstage = 3
+  predecessors: [keeper2rotationalmining1]
+diamondkeeper2:
+  cost: diamond=1
+  propertyChanges:
+    - keeper2.speedMod += 0.1
+    - keeper2.sphereDamageMod += 0.25
+    - keeper2.directminingdamage += 0.5
+  predecessors: [keeper2]
+  repeatable: true
+
+
+keeper3:
+  title: Locked Keeper
+  desc: not available in demo
+
+keeper5:
+  title: Spiderboy
+  desc: Swinging and blasting, and i'm all out of spider juice.
+  propertyChanges:
+    - keeper5.maxSpeed = 56
+    - keeper5.speedLossPerCarry = 6.0, 2.6, 1.2, 0.5, 0.18
+
+laser:
+  limit: [hostile, primaryweapon]
+  propertyChanges:
+    - laser.dps = 15
+    - laser.dpsmod = 1.0/h
+    - laser.stun = 0.5
+    - laser.variant = 0/h
+    - laser.movespeed = 0.2
+    - laser.movespeedwhilefiring = 0.6
+    - laser.movespeedmod = 1.0/h
+    - laser.firedelay = 0.0/h
+    - laser.aimLine = false/h
+    - laser.hitprojectiles = false/h
+    - laser.bend = 0/h
+laserStrength1:
+  cost: iron=6
+  propertyChanges: 
+    - laser.dps = 25
+    - laser.stun += 0.1
+    - laser.movespeedwhilefiring = 0.35
+    - laser.variant += 1
+    - laser.firedelay = 0.1
+  predecessors: [laser]
+laserStrength2:
+  cost: iron=12
+  propertyChanges: 
+    - laser.dps = 45
+    - laser.stun += 0.1
+    - laser.movespeedwhilefiring = 0.2
+    - laser.variant += 1
+    - laser.firedelay = 0.25
+  predecessors: [laserStrength1]
+laserStrength3:
+  cost: iron=24
+  propertyChanges: 
+    - laser.dps = 90
+    - laser.stun += 0.5
+    - laser.movespeedwhilefiring = 0.05
+    - laser.variant += 1
+    - laser.firedelay += 0.3
+    - laser.movespeed -= 0.05
+  predecessors: [laserStrength2]
+laserMove1:
+  cost: iron=6
+  propertyChanges: 
+    - laser.movespeed += 0.1
+  predecessors: [laser]
+laserMove2:
+  cost: iron=10
+  propertyChanges: 
+    - laser.movespeed += 0.1
+  predecessors: [laserMove1]
+laserMove3:
+  cost: iron=20
+  propertyChanges: 
+    - laser.movespeed += 0.2
+  predecessors: [laserMove2]
+doubleLaser:
+  cost: iron=24
+  propertyChanges: 
+    - laser.movespeedmod = 0.8
+    - laser.stun += 1.0
+    - laser.dpsmod -= 0.2
+    - laser.firedelay -= 0.1
+    - dome.mainweapons = 2
+  predecessors: [laserStrength2]
+laserhitprojectiles:
+  cost: iron=30
+  propertyChanges: 
+    - laser.hitprojectiles = true
+  predecessors: [laserStrength3, doubleLaser]
+  predecessorsAny: true
+laserBend:
+  cost: iron=16
+  propertyChanges: 
+    - laser.bend = 6
+  predecessors: [laserMove1]
+laserAimLine:
+  cost: iron=4
+  propertyChanges: 
+    - laser.aimLine = true
+  predecessors: [laser]
+diamondlaser:
+  cost: diamond=1
+  propertyChanges: 
+    - laser.dpsmod += 0.3
+    - laser.movespeed += 0.05
+  predecessors: [laser]
+  repeatable: true
+
+
+sword:
+  limit: [hostile, primaryweapon]
+  propertyChanges: 
+    - sword.sliceDamage = 22
+    - sword.sliceBrake = 0.7
+    - sword.sliceAcceleration = 1.0
+    - sword.brake = 4.0
+    - sword.stabDamage = 20
+    - sword.extendSpeed = 250
+    - sword.retractSpeed = 300
+    - sword.extendMove = 2.0
+    - sword.stabRange = 550
+    - sword.stabCooldown = 3.0
+    - sword.javelin = false/h
+    - sword.electricDamage = 0/h
+    - sword.blade = 0/h
+    - sword.reflection = 0/h
+    - sword.stabSpeed = 1.0/h
+    - sword.stabExplosive = 0/h
+    - sword.stabExplosiveDamage = 0/h
+    - sword.sliceBounceBack = 0.0/h
+    - sword.stabArrowHead = 0/h
+    - sword.aimline = false/h
+    - sword.reflectionAcceleration = 1.0/h
+    - sword.reflectprojectiles = false/h
+    - sword.reflectProjectilesExplosive = false/h
+    - sword.reflectProjectilesDamageMod = 1.0/h
+    - sword.dpsmod = 1
+swordBlade1:
+  cost: iron=6
+  propertyChanges: 
+    - sword.sliceDamage += 15
+    - sword.sliceAcceleration += 0.4
+    - sword.brake += 1.0
+  predecessors: [sword]
+swordLargeBlade1:
+  cost: iron=12
+  propertyChanges: 
+    - sword.blade = 1
+    - sword.sliceDamage += 50
+    - sword.stabDamage += 10
+  predecessors: [swordBlade1]
+  locks: [swordLongBlade1]
+swordLargeBlade2:
+  cost: iron=20
+  propertyChanges: 
+    - sword.blade = 3
+    - sword.sliceDamage += 80
+    - sword.stabDamage += 10
+    - sword.stabSpeed -= 0.1
+    - sword.sliceAcceleration -= 0.25
+    - sword.extendMove -= 0.2
+  predecessors: [swordLargeBlade1]
+swordLargeBlade3:
+  cost: iron=30
+  propertyChanges: 
+    - sword.blade = 4
+    - sword.sliceDamage += 500
+    - sword.stabDamage += 20
+    - sword.stabSpeed -= 0.1
+    - sword.sliceAcceleration -= 0.25
+    - sword.extendMove -= 0.2
+  predecessors: [swordLargeBlade2]
+swordLongBlade1:
+  cost: iron=12
+  propertyChanges: 
+    - sword.blade = 2
+    - sword.slicebrake -= 0.3
+    - sword.sliceAcceleration += 0.4
+    - sword.sliceDamage += 15
+    - sword.stabDamage += 5
+    - sword.brake += 4.0
+  predecessors: [swordBlade1]
+  locks: [swordLargeBlade1]
+swordLongBlade2:
+  cost: iron=20
+  propertyChanges: 
+    - sword.blade = 5
+    - sword.slicebrake -= 0.1
+    - sword.sliceAcceleration += 0.3
+    - sword.brake += 6.0
+    - sword.sliceBounceBack = 0.9
+    - sword.stabDamage += 10
+    - sword.sliceDamage += 15
+  predecessors: [swordLongBlade1]
+swordElectrified:
+  cost: iron=30
+  propertyChanges: 
+    - sword.sliceDamage += 15
+    - sword.electricDamage = 10
+    - sword.stabDamage += 10
+  predecessors: [swordLongBlade2]
+swordAimLine:
+  cost: iron=3
+  propertyChanges: 
+    - sword.aimline = true
+  predecessors: [sword]
+swordTargetLock:
+  cost: iron=99
+  propertyChanges: 
+    - sword.aimTargetLock = true
+  predecessors: [notavailable]
+swordExtendLong1:
+  cost: iron=5
+  propertyChanges: 
+    - sword.stabDamage += 40
+    - sword.stabRange += 1500
+    - sword.retractspeed += 500
+    - sword.stabCooldown += 1.0
+    - sword.extendMove += 2.0
+    - sword.stabArrowHead += 1
+  predecessors: [sword]
+  locks: [swordStabFast1]
+swordExtendLong2:
+  cost: iron=10
+  propertyChanges:
+    - sword.stabDamage += 100
+    - sword.stabRange += 2000
+    - sword.retractspeed += 500
+    - sword.stabCooldown += 1.0
+    - sword.extendMove += 2.0
+    - sword.stabArrowHead += 1
+  predecessors: [swordExtendLong1]
+swordStabFast1:
+  cost: iron=5
+  propertyChanges: 
+    - sword.extendspeed += 100
+    - sword.retractspeed += 300
+    - sword.stabCooldown -= 1.0
+    - sword.stabArrowHead += 1
+    - sword.stabDamage += 15
+    - sword.extendMove -= 0.25
+  predecessors: [sword]
+  locks: [swordExtendLong1]
+swordStabFast2:
+  cost: iron=10
+  propertyChanges: 
+    - sword.extendspeed += 150
+    - sword.retractspeed += 400
+    - sword.stabCooldown -= 1.0
+    - sword.stabArrowHead += 1
+    - sword.stabDamage += 30
+    - sword.extendMove -= 0.5
+  predecessors: [swordStabFast1]
+swordStabExplode:
+  cost: iron=15
+  propertyChanges: 
+    - sword.stabExplosive = 1
+    - sword.stabExplosiveDamage = 50
+    - sword.stabCooldown += 0.5
+  predecessors: [swordExtendLong2]
+swordStabExplodeDamage:
+  cost: iron=25
+  propertyChanges: 
+    - sword.stabExplosive = 2
+    - sword.stabExplosiveDamage = 100
+    - sword.stabCooldown += 0.5
+  predecessors: [swordStabExplode]
+swordStabShoot:
+  cost: iron=20
+  propertyChanges: 
+    - sword.javelin = true
+    - sword.stabDamage += 70
+    - sword.stabArrowHead += 1
+  predecessors: [swordStabFast2]
+swordReflection1:
+  cost: iron=6
+  propertyChanges: 
+    - sword.reflection += 1
+    - sword.brake -= 1.0
+    - sword.reflectprojectiles = true
+  predecessors: [sword]
+swordReflection2:
+  cost: iron=8
+  propertyChanges: 
+    - sword.reflection += 1
+    - sword.brake -= 1.0
+  predecessors: [swordReflection1]
+swordReflection3:
+  cost: iron=14
+  propertyChanges: 
+    - sword.reflection += 1
+    - sword.brake -= 1.0
+  predecessors: [swordReflection2]
+swordFastReflection:
+  cost: iron=8
+  propertyChanges: 
+    - sword.reflectionAcceleration = 3.0
+  predecessors: [swordReflection1]
+swordExplosiveReflection:
+  cost: iron=16
+  propertyChanges: 
+    - sword.reflectProjectilesExplosive = true
+  predecessors: [swordFastReflection]
+diamondsword:
+  cost: diamond=1
+  propertyChanges: 
+    - sword.dpsmod += 0.3
+    - sword.sliceAcceleration += 0.2
+    - sword.brake += 1.0
+  predecessors: [sword]
+  repeatable: true
+
+
+artillery:
+  limit: [hostile, primaryweapon]
+  propertyChanges:
+    - artillery.grenadeMinimumVelocity = 150/h
+    - artillery.grenadeMaximumChargeVelocity = 250/h
+    - artillery.grenadeGravity = 300/h
+    - artillery.grenades = 1/h
+    - artillery.grenadesexplosionradius = 40.0
+    - artillery.grenadedamage = 40.0
+    - artillery.grenadereloadspeed = 2.0
+    - artillery.timeBetweenGrenades = 0.2
+    - artillery.machinegunbulletspeed = 500.0/h
+    - artillery.machinegundamage = 1.5
+    - artillery.machinegunreloadspeed = 0.15
+    - artillery.machinegunhoming = false/h
+    - artillery.machinegunbarrels = 1/h
+    - artillery.machinegunpenetration = 1/h
+    - artillery.mortaraimline = true/h
+    - artillery.gunaimline = false/h
+    - artillery.rotationspeed = 0.9/h
+    - artillery.rotationspeedwhilemachinegun = 0.8/h
+    - artillery.maxrotation = 28.0/h
+    - artillery.cannonbarrelsize = 0/h
+    - artillery.machinegunbarrelsize = 0/h
+artilleryMachineGun1:
+  cost: iron=4
+  propertyChanges: 
+    - artillery.machinegundamage = 2.0
+    - artillery.machinegunreloadspeed = 0.12
+    - artillery.machinegunbarrelsize = 1/h
+  predecessors: [artillery]
+artilleryMachineGun2:
+  cost: iron=8
+  propertyChanges: 
+    - artillery.machinegundamage = 2.5
+    - artillery.machinegunreloadspeed = 0.1
+    - artillery.machinegunbarrelsize = 2/h
+  predecessors: [artilleryMachineGun1]
+artilleryMachineGun3:
+  cost: iron=12
+  propertyChanges: 
+    - artillery.machinegundamage = 3.0
+    - artillery.machinegunreloadspeed = 0.08
+    - artillery.machinegunbarrelsize = 3/h
+  predecessors: [artilleryMachineGun2]
+artilleryMachineGun4:
+  cost: iron=20
+  propertyChanges: 
+    - artillery.machinegunreloadspeed = 0.04
+    - artillery.machinegunbarrelsize = 4/h
+  predecessors: [artilleryMachineGun3]
+  locks: [artilleryMachineGunHoming]
+artilleryMachineGunPenetration:
+  cost: iron=6
+  propertyChanges: 
+    - artillery.machinegunpenetration = 2
+  predecessors: [artilleryMachineGun1]
+artilleryDoubleMachineGun:
+  cost: iron=30
+  propertyChanges: 
+    - artillery.machinegunbarrels = 2
+  predecessors: [artilleryMachineGun2]
+artilleryMachineGunHoming:
+  cost: iron=20
+  propertyChanges: 
+    - artillery.machinegundamage = 10.0
+    - artillery.machinegunreloadspeed = 0.2
+    - artillery.machinegunhoming = true
+    - artillery.machinegunbarrelsize = 5/h
+  predecessors: [artilleryMachineGun3]
+  locks: [artilleryMachineGun4]
+artilleryAimLineGun:
+  cost: iron=3
+  propertyChanges:
+    - artillery.gunaimline = true
+  predecessors: [artillery]
+artilleryGrenade1:
+  cost: iron=6
+  propertyChanges:
+    - artillery.grenadesexplosionradius = 50.0
+    - artillery.grenadedamage = 80.0
+    - artillery.grenadereloadspeed += 0.5
+    - artillery.cannonbarrelsize = 1/h
+  predecessors: [artillery]
+artilleryGrenade2:
+  cost: iron=10
+  propertyChanges: 
+    - artillery.grenadesexplosionradius = 60.0
+    - artillery.grenadedamage = 150.0
+    - artillery.grenadereloadspeed += 0.5
+    - artillery.cannonbarrelsize = 2/h
+  predecessors: [artilleryGrenade1]
+artilleryGrenade3:
+  cost: iron=14
+  propertyChanges: 
+    - artillery.grenadesexplosionradius = 70.0
+    - artillery.grenadedamage = 260.0
+    - artillery.grenadereloadspeed += 0.5
+    - artillery.cannonbarrelsize = 3/h
+  predecessors: [artilleryGrenade2]
+artilleryGrenade4:
+  cost: iron=24
+  propertyChanges: 
+    - artillery.grenadesexplosionradius = 80.0
+    - artillery.grenadedamage = 450.0
+    - artillery.grenadereloadspeed += 0.5
+    - artillery.cannonbarrelsize = 4/h
+  predecessors: [artilleryGrenade3]
+  locks: [artilleryMultiShot1]
+artilleryMultiShot1:
+  cost: iron=24
+  propertyChanges: 
+    - artillery.grenades += 3
+    - artillery.grenadesexplosionradius = 60.0
+    - artillery.grenadedamage = 140.0
+    - artillery.timeBetweenGrenades = 0.25
+    - artillery.grenadereloadspeed += 1.0
+    - artillery.cannonbarrelsize = 5/h
+  predecessors: [artilleryGrenade3]
+  locks: [artilleryGrenade4]
+artilleryGrenadeChargepower:
+  cost: iron=4
+  propertyChanges: 
+    - artillery.grenadeMaximumChargeVelocity = 320
+  predecessors: [artilleryGrenade2]
+artilleryGrenadeFastReload:
+  cost: iron=4
+  propertyChanges: 
+    - artillery.grenadereloadspeed -= 0.5
+  repeatable:
+    - times = 4
+    - cost.iron += 2
+  predecessors: [artillery]
+artilleryRotation:
+  cost: iron=6
+  propertyChanges: 
+    - artillery.maxrotation = 40.0
+  predecessors: [artilleryGrenade1]
+
+obelisk:
+  limit: [hostile, primaryweapon]
+  propertyChanges:
+    - obelisk.reticlemaxspeed = 180.0
+    - obelisk.reticleacceleration = 10.0
+    - obelisk.reticlefriction = 30.0
+    - obelisk.reticleflip = false/h
+    - obelisk.damage = 20
+    - obelisk.radius = 10
+    - obelisk.stun = 2.0/h
+    - obelisk.maxcharge = 1.0
+    - obelisk.autoaim = false/h
+    - obelisk.shotpersistance = 0/h
+    - obelisk.shotchargepersecond = 0.5
+    - obelisk.soloperfecttimingwindow = 0.0/h
+    - obelisk.soloperfecttimingmultiplier = 0.0/h
+obeliskSpeed1:
+  cost: iron=4
+  propertyChanges:
+    - obelisk.reticlemaxspeed = 230.0
+  predecessors: [obelisk]
+obeliskSpeed2:
+  cost: iron=8
+  propertyChanges:
+    - obelisk.reticlemaxspeed = 290.0
+  predecessors: [obeliskSpeed1]
+obeliskSpeed3:
+  cost: iron=12
+  propertyChanges:
+    - obelisk.reticlemaxspeed = 360.0
+  predecessors: [obeliskSpeed2]
+obeliskSpeed4:
+  cost: iron=20
+  propertyChanges:
+    - obelisk.reticleflip = true
+  predecessors: [obeliskSpeed3]
+obeliskAutoAim:
+  cost: iron=16
+  propertyChanges:
+    - obelisk.autoaim = true
+  predecessors: [obelisk]
+obeliskSolo1:
+  cost: iron=6
+  propertyChanges:
+    - obelisk.shotchargepersecond = 0.6
+    - obelisk.damage = 30
+  predecessors: [obelisk]
+obeliskSolo2:
+  cost: iron=10
+  propertyChanges:
+    - obelisk.shotchargepersecond = 0.7
+    - obelisk.damage = 40
+  predecessors: [obeliskSolo1]
+obeliskSolo3:
+  cost: iron=16
+  propertyChanges:
+    - obelisk.damage = 80
+    - obelisk.radius = 20
+    - obelisk.shotchargepersecond = 0.8
+  predecessors: [obeliskSolo2]
+obeliskSolo4:
+  cost: iron=24
+  propertyChanges:
+    - obelisk.damage = 100
+    - obelisk.radius = 30
+    - obelisk.shotchargepersecond = 0.9
+  predecessors: [obeliskSolo3]
+obeliskRechargeHit1:
+  cost: iron=6
+  propertyChanges:
+    - obelisk.soloperfecttimingwindow = 0.1
+    - obelisk.soloperfecttimingmultiplier = 1.5
+  predecessors: [obeliskSolo1]
+obeliskRechargeHit2:
+  cost: iron=12
+  propertyChanges:
+    - obelisk.soloperfecttimingwindow = 0.125
+    - obelisk.soloperfecttimingmultiplier = 2.2
+  predecessors: [obeliskRechargeHit1]
+obeliskRechargeHit3:
+  cost: iron=16
+  propertyChanges:
+    - obelisk.soloperfecttimingwindow = 0.15
+    - obelisk.soloperfecttimingmultiplier = 3.0
+  predecessors: [obeliskRechargeHit2]
+obeliskPersistantShot1:
+  cost: iron=6
+  propertyChanges:
+    - obelisk.shotpersistance = 5.0
+  predecessors: [obelisk]
+obeliskPersistantShot2:
+  cost: iron=8
+  propertyChanges:
+    - obelisk.shotpersistance = 7.0
+  predecessors: [obeliskPersistantShot1]
+obeliskPersistantShot3:
+  cost: iron=12
+  propertyChanges:
+    - obelisk.shotpersistance = 8.0
+    - obelisk.damage = 20
+  predecessors: [obeliskPersistantShot2]
+obeliskPersistantShot4:
+  cost: iron=20
+  propertyChanges:
+    - obelisk.shotpersistance = 10.0
+    - obelisk.damage = 30
+  predecessors: [obeliskPersistantShot3]
+
+
+shield:
+  scene: content/gadgets/shield/ShieldBattery.tscn
+  limit: [hostile]
+  slot: primary
+  propertyChanges:
+    - shield.maxStrength = 40
+    - shield.overchargestrength = 0/h
+    - shield.overchargebattleabilityduration = 0.0/h
+    - shield.growthTime = 0.6/h
+    - shield.stage = 1/h
+    - shield.battlereflect = false/h
+    - shield.battleinvulnerable = false/h
+    - shield.battleblast = false/h
+    - shield.battleabilityduration = 0.0/h
+    - shield.battleblastdamage = 0.0/h
+    - shield.battleblaststun = 0.0/h
+    - shield.battleuses = 0/h
+    - shield.battleactivateondepletion = false/h
+    - shield.battleadditionalabilitydurationafterdepletion = 0.0/h
+    - shield.battledestructionprevention = 0.0/h
+    - shield.battlereflectspeedup = 1.0/h
+  hud: content/gadgets/shield/hud/ShieldHud.tscn
+shieldstrength1:
+  cost: iron=4, water=2
+  propertyChanges: 
+    - shield.maxStrength += 35
+    - shield.stage += 1
+  predecessors: [shield]
+shieldstrength2:
+  cost: iron=8, water=3
+  propertyChanges: 
+    - shield.maxStrength += 25
+    - shield.stage += 1
+  predecessors: [shieldStrength1]
+shieldstrength3:
+  cost: iron=12, water=4
+  propertyChanges: 
+    - shield.maxStrength += 50
+    - shield.stage += 1
+  predecessors: [shieldStrength2]
+shieldbattleelectroblast: 
+  cost: iron=4, water=2
+  propertyChanges: 
+    - shield.battleblast = true/h
+    - shield.battleabilityduration = 4.0
+    - shield.battleblastdamage = 30.0
+    - shield.battleblaststun = 3.0
+    - shield.battleuses = 1
+  predecessors: [shield]
+  locks: [shieldBattleInvulnerable, shieldBattleReflect]
+shieldbattlelongerafterdepletion: 
+  cost: iron=6, water=2
+  propertyChanges: 
+    - shield.battleadditionalabilitydurationafterdepletion = 3.0
+    - shield.battleabilityduration = 7.0
+    - shield.battleblastdamage = 40.0
+  predecessors: [shieldbattleelectroblast]
+shieldbattleblastdamage: 
+  cost: iron=10, water=2
+  propertyChanges: 
+    - shield.battleblastdamage = 80
+    - shield.battleadditionalabilitydurationafterdepletion = 5.0
+    - shield.battleblaststun = 10.0
+  predecessors: [shieldbattlelongerafterdepletion]
+shieldbattleinvulnerable: 
+  limit: [shield-battle3]
+  cost: iron=4, water=2
+  propertyChanges: 
+    - shield.battleinvulnerable = true/h
+    - shield.battleabilityduration = 4.0
+    - shield.battleuses = 1
+  predecessors: [shield]
+  locks: [shieldBattleElectroBlast, shieldBattleReflect]
+shieldbattleactivateondepletion: 
+  cost: iron=6, water=2
+  propertyChanges: 
+    - shield.battleactivateondepletion = true
+  predecessors: [shieldbattleinvulnerable]
+shieldbattledestructionprevention: 
+  cost: iron=10, water=2
+  propertyChanges: 
+    - shield.battledestructionprevention = 15.0
+  predecessors: [shieldbattleactivateondepletion]
+shieldbattlereflect:
+  limit: [shield-battle2]
+  cost: iron=4, water=2
+  propertyChanges: 
+    - shield.battlereflect = true/h
+    - shield.battleabilityduration = 5.0
+    - shield.battleuses = 1
+  predecessors: [shield]
+  locks: [shieldbattleelectroblast, shieldbattleinvulnerable]
+shieldbattlereflectshortuses: 
+  cost: iron=6, water=2
+  propertyChanges: 
+    - shield.battleuses = 2
+    - shield.battleabilityduration = 6.0
+  predecessors: [shieldBattleReflect]
+shieldbattlereflectspeed: 
+  cost: iron=10, water=2
+  propertyChanges: 
+    - shield.battleuses = 3
+    - shield.battlereflectspeedup = 3.0
+    - shield.battleabilityduration = 7.0
+  predecessors: [shieldBattleReflectShortUses]
+shieldovercharge:
+  cost: iron=3
+  propertyChanges: 
+    - shield.overchargestrength = 40
+  predecessors: [shield]
+shieldoverchargeduration1:
+  cost: iron=3, water=1
+  propertyChanges: 
+    - shield.overchargebattleabilityduration = 0.25
+  predecessors: [shieldOvercharge]
+shieldoverchargeduration2:
+  cost: iron=5, water=1
+  propertyChanges: 
+    - shield.overchargebattleabilityduration = 0.5
+  predecessors: [shieldOverchargeDuration1]
+shieldoverchargestrength1:
+  cost: iron=3, water=1
+  propertyChanges: 
+    - shield.overchargestrength = 60
+  predecessors: [shieldOvercharge]
+shieldoverchargestrength2:
+  cost: iron=5, water=1
+  propertyChanges: 
+    - shield.overchargestrength = 80
+  predecessors: [shieldOverchargeStrength1]
+diamondshield:
+  cost: diamond=1
+  propertyChanges: 
+    - shield.maxStrength += 25
+  predecessors: [shield]
+  repeatable: true
+
+
+repellent:
+  scene: content/gadgets/repellent/Repellent.tscn
+  slot: primary
+  propertyChanges:
+    - wavemeter.delayStage = 1
+    - repellent.wavedelay = 0.25
+    - repellent.growthtime = 1.9
+    - repellent.overchargeDuration = 0.0/h
+    - repellent.overchargebattleabilityduration = 0.0/h
+    - repellent.overchargewavedelay = 0.0/h
+    - repellent.battleabilityduration = 0.0/h
+    - repellent.battleuses = 0/h
+    - repellent.battleslowdown = 0.0/h
+    - repellent.battlemonstervulnerability = 0/h
+    - repellent.battledamageovertime = 0.0/h
+    - repellent.particles = 0/h
+    - repellent.particlelifetime = 0/h
+  hud: content/gadgets/repellent/hud/RepellentHud.tscn
+repellentdelay1:
+  cost: iron=4, water=1
+  propertyChanges: 
+    - repellent.wavedelay += 0.07
+    - wavemeter.delayStage += 1
+  predecessors: [repellent]
+repellentdelay2:
+  cost: iron=6, water=2
+  propertyChanges: 
+    - repellent.wavedelay = 0.08
+    - wavemeter.delayStage += 1
+  predecessors: [repellentDelay1]
+repellentdelay3:
+  cost: iron=10, water=3
+  propertyChanges: 
+    - repellent.wavedelay = 0.1
+    - wavemeter.delayStage += 1
+  predecessors: [repellentDelay2]
+repellentbattlehealthreduction:
+  limit: [repellent-battle2, hostile]
+  cost: iron=4, water=2
+  propertyChanges: 
+    - repellent.battleuses = 1
+    - repellent.battleabilityduration = 6.0
+    - repellent.battlemonstervulnerability = 0.5
+    - repellent.particles = 600/h
+  predecessors: [repellent]
+  locks: [repellentbattleslowdown]
+repellentbattlelongerhealthreduction:
+  cost: iron=8, water=2
+  propertyChanges: 
+    - repellent.battlemonstervulnerability = 1.0
+    - repellent.particles = 800/h
+  predecessors: [repellentbattlehealthreduction]
+repellentbattledamageovertime:
+  cost: iron=12, water=3
+  propertyChanges: 
+    - repellent.battlemonstervulnerability = 2.0
+    - repellent.battledamageovertime = 1.0
+    - repellent.particles = 1000/h
+  predecessors: [repellentbattlelongerhealthreduction]
+repellentbattleslowdown:
+  limit: [hostile]
+  cost: iron=4, water=2
+  propertyChanges: 
+    - repellent.battleuses = 1
+    - repellent.battleabilityduration = 8.0
+    - repellent.battleslowdown = 0.5
+    - repellent.particles = 200/h
+  predecessors: [repellent]
+  locks: [repellentBattleHealthReduction]
+repellentbattlestrongerslowdown1:
+  cost: iron=6, water=2
+  propertyChanges: 
+    - repellent.battleabilityduration = 12.0
+    - repellent.battleslowdown = 0.6
+    - repellent.particles = 300/h
+  predecessors: [repellentBattleSlowdown]
+  locks: [repellentBattleSlowdownStun1]
+repellentbattlestrongerslowdown2:
+  cost: iron=10, water=2
+  propertyChanges: 
+    - repellent.battleabilityduration = 16.0
+    - repellent.battleslowdown = 0.7
+    - repellent.particles = 500/h
+  predecessors: [repellentBattleStrongerSlowdown1]
+repellentbattleslowdownstun1:
+  limit: [repellent-battle3]
+  cost: iron=6, water=2
+  propertyChanges: 
+    - repellent.battleabilityduration = 2.0
+    - repellent.battleslowdown = 1.0
+    - repellent.battleuses = 2
+    - repellent.particles = 600/h
+    - repellent.particlelifetime = 0.6/h
+  predecessors: [repellentBattleSlowdown]
+  locks: [repellentBattleStrongerSlowdown1]
+repellentbattleslowdownstun2:
+  cost: iron=10, water=2
+  propertyChanges: 
+    - repellent.battleabilityduration = 3.0
+    - repellent.battleuses = 3
+    - repellent.particles = 1000/h
+  predecessors: [repellentBattleSlowdownStun1]
+repellentovercharge:
+  cost: iron=3, water=1
+  propertyChanges: 
+    - repellent.overchargeDuration = 0.5
+  predecessors: [repellent]
+repellentoverchargeduration1:
+  limit: [hostile]
+  cost: iron=4, water=2
+  propertyChanges: 
+    - repellent.overchargebattleabilityduration = 0.2
+  predecessors: [repellentOvercharge]
+repellentoverchargeduration2:
+  cost: iron=8, water=2
+  propertyChanges: 
+    - repellent.overchargebattleabilityduration = 0.4
+  predecessors: [repellentOverchargeDuration1]
+repellentoverchargestrength1:
+  cost: iron=5,water=2
+  propertyChanges: 
+    - repellent.overchargewavedelay = 0.1
+  predecessors: [repellentOvercharge]
+repellentoverchargestrength2:
+  cost: iron=8,water=2
+  propertyChanges: 
+    - repellent.overchargewavedelay = 0.2
+  predecessors: [repellentOverchargeStrength1]
+diamondrepellent:
+  cost: diamond=1
+  propertyChanges: 
+    - repellent.wavedelay += 0.075
+  predecessors: [repellent]
+  repeatable: true
+
+
+orchard:
+  scene: content/gadgets/orchard/Orchard.tscn
+  slot: primary
+  hud: content/gadgets/orchard/hud/OrchardHud.tscn
+  propertyChanges:
+    - orchard.buffduration = 0.35
+    - orchard.speedBuff = 25
+    - orchard.drillBuff = 0.25
+    - orchard.growthTime = 1.9
+    - orchard.overchargeDuration = 0.0/h
+    - orchard.overchargeadditionalbuffduration = 0.0/h
+    - orchard.overchargeadditionalabilityUses = 0/h
+    - orchard.battleroots = 0/h
+    - orchard.battlerootexplosion = 0.0/h
+    - orchard.battlerootdigestion = 0.0/h
+    - orchard.battlerootdigestioninvulnerable = false/h
+    - orchard.battlerootcatchduration = 0.0/h
+    - orchard.battleshields = 0/h
+    - orchard.battleshieldhp = 0/h
+    - orchard.maxhardness = 0.0/h
+    - orchard.carrybuff = 0.0/h
+    - orchard.battleabilityuses = 0/h
+orchardduration1:
+  cost: iron=4, water=1
+  propertyChanges: 
+    - orchard.buffduration += 0.15
+  predecessors: [orchard]
+orchardduration2:
+  cost: iron=6, water=2
+  propertyChanges: 
+    - orchard.buffduration += 0.15
+  predecessors: [orchardduration1]
+orchardduration3:
+  cost: iron=10, water=3
+  propertyChanges: 
+    - orchard.buffduration += 0.15
+  predecessors: [orchardDuration2]
+orchardovercharge:
+  cost: iron=3, water=1
+  propertyChanges: 
+    - orchard.overchargeDuration = 0.8
+  predecessors: [orchard]
+orchardoverchargebuffduration:
+  cost: iron=5, water=2
+  propertyChanges: 
+    - orchard.overchargeadditionalbuffduration = 0.2
+  predecessors: [orchardOvercharge]
+orchardbattlerooting:
+  limit: [hostile]
+  cost: iron=4, water=2
+  propertyChanges: 
+    - orchard.battleroots = 4
+    - orchard.battleabilityuses = 1
+    - orchard.battlerootcatchduration = 8.0
+  predecessors: [orchard]
+  locks: [orchardbattleshield]
+orchardbattlerootingexplosion:
+  cost: iron=6, water=2
+  propertyChanges: 
+    - orchard.battleroots = 6
+    - orchard.battlerootexplosion = 120.0
+    - orchard.battlerootcatchduration = 14.0
+  predecessors: [orchardbattlerooting]
+orchardbattlerootingmore:
+  cost: iron=8, water=2
+  propertyChanges: 
+    - orchard.battleroots = 8
+    - orchard.battlerootcatchduration = 20.0
+  predecessors: [orchardbattlerootingexplosion]
+orchardBattleRootingDigestion:
+  cost: iron=12, sand=1
+  propertyChanges: 
+    - orchard.battlerootdigestion = 1.0
+  predecessors: [orchardBattleRooting_Deactivatedfornow]
+orchardBattleRootingDigestionInvulnerable:
+  cost: iron=4, water=2
+  propertyChanges: 
+    - orchard.battlerootdigestioninvulnerable = true
+  predecessors: [orchardBattleRootingDigestion]
+orchardbattleshield:
+  limit: [orchard-battle2, hostile]
+  cost: iron=4, water=2
+  propertyChanges:
+    - orchard.battleshields = 1
+    - orchard.battleabilityuses = 1
+    - orchard.battleshieldhp = 50
+  predecessors: [orchard]
+  locks: [orchardBattleRooting]
+orchardbattleshieldsecondlayer:
+  cost: iron=6, water=2
+  propertyChanges: 
+    - orchard.battleshields = 2
+    - orchard.battleshieldhp = 75
+  predecessors: [orchardBattleShield]
+orchardbattleshieldstrong:
+  cost: iron=8, water=2
+  propertyChanges: 
+    - orchard.battleshieldhp = 120
+    - orchard.overchargeadditionalabilityuses = 1
+  predecessors: [orchardBattleShieldSecondLayer]
+orchardjetpack1:
+  cost: iron=2, water=1
+  propertyChanges: 
+    - orchard.speedBuff += 10
+  predecessors: [orchard]
+orchardjetpack2:
+  cost: iron=3, water=1
+  propertyChanges: 
+    - orchard.speedBuff += 20
+  predecessors: [orchardJetpack1]
+orchardjetpack3:
+  cost: iron=4, water=2
+  propertyChanges: 
+    - orchard.speedBuff += 30
+  predecessors: [orchardJetpack2]
+orcharddrill1:
+  cost: iron=2, water=1
+  propertyChanges: 
+    - orchard.drillBuff += 0.15
+  predecessors: [orchard]
+orcharddrill2:
+  cost: iron=3, water=1
+  propertyChanges: 
+    - orchard.drillBuff += 0.15
+  predecessors: [orchardDrill1]
+orcharddrill3:
+  cost: iron=4, water=2
+  propertyChanges: 
+    - orchard.drillBuff += 0.2
+  predecessors: [orchardDrill2]
+diamondorchard:
+  cost: diamond=1
+  propertyChanges: 
+    - orchard.buffduration += 0.15
+  predecessors: [orchard]
+  repeatable: true
+
+stunlaser:
+  limit: [hostile]
+  scene: content/gadgets/stunLaser/StunLaser.tscn
+  slot: domesurface
+  distribution: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+  propertyChanges:
+    - stunLaser.fireTime = 3.0
+    - stunLaser.cooldown = 4.5
+    - stunLaser.speed = 0.5
+    - stunLaser.stunstrength = 1.8
+    - stunLaser.stunarea = 0.0/h
+    - stunLaser.areastunstrength = 0.0/h
+    - stunLaser.autonomy = false
+    - stunLaser.trackingInCooldown = false
+    - stunLaser.areagrowthpermonster = 0.0/h
+    - stunLaser.damagepermonster = 0.0/h
+    - stunLaser.stage = 1/h
+stunlaserduration1:
+  cost: iron=3, water=1
+  propertyChanges:
+    - stunLaser.fireTime += 3.0
+    - stunLaser.cooldown = 3.8
+  predecessors: [stunLaser]
+stunlaserduration2:
+  cost: iron=4, water=2
+  propertyChanges:
+    - stunLaser.fireTime += 6.0
+    - stunLaser.cooldown = 2.6
+  predecessors: [stunLaserDuration1]
+stunlaserduration3:
+  cost: iron=5, water=4
+  propertyChanges:
+    - stunLaser.fireTime += 18.0
+    - stunLaser.cooldown = 6.0
+  predecessors: [stunLaserDuration2]
+stunlaserautonomy1:
+  cost: water=2
+  propertyChanges: 
+    - stunLaser.autonomy = true
+  predecessors: [stunLaser]
+stunlaserstun1:
+  cost: iron=2, water=2
+  propertyChanges: 
+    - stunLaser.stunstrength = 3.0
+    - stunLaser.stage = 2/h
+  predecessors: [stunLaserDuration1]
+stunlaserstun2:
+  cost: iron=4, water=2
+  propertyChanges: 
+    - stunLaser.stunstrength = 5.5
+    - stunLaser.stage = 3/h
+  predecessors: [stunLaserStun1]
+stunlaserarea1:
+  cost: iron=4, water=1
+  propertyChanges:
+    - stunLaser.stunarea = 30.0
+    - stunLaser.areastunstrength = 0.25
+  predecessors: [stunLaser]
+stunlaserarea2:
+  cost: iron=4, water=2
+  propertyChanges:
+    - stunLaser.stunarea = 75.0
+    - stunLaser.areastunstrength = 0.4
+  predecessors: [stunLaserArea1]
+stunlaserareadamage1:
+  cost: iron=4, water=1
+  propertyChanges:
+    - stunLaser.damagepermonster = 1.0
+  predecessors: [stunLaserArea2]
+stunlaserareadamage2:
+  cost: iron=5, water=2
+  propertyChanges:
+    - stunLaser.damagepermonster = 3.0
+  predecessors: [stunLaserAreaDamage1]
+stunlaserareagrowth:
+  cost: iron=6, water=2
+  propertyChanges: 
+    - stunLaser.areagrowthpermonster = 6
+  predecessors: [stunLaserArea2]
+stunlaserspeed1:
+  cost: iron=2, water=1
+  propertyChanges: 
+    - stunLaser.speed += 0.35
+  predecessors: [stunLaser]
+stunlaserspeed2:
+  cost: iron=4, water=2
+  propertyChanges: 
+    - stunLaser.speed += 0.75
+    - stunLaser.trackingInCooldown = true
+  predecessors: [stunLaserSpeed1]
+diamondstunlaser:
+  cost: diamond=1
+  propertyChanges:
+    - stunLaser.fireTime += 6.0
+    - stunLaser.speed += 0.1
+  predecessors: [stunLaser]
+  repeatable: true
+
+
+autocannon:
+  limit: [hostile]
+  scene: content/gadgets/autocannon/AutoCannon.tscn
+  slot: domesurface
+  distribution: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+  propertyChanges:
+    - autocannon.damage = 4
+    - autocannon.speed = 0.45
+    - autocannon.autonomy = false
+    - autocannon.timebetweenshots = 2.5
+    - autocannon.spray = 0.0
+    - autocannon.shotspeed = 450/h
+    - autocannon.shotgun = 0/h
+    - autocannon.bullet = 1/h
+    - autocannon.cannonstyle = 0/h
+autocannonimproved:
+  cost: iron=4, water=2
+  propertyChanges:
+    - autocannon.damage += 2.0
+    - autocannon.timebetweenshots = 2.0
+    - autocannon.speed += 0.15
+  predecessors: [autocannon]
+autocannonrateoffire1:
+  cost: iron=4, water=2
+  propertyChanges:
+    - autocannon.timebetweenshots = 1.2
+    - autocannon.spray = 0.015
+    - autocannon.shotspeed = 550
+    - autocannon.cannonstyle = 2/h
+  locks: [autocannonDamage1]
+  predecessors: [autocannonImproved]
+autocannonrateoffire2:
+  cost: iron=6, water=2
+  propertyChanges:
+    - autocannon.timebetweenshots = 0.75
+    - autocannon.spray = 0.022
+    - autocannon.shotspeed = 650
+  predecessors: [autocannonRateOfFire1]
+autocannonrateoffire3:
+  cost: iron=8, water=2
+  propertyChanges:
+    - autocannon.timebetweenshots = 0.45
+    - autocannon.spray = 0.04
+    - autocannon.shotspeed = 750
+  predecessors: [autocannonRateOfFire2]
+autocannondamage1:
+  cost: iron=6, water=2
+  propertyChanges:
+    - autocannon.damage += 14.0
+    - autocannon.bullet = 2/h
+    - autocannon.cannonstyle = 1/h
+  locks: [autocannonRateOfFire1]
+  predecessors: [autocannonImproved]
+autocannonshotgun1:
+  cost: iron=8, water=3
+  propertyChanges:
+    - autocannon.spray = 0.15
+    - autocannon.shotgun = 3
+    - autocannon.timebetweenshots = 3.0
+  predecessors: [autocannonDamage1]
+autocannonshotgun2:
+  cost: iron=10, water=4
+  propertyChanges:
+    - autocannon.spray = 0.22
+    - autocannon.shotgun = 6
+    - autocannon.timebetweenshots = 4.0
+  predecessors: [autocannonShotgun1]
+autocannonspeed1:
+  cost: iron=3, water=1
+  propertyChanges:
+    - autocannon.speed += 0.4
+  predecessors: [autocannon]
+autocannonautonomy:
+  cost: water=2
+  propertyChanges:
+    - autocannon.autonomy = true
+  predecessors: [autocannonSpeed1]
+diamondautocannon:
+  cost: diamond=1
+  propertyChanges:
+    - autocannon.damage += 5.0
+  predecessors: [autocannon]
+  repeatable: true
+
+spire:
+  limit: [hostile]
+  scene: content/gadgets/spire/Spire.tscn
+  slot: backside
+  distribution: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+  propertyChanges:
+    - spire.capacity = 1
+    - spire.rechargetime = 5.0
+    - spire.timebetweenshots = 0.5
+    - spire.splitshot = false/h
+    - spire.splitadditionalprojectiles = 0.0/h
+    - spire.splitshotground = false/h
+    - spire.splitshotspeed = 0/h
+    - spire.stuntrap = false/h
+    - spire.stuntrapradius = 0.0/h
+    - spire.stuntrapduration = 0.0/h
+    - spire.stuntrapabsorption = 0.0/h
+    - spire.stunmonsters = false/h
+    - spire.autonomy = false
+spireBurst:
+  cost: iron=3,water=3
+  propertyChanges:
+    - spire.rechargetime = 6.0
+    - spire.capacity = 3
+  locks: [spireSustain]
+  predecessors: [spire]
+spireSustain:
+  cost: iron=3,water=3
+  propertyChanges:
+    - spire.rechargetime = 1.5
+  locks: [spireBurst]
+  predecessors: [spire]
+spireCapacity:
+  cost: water=2,iron=0
+  propertyChanges:
+    - spire.capacity += 1
+  repeatable:
+    - cost.iron += 1
+  predecessors: [spireBurst]
+spireSpeedup:
+  cost: water=2
+  propertyChanges: 
+    - spire.rechargetime -= 0.18
+  repeatable:
+    - times = 9
+    - property.spire.rechargetime += 0.02
+    - cost.water += 0
+  predecessors: [spireSustain]
+spireSplit1:
+  cost: iron=5,water=2
+  propertyChanges:
+    - spire.splitshot = true
+    - spire.splitshotdamage = 20
+    - spire.splitshotspeed = 200
+  locks: [spireStuntrap1]
+  predecessors: [spireBurst,spireSustain]
+  predecessorsAny: true
+spireSplit2:
+  cost: iron=4,water=3
+  propertyChanges:
+    - spire.splitadditionalprojectiles += 1.0
+    - spire.splitshotspeed = 350
+  predecessors: [spireSplit1]
+spireSplit3:
+  cost: iron=4,water=3
+  propertyChanges:
+    - spire.splitadditionalprojectiles += 1.0
+    - spire.splitshotground = true
+  predecessors: [spireSplit1]
+spirestuntrap1:
+  cost: iron=5,water=2
+  propertyChanges:
+    - spire.stuntrap = true
+    - spire.stuntrapradius = 25.0
+    - spire.stuntrapduration = 4.0
+    - spire.stuntrapabsorption = 1.0
+  locks: [spireSplit1]
+  predecessors: [spireBurst,spireSustain]
+  predecessorsAny: true
+spirestuntrap2:
+  cost: iron=4,water=3
+  propertyChanges:
+    - spire.stuntrapradius += 8.0
+    - spire.stuntrapduration += 2.0
+    - spire.stuntrapabsorption = 2.5
+  predecessors: [spireStuntrap1]
+spirestuntrap3:
+  cost: iron=4,water=3
+  propertyChanges:
+    - spire.stuntrapradius += 8.0
+    - spire.stuntrapduration += 2.0
+    - spire.stunmonsters = true
+  predecessors: [spireStuntrap1]
+spireautonomy1:
+  cost: water=2
+  propertyChanges:
+    - spire.autonomy = true
+  predecessors: [spire]
+
+
+blastMining:
+  excludelimit: [carnage]
+  scene: content/gadgets/blastMining/MiningStation.tscn
+  slot: cellar
+  distribution: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+  propertyChanges:
+    - blastMining.growthTime = 1.0
+    - blastMining.radius = 2.8
+    - blastMining.explodeOnImpact = false/h
+    - blastMining.waterPerCharge = 1
+    - blastMining.damage = 5000/h
+    - blastMining.stickyCharge = false/h
+    - blastMining.bombsize = 1
+    - blastMining.bombs = 1
+blastMiningBlast1:
+  cost: iron=4, water=2
+  propertyChanges: 
+    - blastMining.radius += 0.5
+    - blastMining.bombsize = 2
+    - blastMining.growthTime += 0.2
+  predecessors: [blastMining]
+blastMiningBlast2:
+  cost: iron=6, water=3
+  propertyChanges: 
+    - blastMining.radius += 0.95
+    - blastMining.bombsize = 3
+    - blastMining.growthTime += 0.2
+  locks: [blastMiningTriple]
+  predecessors: [blastMiningBlast1]
+blastMiningProductionTime1:
+  cost: iron=4, water=3
+  propertyChanges: 
+    - blastMining.growthTime -= 0.6
+  predecessors: [blastMiningStickyCharge, blastMiningImpactDetonation]
+  predecessorsAny: true
+blastMiningTriple:
+  cost: iron=6, water=3
+  propertyChanges: 
+    - blastMining.radius -= 0.7
+    - blastMining.bombsize = 0
+    - blastMining.bombs = 3
+  locks: [blastMiningBlast2]
+  predecessors: [blastMiningBlast1]
+blastMiningStickyCharge:
+  cost: iron=4,water=2
+  propertyChanges: 
+    - blastMining.stickyCharge = true
+  locks: [blastMiningImpactDetonation]
+  predecessors: [blastMining]
+blastMiningImpactDetonation:
+  cost: iron=2, water=1
+  propertyChanges: 
+    - blastMining.explodeOnImpact = true
+  locks: [blastMiningStickyCharge]
+  predecessors: [blastMining]
+diamondblastMining:
+  cost: diamond=1
+  propertyChanges:
+    - blastMining.growthTime -= 0.05
+    - blastMining.radius += 0.5
+  predecessors: [blastMining]
+  repeatable:
+    - times = 6
+    - cost.diamond += 0
+
+
+
+probe:
+  excludelimit: [carnage]
+  scene: content/gadgets/probe/ProbeStation.tscn
+  slot: cellar
+  distribution: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+  hud: content/gadgets/probe/hud/ProbeHud.tscn
+  propertyChanges:
+    - probe.charges = 1
+    - probe.range = 5
+    - probe.impulseSpeed = 35
+    - probe.markerRetention = 3.0
+    - probe.rechargeTime = 0.0/h
+    - probe.detectcaves = false/h
+    - probe.detectchambers = false/h
+    - probe.detectdiamonds = false/h
+probeStage1:
+  cost: iron=2, water=2
+  propertyChanges: 
+    - probe.charges = 2
+    - probe.range += 1
+    - probe.impulseSpeed += 15
+  predecessors: [probe]
+probeLong1:
+  cost: iron=6, water=3
+  propertyChanges: 
+    - probe.charges = 1
+    - probe.range += 6
+    - probe.markerRetention += 20.0
+    - probe.impulseSpeed -= 10
+  predecessors: [probeStage1]
+  locks: [probeSwift1]
+probeSwift1:
+  cost: iron=6, water=3
+  propertyChanges: 
+    - probe.charges = 4
+    - probe.range -= 2
+    - probe.impulseSpeed += 50
+  predecessors: [probeStage1]
+  locks: [probeLong1]
+probePersist1:
+  cost: iron=2, water=2
+  propertyChanges: 
+    - probe.markerRetention += 600.0
+  predecessors: [probeStage1]
+probeRecharge:
+  cost: iron=8, water=4
+  propertyChanges: 
+    - probe.rechargeTime = 0.5
+  predecessors: [probeSwift1,probeLong1]
+  predecessorsAny: true
+probedetectcaves:
+  cost: iron=2, water=2
+  propertyChanges:
+    - probe.detectcaves = true
+  predecessors: [probe]
+probedetectchambers:
+  cost: iron=2, water=2
+  propertyChanges:
+    - probe.detectchambers = true
+  predecessors: [probe]
+diamondprobedetectdiamond:
+  cost: iron=2, water=2
+  propertyChanges:
+    - probe.detectdiamonds = true
+  predecessors: [probeStage1]
+diamondprobe:
+  cost: diamond=1
+  propertyChanges:
+    - probe.range += 1
+    - probe.impulseSpeed += 10
+  predecessors: [probe]
+  repeatable: true
+
+
+
+teleporter:
+  excludelimit: [carnage]
+  scene: content/gadgets/teleporter/TeleporterStation.tscn
+  slot: cellar
+  distribution: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+  propertyChanges:
+    - teleporter.teleportDuration = 6.0
+    - teleporter.teleportTo = true
+    - teleporter.teleportBack = true
+    - teleporter.teleportResources = false/h
+    - teleporter.teleportResourcesCooldown = 16.0/h
+    - teleporter.teleportResourcesArea = 0.84/h
+    - teleporter.teleportitems = false/h
+teleporterTeleportResourcesBack:
+  cost: iron=4, water=3
+  propertyChanges: 
+    - teleporter.teleportResources = true
+    - teleporter.teleportBack = false
+  predecessors: [teleporter]
+teleporterTeleportResourcesCooldown:
+  cost: iron=4, water=3
+  propertyChanges: 
+    - teleporter.teleportResourcesCooldown -= 10.0
+  predecessors: [teleporterTeleportResourcesBack]
+teleporterTeleportResourcesArea:
+  cost: iron=4, water=3
+  propertyChanges: 
+    - teleporter.teleportResourcesArea += 0.5
+  predecessors: [teleporterTeleportResourcesBack]
+teleporterTeleportReactivate:
+  cost: iron=4, water=3
+  propertyChanges: 
+    - teleporter.teleportBack = true
+  predecessors: [teleporterTeleportResourcesBack]
+teleporterTeleportDuration1:
+  cost: iron=2, water=1
+  propertyChanges: 
+    - teleporter.teleportDuration -= 4.0
+  predecessors: [teleporter]
+teleporterteleportitems:
+  cost: iron=2, water=1
+  propertyChanges:
+    - teleporter.teleportitems = true
+  predecessors: [teleporter]
+diamondteleporter:
+  cost: diamond=1
+  propertyChanges:
+    - teleporter.teleportDuration -= 0.1
+    - teleporter.teleportResourcesCooldown -= 0.5
+  predecessors: [teleporter]
+  repeatable:
+    - times = 10
+    - cost.diamond += 0
+
+
+lift:
+  excludelimit: [carnage]
+  slot: shaft
+  distribution: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+  propertyChanges: 
+    - lift.orbs = 3
+    - lift.speed = 15
+    - lift.capacity = 3
+    - lift.keeperupwardsspeed = 0.0/h
+liftorbs:
+  cost: iron=1, water=1
+  propertyChanges: 
+    - lift.orbs += 1
+  repeatable:
+    - cost.iron += 0
+  predecessors: [lift]
+liftspeed1:
+  cost: iron=4, water=2
+  propertyChanges: 
+    - lift.speed += 10
+  predecessors: [lift]
+liftcapacity1:
+  cost: iron=10, water=2
+  propertyChanges: 
+    - lift.capacity = 4
+  predecessors: [liftSpeed1]
+liftcarrykeeper1:
+  cost: iron=2, water=2
+  propertyChanges: 
+    - lift.keeperupwardsspeed = 20.0
+  predecessors: [lift]
+liftcarrykeeper2:
+  cost: iron=6, water=4
+  propertyChanges: 
+    - lift.keeperupwardsspeed = 40.0
+  predecessors: [liftCarryKeeper1]
+diamondlift:
+  cost: diamond=1
+  propertyChanges:
+    - lift.orbs += 1
+    - lift.speed += 3
+    - lift.keeperupwardsspeed += 5.0
+  predecessors: [lift]
+  repeatable:
+    - times = 5
+    - cost.diamond += 0
+
+
+
+condenser:
+  scene: content/gadgets/condenser/Condenser.tscn
+  slot: cellar
+  distribution: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+  propertyChanges:
+    - condenser.waterStorage = 1
+    - condenser.growthTime = 1.8
+    - condenser.autoCollect = false/h
+    - condenser.autoovercharge = false/h
+    - condenser.overchargeDelay = 0.0/h
+condenserSpeed1:
+  cost: iron=3, water=1
+  propertyChanges: 
+    - condenser.growthTime -= 0.6
+  predecessors: [condenser]
+condenserSpeed2:
+  cost: iron=8, water=2
+  propertyChanges: 
+    - condenser.growthTime -= 0.4
+  predecessors: [condenserSpeed1]
+  locks: [condenserAutoCollect]
+condenserAutoCollect:
+  cost: iron=6, water=1
+  propertyChanges: 
+    - condenser.autoCollect = true
+  predecessors: [condenserSpeed1]
+  locks: [condenserSpeed2]
+condenserDoubleStorage:
+  cost: iron=6, water=1
+  propertyChanges: 
+    - condenser.waterStorage = 2
+  predecessors: [condenserSpeed2]
+condenserAutoOvercharge:
+  cost: iron=10, water=5
+  propertyChanges: 
+    - condenser.autoOvercharge = true
+    - condenser.overchargeDelay = 0.5
+  predecessors: [condenser]
+diamondcondenser:
+  cost: diamond=1
+  propertyChanges:
+    - condenser.growthTime -= 0.1
+  predecessors: [condenser]
+  repeatable:
+    - times = 5
+    - cost.diamond += 0
+
+
+
+
+dronehub:
+  scene: content/gadgets/transportdrone/DroneHub.tscn
+  slot: primary
+  propertyChanges:
+    - hello.drone = 1
+
+prospectionmeter:
+  excludelimit: [carnage]
+  slot: none
+  distribution: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+  hud: content/gadgets/prospectionMeter/ProspectionMeterHud.tscn
+  propertyChanges:
+    - prospectionMeter.iron = 1
+    - prospectionMeter.water = 0
+    - prospectionMeter.sand = 0
+    - prospectionMeter.gadget = 0
+    - prospectionMeter.diamond = 0
+    - prospectionMeter.range = 5
+    - prospectionMeter.scandelay = 1.5
+prospectionmeterwater1:
+  cost: iron=3, water=2
+  propertyChanges: 
+    - prospectionMeter.water = 1
+  predecessors: [prospectionMeter]
+prospectionmetersand1:
+  cost: iron=3, water=3
+  propertyChanges: 
+    - prospectionMeter.sand = 1
+  predecessors: [prospectionMeter]
+prospectionmetergadget:
+  cost: iron=4, water=2
+  propertyChanges: 
+    - prospectionMeter.gadget = 1
+  predecessors: [prospectionMeterWater1,prospectionMeterSand1]
+  predecessorsAny: true
+diamondprospectionmeterdiamond:
+  cost: iron=4, water=2
+  propertyChanges: 
+    - prospectionMeter.diamond = 1
+  predecessors: [prospectionMeterWater1,prospectionMeterSand1]
+  predecessorsAny: true
+prospectionmeterscandelay1:
+  cost: water=2
+  propertyChanges: 
+    - prospectionmeter.scandelay -= 1.1
+  predecessors: [prospectionMeterRange1]
+prospectionmeterrange1:
+  cost: iron=2, water=2
+  propertyChanges: 
+    - prospectionMeter.range += 3
+  predecessors: [prospectionMeter]
+prospectionmeterrange2:
+  cost: iron=4, water=2
+  propertyChanges: 
+    - prospectionMeter.range += 4
+  predecessors: [prospectionMeterRange1]
+diamondprospectionmeter:
+  cost: diamond=1
+  propertyChanges: 
+    - prospectionMeter.range += 1
+    - prospectionMeter.scandelay -= 0.05
+  predecessors: [prospectionMeter]
+  repeatable:
+    - times = 6
+    - cost.diamond += 0
+
+
+
+drillbot:
+  excludelimit: [carnage]
+  scene: content/gadgets/drillbot/DrillbotStation.tscn
+  slot: cellar
+  distribution: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+  propertyChanges: 
+    - drillbot.amount = 200
+    - drillbot.drillstrength = 0.6
+    - drillbot.drilllevel = 0/h
+    - drillbot.buffstrength = 1.0/h
+    - drillbot.buffamount = 0/h
+    - drillbot.buffextraamount = 0/h
+    - drillbot.plantgrowthtime = 0.0/h
+    - drillbot.headcount = 1/h
+    - drillbot.turnaround = false/h
+    - drillbot.sleeptime = 0.4/h
+    - drillbot.buffguidance = false/h
+drillbotStrength1:
+  cost: iron=3,water=1
+  propertyChanges: 
+    - drillbot.drillstrength += 0.8
+    - drillbot.drilllevel = 1/h
+  predecessors: [drillbot]
+drillbotStrength2:
+  cost: iron=4,water=2
+  propertyChanges: 
+    - drillbot.drillstrength += 1.8
+    - drillbot.drilllevel = 2/h
+  predecessors: [drillbotStrength1]
+drillbotStrength3:
+  cost: iron=5,water=3
+  propertyChanges: 
+    - drillbot.drillstrength += 4.8
+    - drillbot.drilllevel = 3/h
+  predecessors: [drillbotStrength2]
+drillbotDuplicate:
+  excludelimit: [extradrillbot]
+  cost: iron=6,water=4
+  propertyChanges: 
+    - drillbot.headcount += 1
+  predecessors: [drillbotStrength3, drillbotbuffguidance, drillbotBuffStrength2]
+  predecessorsAny: true
+drillbotDuplicate2:
+  limit: [extradrillbot]
+  shadowing: drillbotduplicate
+  cost: iron=4,water=1
+  propertyChanges:
+    - drillbot.headcount += 1
+  repeatable:
+    - cost.water += 1
+    - cost.iron += 2
+  predecessors: [drillbot]
+drillbotBuff1:
+  cost: iron=2,water=1
+  propertyChanges: 
+    - drillbot.plantgrowthtime = 0.7
+    - drillbot.buffstrength = 1.4
+    - drillbot.buffamount = 100
+  predecessors: [drillbot]
+drillbotBuffStrength1:
+  cost: iron=2,water=1
+  propertyChanges: 
+    - drillbot.buffamount = 150
+    - drillbot.buffstrength = 1.8
+  predecessors: [drillbotBuff1]
+drillbotBuffStrength2:
+  cost: iron=4,water=2
+  propertyChanges: 
+    - drillbot.buffextraamount = 400
+  predecessors: [drillbotBuffStrength1]
+drillbotbuffguidance:
+  cost: iron=1,water=1
+  propertyChanges:
+    - drillbot.buffguidance = true
+  predecessors: [drillbotBuffStrength1]
+drillBotSleepLess:
+  cost: iron=2,water=1
+  propertyChanges: 
+    - drillbot.amount += 100
+  predecessors: [drillbot]
+drillBotTurnAround:
+  cost: iron=2,water=3
+  propertyChanges: 
+    - drillbot.turnaround = true
+  predecessors: [drillBotSleepLess]
+diamonddrillbot:
+  cost: diamond=1
+  propertyChanges:
+    - drillbot.amount += 50
+    - drillbot.drillstrength += 1.0
+  predecessors: [drillbot]
+  repeatable: true
+
+
+converter:
+  excludelimit: [carnage]
+  scene: content/gadgets/converter/Converter.tscn
+  slot: cellar
+  distribution: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+  propertyChanges: 
+    - converter.watertoiron = 0.33
+    - converter.ironwatertime = 0.45
+    - converter.irontowater = 5
+    - converter.irontocobalt = 0
+    - converter.cobalttoiron = 0
+    - converter.ironcobalttime = 0/h
+    - converter.irontoiron = 0.33
+    - converter.ironirontime = 0.8
+    - converter.speedMod = 1.0
+converterIronToCobalt:
+  cost: iron=6
+  propertyChanges: 
+    - converter.irontocobalt = 12
+    - converter.cobalttoiron = 0.16
+    - converter.ironcobalttime = 1.0
+  predecessors: [converter]
+  limit: [cobaltgeneration]
+converterEfficientWater:
+  cost: iron=6
+  propertyChanges: 
+    - converter.watertoiron = 0.2
+    - converter.irontowater = 2
+  predecessors: [converter]
+converterEfficientCobalt:
+  cost: iron=10
+  propertyChanges: 
+    - converter.irontocobalt = 10
+    - converter.cobalttoiron = 0.083
+    - converter.ironcobalttime = 0.3
+  predecessors: [converterIronToCobalt]
+converterIronDuplication:
+  cost: water=4
+  propertyChanges: 
+    - converter.irontoiron = 0.1
+    - converter.ironirontime = 2.8
+  predecessors: [converter]
+diamondconverter:
+  cost: diamond=1
+  propertyChanges:
+    - converter.speedMod -= 0.05
+  predecessors: [converter]
+  repeatable:
+    - times = 10
+    - cost.diamond += 0
+
+
+worldModifierMapArms:
+  class: mapprimary
+  rating: -1
+  propertyChanges: 
+    - archetype.viability_large_noise_strength += 200
+    - archetype.width += 10
+worldmodifiermaze:
+  class: combined
+  rating: -4
+  propertyChanges: 
+    - archetype.viability_large_noise_strength += 350
+    - archetype.width += 10
+    - archetype.iron_cluster_rate *= 1.15
+    - monstermodifiers.timebetweenwavesmodifier *= 1.15
+worldModifierMapRugged:
+  class: mapprimary
+  rating: -4
+  propertyChanges: 
+    - archetype.stop_depth_factor -= 5
+    - archetype.viability_small_noise_strength = 200
+    - archetype.keep_core_strength = 0.3
+    - archetype.keep_core_falloff_y = 0.8
+worldModifierMapDeep:
+  class: mapprimary
+  rating: -2
+  propertyChanges: 
+    - archetype.depth += 15
+    - archetype.width += -10
+worldModifierMapWide:
+  class: mapprimary
+  rating: -1
+  propertyChanges: 
+    - archetype.width += 15
+    - archetype.depth += 10
+worldModifierMapWideBottom:
+  class: mapprimary
+  rating: -3
+  propertyChanges: 
+    - archetype.width += 25
+    - archetype.entry_tightening_until = 0.9
+    - archetype.entry_tightening_x_exp = 2.2
+worldModifierMapWildBiomes:
+  class: biomes
+  rating: -1
+  propertyChanges: 
+    - archetype.biome_noise_strength = 1.2
+
+worldModifierHardnessModerated:
+  class: mapsecondary
+  rating: 1
+  propertyChanges: 
+    - archetype.hardness_scale -= 1
+worldModifierHardnessExtremes:
+  class: mapsecondary
+  rating: -1
+  propertyChanges: 
+    - archetype.hardness_scale += 2
+worldModifierHardnessHarder:
+  class: mapsecondary
+  rating: -3
+  propertyChanges: 
+    - archetype.hardness_offset += 0.4
+worldModifierHardnessSofter:
+  class: mapsecondary
+  rating: 3
+  propertyChanges: 
+    - archetype.hardness_offset -= 0.4
+
+worldModifierResourceUnpredicatbleIron:
+  class: resource
+  rating: -2
+  propertyChanges: 
+    - archetype.iron_cluster_rate *= 2
+    - archetype.iron_cluster_removal_rate += 0.5
+worldModifierResourceUnpredicatbleWater:
+  class: resource
+  rating: -1
+  propertyChanges: 
+    - archetype.water_rate *= 2
+    - archetype.water_removal_rate += 0.5
+worldModifierResourceUnpredicatbleCobalt:
+  class: resource
+  rating: -1
+  propertyChanges: 
+    - archetype.cobalt_rate *= 2
+    - archetype.cobalt_removal_rate += 0.5
+worldModifierResourceScatteredIron:
+  class: resource
+  rating: -1
+  propertyChanges: 
+    - archetype.iron_cluster_rate = 25
+    - archetype.iron_cluster_removal_rate = 0.3
+    - archetype.iron_cluster_size_base = 0.5
+    - archetype.iron_cluster_size_per_y = 0.1
+worldModifierResourceIronBigRare:
+  class: resource
+  rating: -1
+  propertyChanges: 
+    - archetype.iron_cluster_rate = 6
+    - archetype.iron_cluster_size_base = 4.0
+    - archetype.iron_cluster_size_per_y = 0.3
+worldModifierResourceRichWater:
+  class: resource
+  rating: 2
+  propertyChanges: 
+    - archetype.water_rate *= 1.2
+worldModifierResourceRichCobalt:
+  class: resource
+  rating: 3
+  propertyChanges: 
+    - archetype.cobalt_rate *= 1.2
+worldModifierResourceRichIron:
+  class: resource
+  rating: 3
+  propertyChanges: 
+    - archetype.iron_cluster_rate *= 1.2
+worldModifierResourcePoorWater:
+  class: resource
+  rating: -2
+  propertyChanges: 
+    - archetype.water_rate *= 0.8
+worldModifierResourcePoorCobalt:
+  class: resource
+  rating: -3
+  propertyChanges: 
+    - archetype.cobalt_rate *= 0.8
+worldModifierResourcePoorIron:
+  class: resource
+  rating: -3
+  propertyChanges: 
+    - archetype.iron_cluster_rate *= 0.8
+
+worldmodifierhyperactive:
+  class: monster
+  rating: -3
+  propertyChanges: 
+    - monstermodifiers.move_speed = 1.5
+    - monstermodifiers.health = 0.7
+worldModifierMonsterSlow:
+  class: monster
+  rating: 3
+  propertyChanges: 
+    - monstermodifiers.move_speed = 0.8
+worldModifierMonsterHealthy:
+  class: monster
+  rating: -2
+  propertyChanges: 
+    - monstermodifiers.health = 1.5
+worldModifierMonsterFragile:
+  class: monster
+  rating: 2
+  propertyChanges: 
+    - monstermodifiers.health = 0.7
+worldModifierMonsterLethal:
+  class: monster
+  rating: -2
+  propertyChanges: 
+    - monstermodifiers.damage = 1.2
+worldmodifierlongtime:
+  class: monster
+  rating: 3
+  propertyChanges: 
+    - monstermodifiers.timebetweenwavesmodifier *= 2.0
+    - monstermodifiers.cyclesrunweightmodifier *= 2.0
+worldModifierMonsterFeeble:
+  class: monster
+  rating: 2
+  propertyChanges: 
+    - monstermodifiers.damage = 0.8
+worldmodifierdoubleiron:
+  class: combined
+  rating: -2
+  propertyChanges: 
+    - upgrademodifiers.cost.iron = 2.0
+    - resourcemodifiers.richness.iron = 2.0
+worldmodifiernothing:
+  class: combined
+  rating: -2
+  propertyChanges: 
+    - upgrademodifiers.cost.iron = 1.5
+    - resourcemodifiers.richness.iron = 2.0
+worldmodifierautomateddefense:
+  class: gadgets
+  rating: 5
+  gadgets: [spire, stunlaser, autocannon]
+  upgrades: [stunLaserAutonomy1, autocannonAutonomy, spireAutonomy1]
+  eraseupgradelimits: [primaryweapon]
+  propertyChanges:
+    - monstermodifiers.punishers = false
+    - monstermodifiers.health = 0.5
+    - dome.mainweapons = 0
+worldmodifierhud:
+  class: gadgets
+  rating: 2
+  upgrades: [domewavemeter, domewavecount, domeHealthMeter, domeResourceCounters]
+worldmodifierdrillbert:
+  class: gadgets
+  rating: 0
+  gadgets: [drillbot, blastmining]
+  upgradelimits: [extradrillbot]
+  eraseupgradelimits: [mining]

@@ -1,0 +1,312 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://content/techtree/TechTree.tscn" type="PackedScene" id=1]
+[ext_resource path="res://gui/theme.tres" type="Theme" id=2]
+[ext_resource path="res://mods-unpacked/Arrcival-DiamondUpgrades/extensions/content/techtree/TechTreePopup.gd" type="Script" id=3]
+[ext_resource path="res://gui/buttons/Action.tscn" type="PackedScene" id=4]
+[ext_resource path="res://gui/fonts/FontVeryLarge.tres" type="DynamicFont" id=5]
+[ext_resource path="res://gui/fonts/FontNumbers.tres" type="DynamicFont" id=6]
+[ext_resource path="res://content/icons/icon_water.png" type="Texture" id=7]
+[ext_resource path="res://mods-unpacked/Arrcival-DiamondUpgrades/content/icons/diamond_icon.png" type="Texture" id=8]
+[ext_resource path="res://content/icons/icon_iron.png" type="Texture" id=9]
+[ext_resource path="res://content/icons/icon_sand.png" type="Texture" id=10]
+[ext_resource path="res://gui/panels/panel_outside.tres" type="StyleBox" id=13]
+
+[node name="TechtreePopup" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 200, 200 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 2 )
+custom_constants/margin_right = 10
+custom_constants/margin_top = 32
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
+script = ExtResource( 3 )
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+margin_left = 10.0
+margin_top = 32.0
+margin_right = 1910.0
+margin_bottom = 1070.0
+custom_styles/panel = ExtResource( 13 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+margin_left = 32.0
+margin_top = 32.0
+margin_right = 1868.0
+margin_bottom = 1006.0
+custom_constants/separation = 0
+
+[node name="BoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+margin_right = 1836.0
+margin_bottom = 925.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 24
+
+[node name="TechInfo" type="VBoxContainer" parent="PanelContainer/VBoxContainer/BoxContainer"]
+margin_right = 966.0
+margin_bottom = 925.0
+size_flags_horizontal = 0
+size_flags_vertical = 3
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/BoxContainer/TechInfo"]
+margin_right = 966.0
+margin_bottom = 162.0
+
+[node name="TechTitle" type="Label" parent="PanelContainer/VBoxContainer/BoxContainer/TechInfo/VBoxContainer"]
+margin_right = 966.0
+margin_bottom = 55.0
+custom_colors/font_color = Color( 1, 0.666667, 0.368627, 1 )
+custom_fonts/font = ExtResource( 5 )
+align = 1
+autowrap = true
+
+[node name="TechDescription" type="RichTextLabel" parent="PanelContainer/VBoxContainer/BoxContainer/TechInfo/VBoxContainer"]
+margin_top = 71.0
+margin_right = 966.0
+margin_bottom = 146.0
+rect_min_size = Vector2( 400, 75 )
+custom_colors/default_color = Color( 1, 0.92549, 0.839216, 1 )
+bbcode_enabled = true
+fit_content_height = true
+scroll_active = false
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/BoxContainer/TechInfo/VBoxContainer"]
+margin_top = 162.0
+margin_right = 966.0
+margin_bottom = 162.0
+rect_min_size = Vector2( 510, 0 )
+custom_constants/margin_right = 0
+custom_constants/margin_top = 0
+custom_constants/margin_left = 0
+custom_constants/margin_bottom = 0
+
+[node name="BonusSection" type="GridContainer" parent="PanelContainer/VBoxContainer/BoxContainer/TechInfo/VBoxContainer/MarginContainer"]
+margin_right = 966.0
+size_flags_horizontal = 3
+columns = 5
+
+[node name="Separator" type="Control" parent="PanelContainer/VBoxContainer/BoxContainer/TechInfo"]
+margin_top = 178.0
+margin_right = 966.0
+margin_bottom = 664.0
+size_flags_vertical = 3
+
+[node name="Inventory" type="MarginContainer" parent="PanelContainer/VBoxContainer/BoxContainer/TechInfo"]
+margin_top = 680.0
+margin_right = 966.0
+margin_bottom = 925.0
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/BoxContainer/TechInfo/Inventory"]
+margin_left = 16.0
+margin_top = 16.0
+margin_right = 950.0
+margin_bottom = 229.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/BoxContainer/TechInfo/Inventory/PanelContainer"]
+margin_left = 12.0
+margin_top = 12.0
+margin_right = 922.0
+margin_bottom = 201.0
+
+[node name="GridContainer" type="GridContainer" parent="PanelContainer/VBoxContainer/BoxContainer/TechInfo/Inventory/PanelContainer/MarginContainer"]
+margin_left = 16.0
+margin_top = 16.0
+margin_right = 894.0
+margin_bottom = 173.0
+custom_constants/vseparation = 8
+custom_constants/hseparation = 40
+columns = 3
+
+[node name="Control" type="Control" parent="PanelContainer/VBoxContainer/BoxContainer/TechInfo/Inventory/PanelContainer/MarginContainer/GridContainer"]
+margin_right = 24.0
+margin_bottom = 25.0
+
+[node name="LabelInventoryHeading" type="Label" parent="PanelContainer/VBoxContainer/BoxContainer/TechInfo/Inventory/PanelContainer/MarginContainer/GridContainer"]
+margin_left = 64.0
+margin_right = 482.0
+margin_bottom = 25.0
+text = "level.station.upgrademenu.inventory"
+align = 1
+
+[node name="LabelCostsHeading" type="Label" parent="PanelContainer/VBoxContainer/BoxContainer/TechInfo/Inventory/PanelContainer/MarginContainer/GridContainer"]
+margin_left = 522.0
+margin_right = 878.0
+margin_bottom = 25.0
+text = "level.station.upgrademenu.cost"
+align = 1
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/BoxContainer/TechInfo/Inventory/PanelContainer/MarginContainer/GridContainer"]
+margin_top = 33.0
+margin_right = 24.0
+margin_bottom = 58.0
+size_flags_horizontal = 10
+texture = ExtResource( 9 )
+
+[node name="LabelIron" type="Label" parent="PanelContainer/VBoxContainer/BoxContainer/TechInfo/Inventory/PanelContainer/MarginContainer/GridContainer"]
+margin_left = 64.0
+margin_top = 33.0
+margin_right = 482.0
+margin_bottom = 58.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 6 )
+text = "0"
+align = 2
+
+[node name="LabelIronCost" type="Label" parent="PanelContainer/VBoxContainer/BoxContainer/TechInfo/Inventory/PanelContainer/MarginContainer/GridContainer"]
+margin_left = 522.0
+margin_top = 33.0
+margin_right = 878.0
+margin_bottom = 58.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 6 )
+text = "0"
+align = 2
+
+[node name="TextureRect2" type="TextureRect" parent="PanelContainer/VBoxContainer/BoxContainer/TechInfo/Inventory/PanelContainer/MarginContainer/GridContainer"]
+margin_top = 66.0
+margin_right = 24.0
+margin_bottom = 91.0
+size_flags_horizontal = 10
+texture = ExtResource( 7 )
+
+[node name="LabelWater" type="Label" parent="PanelContainer/VBoxContainer/BoxContainer/TechInfo/Inventory/PanelContainer/MarginContainer/GridContainer"]
+margin_left = 64.0
+margin_top = 66.0
+margin_right = 482.0
+margin_bottom = 91.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 6 )
+text = "0"
+align = 2
+
+[node name="LabelWaterCost" type="Label" parent="PanelContainer/VBoxContainer/BoxContainer/TechInfo/Inventory/PanelContainer/MarginContainer/GridContainer"]
+margin_left = 522.0
+margin_top = 66.0
+margin_right = 878.0
+margin_bottom = 91.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 6 )
+text = "0"
+align = 2
+
+[node name="TextureRect3" type="TextureRect" parent="PanelContainer/VBoxContainer/BoxContainer/TechInfo/Inventory/PanelContainer/MarginContainer/GridContainer"]
+margin_top = 99.0
+margin_right = 24.0
+margin_bottom = 124.0
+size_flags_horizontal = 10
+texture = ExtResource( 10 )
+
+[node name="LabelSand" type="Label" parent="PanelContainer/VBoxContainer/BoxContainer/TechInfo/Inventory/PanelContainer/MarginContainer/GridContainer"]
+margin_left = 64.0
+margin_top = 99.0
+margin_right = 482.0
+margin_bottom = 124.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 6 )
+text = "0"
+align = 2
+
+[node name="LabelSandCost" type="Label" parent="PanelContainer/VBoxContainer/BoxContainer/TechInfo/Inventory/PanelContainer/MarginContainer/GridContainer"]
+margin_left = 522.0
+margin_top = 99.0
+margin_right = 878.0
+margin_bottom = 124.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 6 )
+text = "0"
+align = 2
+
+[node name="TextureRect4" type="TextureRect" parent="PanelContainer/VBoxContainer/BoxContainer/TechInfo/Inventory/PanelContainer/MarginContainer/GridContainer"]
+margin_top = 132.0
+margin_right = 24.0
+margin_bottom = 157.0
+size_flags_horizontal = 10
+texture = ExtResource( 8 )
+
+[node name="LabelDiamond" type="Label" parent="PanelContainer/VBoxContainer/BoxContainer/TechInfo/Inventory/PanelContainer/MarginContainer/GridContainer"]
+margin_left = 64.0
+margin_top = 132.0
+margin_right = 482.0
+margin_bottom = 157.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 6 )
+text = "0"
+align = 2
+
+[node name="LabelDiamondCost" type="Label" parent="PanelContainer/VBoxContainer/BoxContainer/TechInfo/Inventory/PanelContainer/MarginContainer/GridContainer"]
+margin_left = 522.0
+margin_top = 132.0
+margin_right = 878.0
+margin_bottom = 157.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 6 )
+text = "0"
+align = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/VBoxContainer/BoxContainer"]
+margin_left = 990.0
+margin_right = 1836.0
+margin_bottom = 925.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TechTree" parent="PanelContainer/VBoxContainer/BoxContainer/ScrollContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 846.0
+margin_bottom = 925.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Tween" type="Tween" parent="PanelContainer/VBoxContainer/BoxContainer/ScrollContainer/TechTree"]
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/VBoxContainer"]
+margin_top = 925.0
+margin_right = 1836.0
+margin_bottom = 949.0
+
+[node name="Controls" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+margin_top = 949.0
+margin_right = 1836.0
+margin_bottom = 974.0
+alignment = 1
+
+[node name="ActionBack" parent="PanelContainer/VBoxContainer/Controls" instance=ExtResource( 4 )]
+margin_left = 514.0
+margin_right = 514.0
+margin_bottom = 25.0
+action = "ui_cancel"
+
+[node name="closeLabel" type="Label" parent="PanelContainer/VBoxContainer/Controls"]
+margin_left = 530.0
+margin_right = 897.0
+margin_bottom = 25.0
+text = "level.station.upgrademenu.close"
+
+[node name="VSeparator" type="VSeparator" parent="PanelContainer/VBoxContainer/Controls"]
+margin_left = 913.0
+margin_right = 937.0
+margin_bottom = 25.0
+
+[node name="ActionUse" parent="PanelContainer/VBoxContainer/Controls" instance=ExtResource( 4 )]
+margin_left = 953.0
+margin_right = 953.0
+margin_bottom = 25.0
+action = "ui_select"
+
+[node name="buyLabel" type="Label" parent="PanelContainer/VBoxContainer/Controls"]
+margin_left = 969.0
+margin_right = 1321.0
+margin_bottom = 25.0
+text = "level.station.upgrademenu.buy"
+
+[node name="Tween" type="Tween" parent="."]
+
+[connection signal="techFocussed" from="PanelContainer/VBoxContainer/BoxContainer/ScrollContainer/TechTree" to="." method="_on_TechTree_techFocussed"]

@@ -1,0 +1,208 @@
+dome1diamond:
+  cost: diamond=1
+  propertyChanges:
+    - dome.maxhealth += 300
+  predecessors: [dome1]
+  repeatable: true
+
+
+dome2diamond:
+  cost: diamond=1
+  propertyChanges:
+    - dome.maxhealth += 400
+  predecessors: [dome2]
+  repeatable: true
+
+
+keeper1:
+  propertyChanges:
+    - keeper1.speedMod = 1.0
+    - keeper1.drillMod = 1.0
+keeper1diamond:
+  cost: diamond=1
+  propertyChanges:
+    - keeper1.speedMod += 0.1
+    - keeper1.drillMod += 0.2
+  predecessors: [keeper1]
+  repeatable: true
+
+
+keeper2:
+  propertyChanges:
+    - keeper2.speedMod = 1.0
+    - keeper2.sphereDamageMod = 1.0
+keeper2diamond:
+  cost: diamond=1
+  propertyChanges:
+    - keeper2.speedMod += 0.1
+    - keeper2.sphereDamageMod += 0.25
+    - keeper2.directminingdamage += 0.5
+  predecessors: [keeper2]
+  repeatable: true
+
+
+laserDiamond:
+  cost: diamond=1
+  propertyChanges: 
+    - laser.dpsmod += 0.3
+    - laser.movespeed += 0.05
+  predecessors: [laser]
+  repeatable: true
+
+
+sword:
+  propertyChanges: 
+    - sword.dpsmod = 1
+swordDiamond:
+  cost: diamond=1
+  propertyChanges: 
+    - sword.dpsmod += 0.3
+    - sword.sliceAcceleration += 0.2
+    - sword.brake += 1.0
+  predecessors: [sword]
+  repeatable: true
+
+
+shielddiamond:
+  cost: diamond=1
+  propertyChanges: 
+    - shield.maxStrength += 25
+  predecessors: [shield]
+  repeatable: true
+
+
+repellentdiamond:
+  cost: diamond=1
+  propertyChanges: 
+    - repellent.wavedelay += 0.075
+  predecessors: [repellent]
+  repeatable: true
+
+
+orcharddiamond:
+  cost: diamond=1
+  propertyChanges: 
+    - orchard.buffduration += 0.15
+  predecessors: [orchard]
+  repeatable: true
+
+
+stunlaserdiamond:
+  cost: diamond=1
+  propertyChanges:
+    - stunLaser.fireTime += 9.0
+    - stunLaser.speed += 0.2
+  predecessors: [stunLaser]
+  repeatable: true
+
+
+autocannondiamond:
+  cost: diamond=1
+  propertyChanges:
+    - autocannon.damage += 5.0
+  predecessors: [autocannon]
+  repeatable: true
+
+
+
+blastMiningdiamond:
+  cost: diamond=1
+  propertyChanges:
+    - blastMining.growthTime -= 0.05
+    - blastMining.radius += 0.5
+  predecessors: [blastMining]
+  repeatable:
+    - times = 6
+    - cost.diamond += 0
+
+
+
+probedetectdiamond:
+  cost: iron=2, water=2
+  propertyChanges:
+    - probe.detectdiamonds = true
+  predecessors: [probeStage1]
+probediamond:
+  cost: diamond=1
+  propertyChanges:
+    - probe.range += 1
+    - probe.impulseSpeed += 10
+  predecessors: [probe]
+  repeatable: true
+
+
+
+teleporterdiamond:
+  cost: diamond=1
+  propertyChanges:
+    - teleporter.teleportDuration -= 0.1
+    - teleporter.teleportResourcesCooldown -= 0.5
+  predecessors: [teleporter]
+  repeatable:
+    - times = 10
+    - cost.diamond += 0
+
+
+liftdiamond:
+  cost: diamond=1
+  propertyChanges:
+    - lift.orbs += 1
+    - lift.speed += 3
+    - lift.keeperupwardsspeed += 5.0
+  predecessors: [lift]
+  repeatable:
+    - times = 5
+    - cost.diamond += 0
+
+
+condenserdiamond:
+  cost: diamond=1
+  propertyChanges:
+    - condenser.growthTime -= 0.1
+  predecessors: [condenser]
+  repeatable:
+    - times = 5
+    - cost.diamond += 0
+
+prospectionmeter:
+  propertyChanges:
+    - prospectionMeter.diamond = 0
+prospectionmeterdiamond:
+  cost: iron=4, water=2
+  propertyChanges: 
+    - prospectionMeter.diamond = 1
+  predecessors: [prospectionMeterWater1,prospectionMeterSand1]
+  predecessorsAny: true
+prospectionmeterupgradediamond:
+  cost: diamond=1
+  propertyChanges: 
+    - prospectionMeter.range += 1
+    - prospectionMeter.scandelay -= 0.05
+  predecessors: [prospectionMeter]
+  repeatable:
+    - times = 6
+    - cost.diamond += 0
+
+
+
+drillbotdiamond:
+  cost: diamond=1
+  propertyChanges:
+    - drillbot.amount += 50
+    - drillbot.drillstrength += 1.0
+  predecessors: [drillbot]
+  repeatable: true
+
+
+converter:
+  propertyChanges:
+    - converter.speedMod = 1.0
+converterdiamond:
+  cost: diamond=1
+  propertyChanges:
+    - converter.speedMod -= 0.05
+  predecessors: [converter]
+  repeatable:
+    - times = 10
+    - cost.diamond += 0
+
