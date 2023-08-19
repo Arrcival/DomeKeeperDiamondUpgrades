@@ -1,6 +1,7 @@
 extends "res://content/map/Map.gd"
 
 const TILE_SCENE_EDITED = preload("res://mods-unpacked/Arrcival-DiamondUpgrades/content/map/tile/Tile.tscn")
+const CONSTARRC = preload("res://mods-unpacked/Arrcival-DiamondUpgrades/Consts.gd")
 
 func init(fromDeserialize: = false):
 	.init(fromDeserialize)
@@ -121,7 +122,9 @@ func destroyTile(tile):
 			drops += 1
 		
 		if tile.type == CONSTARRC.DIAMOND:
-			drops = 1
+			var diamondCap = CONSTARRC.MAXIMUM_DIAMONDS - CONSTARRC.MINIMUM_DIAMONDS + 1 # 1-3 gives 3
+			var randNum = randi() % diamondCap # picks between 0 1 2 for 3
+			drops = randNum + 1 # adds one to 0 1 2
 		
 		for _i in range(0, drops):
 			var drop = Data.DROP_SCENES.get(tile.type).instance()

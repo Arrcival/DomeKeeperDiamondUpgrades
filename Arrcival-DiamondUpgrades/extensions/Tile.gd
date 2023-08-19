@@ -1,5 +1,7 @@
 extends "res://content/map/tile/Tile.gd"
 
+const CONSTARRC = preload("res://mods-unpacked/Arrcival-DiamondUpgrades/Consts.gd")
+
 func _ready():
 	var baseHealth:float = Data.of("map.tileBaseHealth")
 	

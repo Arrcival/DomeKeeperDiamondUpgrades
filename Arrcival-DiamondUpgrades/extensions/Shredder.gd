@@ -1,5 +1,6 @@
 extends "res://content/dome/shredder/Shredder.gd"
 
+const CONSTARRC = preload("res://mods-unpacked/Arrcival-DiamondUpgrades/Consts.gd")
 
 func _on_Shredder_area_entered(area):
 	._on_Shredder_area_entered(area)

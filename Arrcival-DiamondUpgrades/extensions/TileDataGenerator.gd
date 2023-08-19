@@ -1,5 +1,7 @@
 extends "res://content/map/generation/TileDataGenerator.gd"
 
+const CONSTARRC = preload("res://mods-unpacked/Arrcival-DiamondUpgrades/Consts.gd")
+
 func generate():
 	.generate()
 	
@@ -31,7 +33,8 @@ func generate():
 			diamondGenerated = true
 			print("Generated diamond at " + str(biomeCell))
 		
-		tdResources.set_cell(0, 1, CONSTARRC.TILE_DIAMOND)
+		# debugging purposes
+		# tdResources.set_cell(0, 1, CONSTARRC.TILE_DIAMOND)
 		
 		
 	finishedSuccessful = true

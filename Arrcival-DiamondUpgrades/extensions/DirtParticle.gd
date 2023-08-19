@@ -1,6 +1,7 @@
 extends "res://content/map/tile/DirtParticle.gd"
 
 var tex_diamond = preload("res://mods-unpacked/Arrcival-DiamondUpgrades/content/map/tile/diamond_tile-break-dirt-particle.png")
+const CONSTARRC = preload("res://mods-unpacked/Arrcival-DiamondUpgrades/Consts.gd")
 
 func _ready():
 	._ready()

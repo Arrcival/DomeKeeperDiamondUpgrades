@@ -161,7 +161,7 @@ domeResourceCounters:
   cost: water=1
   predecessors: [dome1,dome2,dome3,dome4]
   predecessorsAny: true
-  hud: content/hud/inventory/Inventory.tscn
+  hud: mods-unpacked/Arrcival-DiamondUpgrades/content/hud/inventory/Inventory.tscn
 domesandrepair:
   limit: [cobaltgeneration, hostile]
   cost: sand=1

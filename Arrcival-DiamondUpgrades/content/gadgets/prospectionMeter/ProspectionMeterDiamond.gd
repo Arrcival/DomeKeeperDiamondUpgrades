@@ -5,6 +5,7 @@ var tilesToScan: = {}
 var cooldown: = 0.0
 
 var meterSpots: = [3, 10, 17, 24]
+const CONSTARRC = preload("res://mods-unpacked/Arrcival-DiamondUpgrades/Consts.gd")
 
 func init():
 	visible = false

@@ -1,5 +1,7 @@
 extends "res://content/techtree/Tech2.gd"
 
+const CONSTARRC = preload("res://mods-unpacked/Arrcival-DiamondUpgrades/Consts.gd")
+
 func build(id:String, tier: = - 1):
 	if !id.begins_with("diamond"):
 		return .build(id, tier)

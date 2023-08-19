@@ -1,5 +1,7 @@
 extends "res://content/gadgets/probe/ProbeImpulse.gd"
 
+const CONSTARRC = preload("res://mods-unpacked/Arrcival-DiamondUpgrades/Consts.gd")
+
 func _ready():
 	$Particles2D.process_material = $Particles2D.process_material.duplicate()
 	

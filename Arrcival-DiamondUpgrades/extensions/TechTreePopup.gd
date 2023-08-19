@@ -1,7 +1,7 @@
 extends "res://content/techtree/TechTreePopup.gd"
 
 func _ready():	
-	find_node("LabelDiamond").text = str(Data.getInventory(CONSTARRC.DIAMOND))
+	find_node("LabelDiamond").text = str(Data.getInventory("diamond"))
 	Data.listen(self, "inventory.diamond")
 
 func propertyChanged(property:String, oldValue, newValue):
