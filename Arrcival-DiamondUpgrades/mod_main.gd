@@ -11,8 +11,8 @@ func _init(modLoader = ModLoader):
 	var ext_dir = dir + EXTENSIONS_DIR
 	
 	# Add extensions
+	loadExtension(ext_dir, "Achievements.gd")
 	loadExtension(ext_dir, "ConverterPopup.gd")
-	loadExtension(ext_dir, "Data.gd")
 	loadExtension(ext_dir, "DirtParticle.gd")
 	loadExtension(ext_dir, "GameWorld.gd")
 	loadExtension(ext_dir, "Inventory.gd")
@@ -39,10 +39,6 @@ func _ready():
 	StageManager.connect("level_ready", self, "addProspectionMeterDiamondHud")
 	diamondInit()
 	ModLoaderLog.info("_ready done", MYMODNAME_LOG)
-	for k in Data.DROP_ICONS.keys():
-		ModLoaderLog.info("icons : " + k, MYMODNAME_LOG)
-	for k in Data.DROP_SCENES.keys():
-		ModLoaderLog.info("scenes : " + k, MYMODNAME_LOG)
 
 func loadExtension(ext_dir, fileName):
 	ModLoaderMod.install_script_extension(ext_dir + fileName)
@@ -54,7 +50,7 @@ func diamondInit():
 
 func addProspectionMeterDiamondHud(): 
 	var hud = Level.hud.addHudElement({"hud": "mods-unpacked/Arrcival-DiamondUpgrades/content/gadgets/prospectionMeter/ProspectionMeterDiamond.tscn"})
-	pass
 	
 func modInit():
-	pass
+	var pathToModYaml : String = ModLoaderMod.get_unpacked_dir() + MYMODNAME_MOD_DIR + "yaml/"
+	Data.parseUpgradesYaml(pathToModYaml + "upgrades2.yaml")

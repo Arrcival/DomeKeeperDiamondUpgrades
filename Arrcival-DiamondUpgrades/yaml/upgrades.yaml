@@ -2145,12 +2145,12 @@ liftcapacity1:
 liftcarrykeeper1:
   cost: iron=2, water=2
   propertyChanges: 
-    - lift.keeperupwardsspeed = 20.0
+    - lift.keeperupwardsspeed += 20.0
   predecessors: [lift]
 liftcarrykeeper2:
   cost: iron=6, water=4
   propertyChanges: 
-    - lift.keeperupwardsspeed = 40.0
+    - lift.keeperupwardsspeed += 20.0
   predecessors: [liftCarryKeeper1]
 diamondlift:
   cost: diamond=1
