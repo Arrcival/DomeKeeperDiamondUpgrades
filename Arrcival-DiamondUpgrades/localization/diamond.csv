@@ -18,16 +18,16 @@ properties.keeper2.speedmod,Speed Modifier {.percent}
 properties.keeper2.spheredamagemod,Sphere Strength Modifier {.percent}
 ,
 upgrades.diamondshield.title,Diamond shield
-upgrades.diamondshield.desc,"Diamond is really the hardest composant found down there"
+upgrades.diamondshield.desc,"Diamond is really the hardest component found down there"
 upgrades.diamondrepellent.title,Diamond repellent
-upgrades.diamondrepellent.desc,"An old story says that diamond scares big black monsters"
+upgrades.diamondrepellent.desc,"Infuse your repellent with diamond"
 upgrades.diamondorchard.title,Diamond repellent
 upgrades.diamondorchard.desc,"With the power of chemistry, you can now eat diamond in your fruits!"
 ,
 upgrades.diamondstunlaser.title,Diamond stun laser
-upgrades.diamondstunlaser.desc,"Cut automatically stuff with diamond!"
+upgrades.diamondstunlaser.desc,"Magic beaaaaaaaaaaam!"
 upgrades.diamondautocannon.title,Diamond cannon
-upgrades.diamondautocannon.desc,"Throwing diamonds at monsters have never been more efficient"
+upgrades.diamondautocannon.desc,"Throwing tiny diamonds at monsters have never been more efficient than now"
 upgrades.diamondblastmining.title,Diamond explosions
 upgrades.diamondblastmining.desc,"Diamond sharpnels works well!"
 upgrades.diamondprobedetectdiamond.title,Detect Diamonds

@@ -88,7 +88,7 @@ diamondkeeper2:
 diamondlaser:
   cost: diamond=1
   propertyChanges: 
-    - laser.dpsmod += 0.3
+    - laser.dpsmod += 0.2
     - laser.movespeed += 0.05
   predecessors: [laser]
   repeatable: true
@@ -126,7 +126,7 @@ sword:
 diamondsword:
   cost: diamond=1
   propertyChanges: 
-    - sword.dpsmod += 0.3
+    - sword.dpsmod += 0.2
     - sword.sliceAcceleration += 0.2
     - sword.brake += 1.0
   predecessors: [sword]
@@ -443,6 +443,10 @@ converter:
     - converter.ironcobalttime = 0/h
     - converter.irontoiron = 0.33
     - converter.ironirontime = 0.8
+    - converter.waterdiamond = 4
+    - converter.diamonddiamond = 0.5
+    - converter.waterdiamondtime = 0.8
+    - converter.diamonddiamondtime = 1.85
     - converter.speedMod = 1.0
 
 diamondconverter:

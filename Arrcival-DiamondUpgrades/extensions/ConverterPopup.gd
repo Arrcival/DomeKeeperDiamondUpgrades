@@ -33,5 +33,15 @@ func _ready():
 		var con = preload("res://content/gadgets/converter/Conversion.tscn").instance()
 		con.setConversion("iron", "iron", ratio, Data.of("converter.ironirontime") * spdModifier)
 		container.add_child(con)
+	ratio = Data.of("converter.waterdiamond")
+	if ratio > 0:
+		var con = preload("res://content/gadgets/converter/Conversion.tscn").instance()
+		con.setConversion("water", "diamond", ratio, Data.of("converter.waterdiamondtime") * spdModifier)
+		container.add_child(con)
+	ratio = Data.of("converter.diamonddiamond")
+	if ratio > 0:
+		var con = preload("res://content/gadgets/converter/Conversion.tscn").instance()
+		con.setConversion("diamond", "diamond", ratio, Data.of("converter.diamonddiamondtime") * spdModifier)
+		container.add_child(con)
 
 	Style.init(self)
