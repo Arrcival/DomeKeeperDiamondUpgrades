@@ -84,7 +84,15 @@ diamondkeeper2:
   predecessors: [keeper2]
   repeatable: true
 
-
+doubleLaser:
+  cost: iron=24
+  propertyChanges: 
+    - laser.movespeedmod -= 0.2
+    - laser.stun += 1.0
+    - laser.dpsmod -= 0.2
+    - laser.firedelay -= 0.1
+    - dome.mainweapons = 2
+  predecessors: [laserStrength2]
 diamondlaser:
   cost: diamond=1
   propertyChanges: 
