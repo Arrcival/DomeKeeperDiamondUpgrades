@@ -32,8 +32,8 @@ keeper1:
     - keeper1.slowdownRecovery = 4
     - keeper1.tileKnockback = 7
     - keeper1.tileHitCooldown = 0.35
-    - keeper1.speedMod = 1.0
-    - keeper1.drillMod = 1.0
+    - keeper1.speedMod = 1.0/h
+    - keeper1.drillMod = 1.0/h
 diamondkeeper1:
   cost: diamond=1
   propertyChanges:
@@ -73,8 +73,8 @@ keeper2:
     - keeper2.bundlestopcenter = false/h
     - keeper2.bundlecentralmarker = false/h
     - keeper2.bundleguide = false/h
-    - keeper2.speedMod = 1.0
-    - keeper2.sphereDamageMod = 1.0
+    - keeper2.speedMod = 1.0/h
+    - keeper2.sphereDamageMod = 1.0/h
 diamondkeeper2:
   cost: diamond=1
   propertyChanges:
@@ -91,7 +91,9 @@ diamondlaser:
     - laser.dpsmod += 0.2
     - laser.movespeed += 0.05
   predecessors: [laser]
-  repeatable: true
+  repeatable:
+    - times = 4
+    - cost.diamond += 0
 
 
 sword:
@@ -121,7 +123,7 @@ sword:
     - sword.reflectprojectiles = false/h
     - sword.reflectProjectilesExplosive = false/h
     - sword.reflectProjectilesDamageMod = 1.0/h
-    - sword.dpsmod = 1
+    - sword.dpsmod = 1.0/h
 
 diamondsword:
   cost: diamond=1
@@ -447,7 +449,7 @@ converter:
     - converter.diamonddiamond = 0.5
     - converter.waterdiamondtime = 0.8
     - converter.diamonddiamondtime = 1.85
-    - converter.speedMod = 1.0
+    - converter.speedMod = 1.0/h
 
 diamondconverter:
   cost: diamond=1
