@@ -7,17 +7,15 @@ A small mod to add a new ore and its upgrades on Dome Keeper
 You can use diamonds for almost every dome/keeper/gadgets.
 Those upgrades can be bought multiples times or an infinite times.
 
-This breaks the balance of the game, so you cannot do prestige runs with this mod.
+This breaks the balance of the game, so you cannot do prestige runs with this mod. Achievements should be desactivated while using this mod (please update me if you're able to get achievements while you have this mod on !)
 
 Everything in the game should treat diamonds as a normal ressource like : probe detecting diamond, prospection meter detection (new upgrade for diamond), lift orbs carrying diamonds...
 
 Compatibilities with other mods :
-- Need to be found/reported from playing
+ - Need to be found/reported from playing
 
 Incompatibilities with other mods :
-- Need to be found/reported from playing
+ - Phosphorescence Dome (it starts, but the inventory isn't displayed and you cannot shred diamonds)
+ - Moleman mod
 
-Bugs known :
-- The game crashes the first time when starting a new game, but it works after, I need to investigate why
-
-If you find any bug or have any feedback, please contact me through the #modding channel on the DK Discord server
+If you find any bug or have any feedback, please contact me through the #modding channel on the DK Discord server, I'll see it way faster than comments on my github or steam comments :D
