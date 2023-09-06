@@ -199,9 +199,11 @@ diamondrepellent:
 diamondorchard:
   cost: diamond=1
   propertyChanges: 
-    - orchard.buffduration += 0.15
+    - orchard.buffduration += 0.1
   predecessors: [orchard]
-  repeatable: true
+  repeatable:
+    - times = 23
+    - cost.diamond += 0
 
 stunlaserduration1:
   cost: iron=3, water=1
@@ -327,7 +329,7 @@ diamondteleporter:
     - teleporter.teleportResourcesCooldown -= 0.5
   predecessors: [teleporter]
   repeatable:
-    - times = 10
+    - times = 7
     - cost.diamond += 0
 
 

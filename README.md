@@ -12,10 +12,12 @@ This breaks the balance of the game, so you cannot do prestige runs with this mo
 Everything in the game should treat diamonds as a normal ressource like : probe detecting diamond, prospection meter detection (new upgrade for diamond), lift orbs carrying diamonds...
 
 Compatibilities with other mods :
- - Need to be found/reported from playing
+- Phosphorence Dome
+- Probably the speedrun mod (need to be verified)
+- Probably the gadget picker mod (need to be verified)
 
 Incompatibilities with other mods :
- - Phosphorescence Dome (it starts, but the inventory isn't displayed and you cannot shred diamonds)
- - Moleman mod
+- Moleman mod
+- Probably the hydra mod (need to be verified)
 
 If you find any bug or have any feedback, please contact me through the #modding channel on the DK Discord server, I'll see it way faster than comments on my github or steam comments :D

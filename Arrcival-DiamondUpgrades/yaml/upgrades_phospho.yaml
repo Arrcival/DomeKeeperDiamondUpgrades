@@ -1,0 +1,5 @@
+domeobel1skResourceCounters:
+  cost: water=1
+  predecessors: [domeobel1sk]
+  predecessorsAny: true
+  hud: mods-unpacked/Arrcival-DiamondUpgrades/content/hud/inventory/Inventory.tscn

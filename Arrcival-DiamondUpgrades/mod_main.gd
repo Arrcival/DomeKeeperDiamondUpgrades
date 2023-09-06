@@ -5,6 +5,8 @@ const MYMODNAME_LOG = "Arrcival-DiamondUpgrades"
 
 const EXTENSIONS_DIR = "extensions/"
 
+const PHOSPHO_MOD_ID = "Snek-Obel1sk"
+
 func _init(modLoader = ModLoader):
 	ModLoaderLog.info("init starting", MYMODNAME_LOG)
 	var dir = ModLoaderMod.get_unpacked_dir() + MYMODNAME_MOD_DIR
@@ -57,3 +59,10 @@ func addProspectionMeterDiamondHud():
 func modInit():
 	var pathToModYaml : String = ModLoaderMod.get_unpacked_dir() + MYMODNAME_MOD_DIR + "yaml/"
 	Data.parseUpgradesYaml(pathToModYaml + "upgrades2.yaml")
+	phosphoMod()
+
+func phosphoMod():
+	if ModLoaderMod.is_mod_loaded(PHOSPHO_MOD_ID) and ModLoaderMod.get_mod_data(PHOSPHO_MOD_ID).is_active:
+		var pathToModYaml : String = ModLoaderMod.get_unpacked_dir() + MYMODNAME_MOD_DIR + "yaml/"
+		Data.parseUpgradesYaml(pathToModYaml + "upgrades_phospho.yaml")
+		print("Added phospho upgrades")
