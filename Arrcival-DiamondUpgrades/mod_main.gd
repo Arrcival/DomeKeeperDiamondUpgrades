@@ -16,6 +16,7 @@ func _init(modLoader = ModLoader):
 	loadExtension(ext_dir, "Achievements.gd")
 	loadExtension(ext_dir, "ConverterPopup.gd")
 	loadExtension(ext_dir, "DirtParticle.gd")
+	loadExtension(ext_dir, "Dome.gd")
 	loadExtension(ext_dir, "FruitGrowth.gd")
 	loadExtension(ext_dir, "GameWorld.gd")
 	loadExtension(ext_dir, "Inventory.gd")
@@ -33,6 +34,7 @@ func _init(modLoader = ModLoader):
 	loadExtension(ext_dir, "TechTreePopup.gd")
 	loadExtension(ext_dir, "Tile.gd")
 	loadExtension(ext_dir, "TileDataGenerator.gd")
+	loadExtension(ext_dir, "TransportDrone.gd")
 	
 	ModLoaderMod.add_translation(dir + "localization/diamond.en.translation")
 	

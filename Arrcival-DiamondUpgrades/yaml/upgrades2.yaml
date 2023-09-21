@@ -250,7 +250,7 @@ autocannondamage1:
 diamondautocannon:
   cost: diamond=1
   propertyChanges:
-    - autocannon.damage += 5.0
+    - autocannon.damage += 2.0
   predecessors: [autocannon]
   repeatable: true
 
