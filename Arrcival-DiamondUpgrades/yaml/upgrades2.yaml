@@ -20,8 +20,22 @@ diamonddome2:
   predecessors: [dome2]
   repeatable: true
 
+diamonddome3:
+  cost: diamond=1
+  propertyChanges:
+    - dome.maxhealth += 400
+  predecessors: [dome3]
+  repeatable: true
+
+diamonddome4:
+  cost: diamond=1
+  propertyChanges:
+    - dome.maxhealth += 300
+  predecessors: [dome4]
+  repeatable: true
 
 keeper1:
+  type: keeper
   propertyChanges:
     - keeper1.drillStrength = 2
     - keeper1.maxSpeed = 56
@@ -44,6 +58,7 @@ diamondkeeper1:
 
 
 keeper2:
+  type: keeper
   propertyChanges:
     - keeper2.maxSpeed = 65
     - keeper2.minspeed = 1.0/h
@@ -105,6 +120,7 @@ diamondlaser:
 
 
 sword:
+  type: weapon
   limit: [hostile, primaryweapon]
   propertyChanges: 
     - sword.sliceDamage = 22
@@ -190,7 +206,7 @@ repellentdelay3:
 diamondrepellent:
   cost: diamond=1
   propertyChanges: 
-    - repellent.wavedelay += 0.075
+    - repellent.wavedelay += 0.05
   predecessors: [repellent]
   repeatable: true
 
@@ -269,6 +285,7 @@ diamondblastMining:
 
 
 probe:
+  type: gadget
   excludelimit: [carnage]
   scene: content/gadgets/probe/ProbeStation.tscn
   slot: cellar
@@ -365,6 +382,7 @@ diamondcondenser:
     - cost.diamond += 0
 
 prospectionmeter:
+  type: gadget
   excludelimit: [carnage]
   slot: none
   distribution: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
@@ -442,6 +460,7 @@ diamonddrillbot:
 
 
 converter:
+  type: gadget
   excludelimit: [carnage]
   scene: content/gadgets/converter/Converter.tscn
   slot: cellar
