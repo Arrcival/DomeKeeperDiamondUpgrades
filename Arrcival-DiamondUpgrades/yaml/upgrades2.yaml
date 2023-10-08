@@ -3,10 +3,13 @@ domeResourceCounters:
   cost: water=1
   predecessors: [dome1,dome2,dome3,dome4]
   predecessorsAny: true
+  propertyChanges: 
+    - dome.autorepair = true
   hud: mods-unpacked/Arrcival-DiamondUpgrades/content/hud/inventory/Inventory.tscn
 
 
 diamonddome1:
+  limit: [hostile]
   cost: diamond=1
   propertyChanges:
     - dome.maxhealth += 300
@@ -14,6 +17,7 @@ diamonddome1:
   repeatable: true
 
 diamonddome2:
+  limit: [hostile]
   cost: diamond=1
   propertyChanges:
     - dome.maxhealth += 400
@@ -21,6 +25,7 @@ diamonddome2:
   repeatable: true
 
 diamonddome3:
+  limit: [hostile]
   cost: diamond=1
   propertyChanges:
     - dome.maxhealth += 400
@@ -28,6 +33,7 @@ diamonddome3:
   repeatable: true
 
 diamonddome4:
+  limit: [hostile]
   cost: diamond=1
   propertyChanges:
     - dome.maxhealth += 300
@@ -194,13 +200,13 @@ repellentdelay1:
 repellentdelay2:
   cost: iron=6, water=2
   propertyChanges: 
-    - repellent.wavedelay = 0.08
+    - repellent.wavedelay += 0.08
     - wavemeter.delayStage += 1
   predecessors: [repellentDelay1]
 repellentdelay3:
   cost: iron=10, water=3
   propertyChanges: 
-    - repellent.wavedelay = 0.1
+    - repellent.wavedelay += 0.1
     - wavemeter.delayStage += 1
   predecessors: [repellentDelay2]
 diamondrepellent:
