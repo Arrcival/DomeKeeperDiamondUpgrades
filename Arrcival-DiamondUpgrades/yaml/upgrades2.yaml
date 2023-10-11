@@ -187,7 +187,7 @@ artilleryDirectHit2:
 artilleryDirectHit3:
   cost: iron=18
   propertyChanges: 
-    - artillery.grenadedamage += 50
+    - artillery.grenadedamage += 40
     - artillery.grenadereloadspeed += 0.25
     - artillery.cannonbarrelsize = 3/h
     - artillery.directhitdamage = 4.0
@@ -196,7 +196,7 @@ artilleryDirectHit3:
 artilleryDirectHit4:
   cost: iron=28
   propertyChanges: 
-    - artillery.grenadedamage += 700
+    - artillery.grenadedamage += 60
     - artillery.grenadereloadspeed += 0.25
     - artillery.cannonbarrelsize = 4/h
     - artillery.directhitdamage = 6.0
@@ -218,12 +218,11 @@ artillerySplash2:
   cost: iron=12
   propertyChanges: 
     - artillery.grenades += 1
-    - artillery.grenadedamage += 10.0
+    - artillery.directhitdamage = 1.4
     - artillery.grenadesexplosionradius = 100.0
     - artillery.grenadereloadspeed += 0.5
     - artillery.cannonbarrelsize = 2/h
     - artillery.soundlevel = 2/h
-  predecessors: [artillerySplash1]
 artillerySplash3:
   cost: iron=18
   propertyChanges: 
@@ -237,6 +236,7 @@ artillerySplash4:
   cost: iron=28
   propertyChanges: 
     - artillery.grenades += 2
+    - artillery.directhitdamage = 1.2
     - artillery.timeBetweenGrenades = 0.5
     - artillery.grenadedamage += 20.0
     - artillery.grenadesexplosionradius = 140.0
@@ -313,26 +313,26 @@ teslapower1:
 teslaPower2:
   cost: iron=10
   propertyChanges:
-    - tesla.damage += 10
+    - tesla.damage += 15
     - tesla.powerVfx = 2
   predecessors: [teslaPower1]
 teslaPower3:
   cost: iron=14
   propertyChanges:
-    - tesla.damage += 10
+    - tesla.damage += 15
     - tesla.powerVfx = 3
   predecessors: [teslaPower2]
 teslaPower4:
   cost: iron=18
   propertyChanges:
-    - tesla.damage += 10
+    - tesla.damage += 20
     - tesla.powerVfx = 4
   predecessors: [teslaPower3]
 teslatiming1:
   cost: iron=6
   propertyChanges:
     - tesla.perfecttimingwindow += 0.2
-    - tesla.perfecttimingmultiplier = 1.33
+    - tesla.perfecttimingmultiplier = 1.3
     - tesla.perfecttimingstage = 1
   predecessors: [teslaPower1]
 diamondtesla:
@@ -340,7 +340,7 @@ diamondtesla:
   propertyChanges: 
     - tesla.perfecttimingwindow += 0.01
     - tesla.reticlemaxspeed += 5.0
-    - tesla.damage += 2
+    - tesla.damage += 3
   predecessors: [tesla]
   repeatable:
     - times = 20
