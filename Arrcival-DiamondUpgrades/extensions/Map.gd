@@ -7,7 +7,7 @@ func init(fromDeserialize: = false):
 	.init(fromDeserialize)
 	tilesByType = {CONST.WATER:[], CONST.SAND:[], CONST.IRON:[], CONSTARRC.DIAMOND:[]}
 	TYPE_MAP.merge({CONSTARRC.TILE_DIAMOND:CONSTARRC.DIAMOND})
-	
+
 
 func revealTile(coord:Vector2):
 	var typeId:int = tileData.get_resource(coord.x, coord.y)
@@ -22,27 +22,28 @@ func revealTile(coord:Vector2):
 	else :
 		var tile = TILE_SCENE_EDITED.instance()
 		var biomeId:int = tileData.get_biome(coord.x, coord.y)
-		if biomeId == 11:
-			typeId = Data.TILE_BORDER
-		else :
-			tile.layer = biomeId
-			tile.biome = biomes[tile.layer]
+		tile.layer = biomeId
+		tile.biome = biomes[tile.layer]
 		tile.position = coord * GameWorld.TILE_SIZE
 		tile.coord = coord
 		if coord.y == - 1 and coord.x != 0:
 			tile.visible = false
 		tile.hardness = tileData.get_hardness(coord.x, coord.y)
 		
-		tile.type = TYPE_MAP.get(typeId)
+		tile.type = TYPE_MAP.get(typeId, "dirt")
 		match tile.type:
 			CONST.IRON:
 				tile.richness = 2
+				revealTileVisual(coord)
 			CONST.SAND:
 				tile.richness = 2.0
+				revealTileVisual(coord)
 			CONST.WATER:
 				tile.richness = 2.5
+				revealTileVisual(coord)
 			CONSTARRC.DIAMOND:
 				tile.richness = 2
+				revealTileVisual(coord)
 		tiles[coord] = tile
 		
 		if tilesByType.has(tile.type):
@@ -67,6 +68,7 @@ func revealTile(coord:Vector2):
 				invalids.append(listener)
 		for invalid in invalids:
 			tileRevealedListeners.erase(invalid)
+
 
 func destroyTile(tile):
 	var sound

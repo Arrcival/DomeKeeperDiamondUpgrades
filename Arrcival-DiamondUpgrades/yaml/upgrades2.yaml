@@ -12,7 +12,7 @@ diamonddome1:
   limit: [hostile]
   cost: diamond=1
   propertyChanges:
-    - dome.maxhealth += 300
+    - dome.maxhealth += 200
   predecessors: [dome1]
   repeatable: true
 
@@ -20,7 +20,7 @@ diamonddome2:
   limit: [hostile]
   cost: diamond=1
   propertyChanges:
-    - dome.maxhealth += 400
+    - dome.maxhealth += 300
   predecessors: [dome2]
   repeatable: true
 
@@ -28,7 +28,7 @@ diamonddome3:
   limit: [hostile]
   cost: diamond=1
   propertyChanges:
-    - dome.maxhealth += 400
+    - dome.maxhealth += 300
   predecessors: [dome3]
   repeatable: true
 
@@ -36,7 +36,7 @@ diamonddome4:
   limit: [hostile]
   cost: diamond=1
   propertyChanges:
-    - dome.maxhealth += 300
+    - dome.maxhealth += 200
   predecessors: [dome4]
   repeatable: true
 
@@ -163,6 +163,189 @@ diamondsword:
     - sword.brake += 1.0
   predecessors: [sword]
   repeatable: true
+
+artillerydirecthit1:
+  cost: iron=6
+  propertyChanges:
+    - artillery.direct = true/h
+    - artillery.grenadedamage += 20
+    - artillery.grenadereloadspeed += 0.25
+    - artillery.cannonbarrelsize = 1/h
+    - artillery.directhitdamage = 2.0
+    - artillery.soundlevel = 1/h
+  predecessors: [artillery]
+  locks: [artillerySplash1]
+artilleryDirectHit2:
+  cost: iron=12
+  propertyChanges: 
+    - artillery.grenadedamage += 30
+    - artillery.grenadereloadspeed += 0.25
+    - artillery.cannonbarrelsize = 2/h
+    - artillery.directhitdamage = 3.0
+    - artillery.soundlevel = 2/h
+  predecessors: [artilleryDirectHit1]
+artilleryDirectHit3:
+  cost: iron=18
+  propertyChanges: 
+    - artillery.grenadedamage += 50
+    - artillery.grenadereloadspeed += 0.25
+    - artillery.cannonbarrelsize = 3/h
+    - artillery.directhitdamage = 4.0
+    - artillery.soundlevel = 3/h
+  predecessors: [artilleryDirectHit2]
+artilleryDirectHit4:
+  cost: iron=28
+  propertyChanges: 
+    - artillery.grenadedamage += 700
+    - artillery.grenadereloadspeed += 0.25
+    - artillery.cannonbarrelsize = 4/h
+    - artillery.directhitdamage = 6.0
+    - artillery.soundlevel = 4/h
+  predecessors: [artilleryDirectHit3]
+  locks: [artillerySplash4,artilleryGrenadeFastReload]
+artillerysplash1:
+  cost: iron=6
+  propertyChanges:
+    - artillery.splash = true/h
+    - artillery.grenadedamage += 20.0
+    - artillery.grenadesexplosionradius = 80.0
+    - artillery.grenadereloadspeed += 0.25
+    - artillery.cannonbarrelsize = 1/h
+    - artillery.soundlevel = 1/h
+  predecessors: [artillery]
+  locks: [artilleryDirectHit1]
+artillerySplash2:
+  cost: iron=12
+  propertyChanges: 
+    - artillery.grenades += 1
+    - artillery.grenadedamage += 10.0
+    - artillery.grenadesexplosionradius = 100.0
+    - artillery.grenadereloadspeed += 0.5
+    - artillery.cannonbarrelsize = 2/h
+    - artillery.soundlevel = 2/h
+  predecessors: [artillerySplash1]
+artillerySplash3:
+  cost: iron=18
+  propertyChanges: 
+    - artillery.grenadesexplosionradius = 120.0
+    - artillery.grenadedamage += 30.0
+    - artillery.grenadereloadspeed += 0.25
+    - artillery.cannonbarrelsize = 3/h
+    - artillery.soundlevel = 3/h
+  predecessors: [artillerySplash2]
+artillerySplash4:
+  cost: iron=28
+  propertyChanges: 
+    - artillery.grenades += 2
+    - artillery.timeBetweenGrenades = 0.5
+    - artillery.grenadedamage += 20.0
+    - artillery.grenadesexplosionradius = 140.0
+    - artillery.grenadereloadspeed += 0.5
+    - artillery.cannonbarrelsize = 5/h
+    - artillery.soundlevel = 3/h
+  predecessors: [artillerySplash3]
+  locks: [artilleryDirectHit4,artilleryGrenadeFastReload]
+artillerymachinegunhoming1:
+  cost: iron=12
+  propertyChanges: 
+    - artillery.machinegundamage += 7.5
+    - artillery.machinegunreloadspeed = 0.3
+    - artillery.machinegunhoming = true
+    - artillery.machinegunbulletspeed = 500.0
+    - artillery.machinegunbarrelsize = 5/h
+    - artillery.machinegunsound = 1/h
+  predecessors: [artilleryMachineGun2]
+  locks: [artilleryMachineGun3]
+artilleryMachineGunHoming2:
+  cost: iron=24
+  propertyChanges: 
+    - artillery.machinegundamage += 10.0
+    - artillery.machinegunbulletspeed = 500.0
+    - artillery.machinegunbarrelsize = 6/h
+    - artillery.machinegunsound = 2/h
+  predecessors: [artilleryMachineGunHoming1]
+diamondartillery:
+  cost: diamond=1
+  propertyChanges: 
+    - artillery.grenadedamage += 3.0
+    - artillery.grenadereloadspeed -= 0.1
+    - artillery.machinegundamage += 1
+    - artillery.rotationspeedwhilemachinegun += 0.02
+  predecessors: [artillery]
+  repeatable:
+    - times = 10
+    - cost.diamond += 0
+
+teslaspeed1:
+  cost: iron=4
+  propertyChanges:
+    - tesla.reticlemaxspeed += 50.0
+    - tesla.ringIdleSpeed = 0.4
+    - tesla.outerMeshId = 1
+  predecessors: [tesla]
+teslaSpeed2:
+  cost: iron=6
+  propertyChanges:
+    - tesla.reticlemaxspeed += 60.0
+    - tesla.ringIdleSpeed = 0.7
+    - tesla.outerMeshId = 2
+  predecessors: [teslaSpeed1]
+teslaSpeed3:
+  cost: iron=10
+  propertyChanges:
+    - tesla.reticlemaxspeed += 70.0
+    - tesla.ringIdleSpeed = 1.3
+    - tesla.outerMeshId = 3
+  predecessors: [teslaSpeed2]
+teslaSpeed4:
+  cost: iron=12
+  propertyChanges:
+    - tesla.reticlemaxspeed += 80.0
+    - tesla.ringIdleSpeed = 1.8
+    - tesla.outerMeshId = 4
+  predecessors: [teslaSpeed3]
+teslapower1:
+  cost: iron=6
+  propertyChanges:
+    - tesla.damage += 10
+    - tesla.powerVfx = 1
+  predecessors: [tesla]
+teslaPower2:
+  cost: iron=10
+  propertyChanges:
+    - tesla.damage += 10
+    - tesla.powerVfx = 2
+  predecessors: [teslaPower1]
+teslaPower3:
+  cost: iron=14
+  propertyChanges:
+    - tesla.damage += 10
+    - tesla.powerVfx = 3
+  predecessors: [teslaPower2]
+teslaPower4:
+  cost: iron=18
+  propertyChanges:
+    - tesla.damage += 10
+    - tesla.powerVfx = 4
+  predecessors: [teslaPower3]
+teslatiming1:
+  cost: iron=6
+  propertyChanges:
+    - tesla.perfecttimingwindow += 0.2
+    - tesla.perfecttimingmultiplier = 1.33
+    - tesla.perfecttimingstage = 1
+  predecessors: [teslaPower1]
+diamondtesla:
+  cost: diamond=1
+  propertyChanges: 
+    - tesla.perfecttimingwindow += 0.01
+    - tesla.reticlemaxspeed += 5.0
+    - tesla.damage += 2
+  predecessors: [tesla]
+  repeatable:
+    - times = 20
+    - cost.diamond += 0
+
 
 
 shieldstrength1:

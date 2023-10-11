@@ -2,7 +2,7 @@ extends "res://stages/loadout/RelichuntPopup.gd"
 
 const CONSTARRC = preload("res://mods-unpacked/Arrcival-DiamondUpgrades/Consts.gd")
 
-func _ready():
+func _ready():	
 	var nodeContainer = HBoxContainer.new()
 	
 	var nodeText = Label.new()
@@ -23,8 +23,8 @@ func init():
 	for i in range(1,11):
 		optionButton.add_item(str(i))
 
-func onClose():
-	.onClose()
+func emit_signal(stringValue:String):
+	.emit_signal(stringValue)
 	var container = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer5/ModifiersBox/MarginContainer/Box.get_child(3)
 	var optionButton = container.get_child(1)
 	
