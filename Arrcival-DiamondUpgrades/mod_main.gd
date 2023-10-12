@@ -32,6 +32,7 @@ func _init(modLoader = ModLoader):
 	loadExtension(ext_dir, "Sword.gd")
 	loadExtension(ext_dir, "Tech2.gd")
 	loadExtension(ext_dir, "TechTreePopup.gd")
+	loadExtension(ext_dir, "Teleporter.gd")
 	loadExtension(ext_dir, "Tile.gd")
 	loadExtension(ext_dir, "TileDataGenerator.gd")
 	loadExtension(ext_dir, "TransportDrone.gd")
