@@ -5,6 +5,9 @@ const CONSTARRC = preload("res://mods-unpacked/Arrcival-DiamondUpgrades/Consts.g
 func generate():
 	.generate()
 	
+	if finishedSuccessful == false:
+		return
+		
 	finishedSuccessful = false
 	var tdResources = $TileData / Resources
 	var tdBiomes = $TileData / Biomes
@@ -26,14 +29,16 @@ func generate():
 			var ressourceCell = tdResources.get_cell(cell.x, cell.y)
 			if ressourceCell >= Data.TILE_DIRT_START && ressourceCell <= Data.TILE_DIRT_END:
 				tdResources.set_cell(cell.x, cell.y, CONSTARRC.TILE_DIAMOND)
-				print("Generated diamond at " + str(cell))
+				printGeneratedDiamond(cell)
 				diamondsGenerated += 1
 			if diamondsGenerated >= diamondPerLayers:
 				break
 
-
 		# debugging purposes
 		# tdResources.set_cell(0, 1, CONSTARRC.TILE_DIAMOND)
-		
-		
+				
 	finishedSuccessful = true
+
+func printGeneratedDiamond(cell):
+	if GameWorld.devMode:
+		print("Generated diamond at " + str(cell))

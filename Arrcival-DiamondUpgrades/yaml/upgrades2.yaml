@@ -96,12 +96,27 @@ keeper2:
     - keeper2.bundleguide = false/h
     - keeper2.speedMod = 1.0/h
     - keeper2.sphereDamageMod = 1.0/h
+keeper2rotationalmining1:
+  limit: [mining]
+  cost: iron=6
+  propertyChanges:
+    - keeper2.directminingdamage += 0.25
+    - keeper2.directmininghardness = 0.4
+    - keeper2.directminingstage = 2
+  predecessors: [keeper2]
+keeper2RotationalMining2:
+  cost: iron=16
+  propertyChanges:
+    - keeper2.directminingdamage += 0.55
+    - keeper2.directminingstage = 3
+    - keeper2.directmininghardness = 0.1
+  predecessors: [keeper2rotationalmining1]
 diamondkeeper2:
   cost: diamond=1
   propertyChanges:
     - keeper2.speedMod += 0.1
     - keeper2.sphereDamageMod += 0.25
-    - keeper2.directminingdamage += 0.5
+    - keeper2.directminingdamage += 0.1
   predecessors: [keeper2]
   repeatable: true
 
@@ -268,7 +283,7 @@ diamondartillery:
   cost: diamond=1
   propertyChanges: 
     - artillery.grenadedamage += 3.0
-    - artillery.grenadereloadspeed -= 0.1
+    - artillery.grenadereloadspeed -= 0.05
     - artillery.machinegundamage += 1
     - artillery.rotationspeedwhilemachinegun += 0.02
   predecessors: [artillery]
@@ -460,7 +475,29 @@ diamondautocannon:
   repeatable: true
 
 
-
+blastMiningBlast1:
+  cost: iron=4, water=2
+  propertyChanges: 
+    - blastMining.radius += 0.5
+    - blastMining.bombsize = 2
+    - blastMining.growthTime += 0.2
+  predecessors: [blastMining]
+blastMiningBlast2:
+  cost: iron=6, water=3
+  propertyChanges: 
+    - blastMining.radius += 0.95
+    - blastMining.bombsize = 3
+    - blastMining.growthTime += 0.2
+  locks: [blastMiningTriple]
+  predecessors: [blastMiningBlast1]
+blastMiningTriple:
+  cost: iron=6, water=3
+  propertyChanges: 
+    - blastMining.radius -= 0.7
+    - blastMining.bombsize = 0
+    - blastMining.bombs = 3
+  locks: [blastMiningBlast2]
+  predecessors: [blastMiningBlast1]
 diamondblastMining:
   cost: diamond=1
   propertyChanges:
