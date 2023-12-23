@@ -5,8 +5,6 @@ func drill_check()->void :
 
 	DrillHitTestRay.force_raycast_update()
 	var tile = DrillHitTestRay.get_collider()
-	if tile:
-		var i = 1
 	if not (tile and tile.has_meta("destructable") and tile.get_meta("destructable")):
 		return 
 	var dir = global_position - tile.global_position
@@ -16,25 +14,13 @@ func drill_check()->void :
 
 	if Options.shakeDrill:
 		InputSystem.getCamera().shake(20, 0.2, 8)
-
 	
-	var soundPlayer:AudioStreamPlayer = get_node("TileHitHardness" + str(tile.hardness))
-	$TileHitPitch.pitch_scale = 0.8 + 0.4 * (1.0 - tile.health / tile.max_health)
-	$TileHitPitch.play()
-	soundPlayer.play()
-
-	
-	if has_node("TileHit" + tile.type.capitalize()):
-		soundPlayer = get_node("TileHit" + tile.type.capitalize())
-		soundPlayer.play()
-
 	var knockback = Data.of("keeper1.acceleration") * Data.of("keeper1.tileKnockback")
 	hitCooldown = Data.of("keeper1.tileHitCooldown")
 	moveSlowdown = 0.25 + currentSpeed() * 0.01
 	spriteLockDuration = hitCooldown
 	var drillbuff = 1.0 - float(Data.of("keeper.drillBuff"))
 	if drillbuff < 1.0:
-		$TileHitBuffed.play()
 		hitCooldown = max(hitCooldown * drillbuff, 0.017)
 		knockback *= drillbuff
 		spriteLockDuration *= drillbuff
@@ -44,6 +30,8 @@ func drill_check()->void :
 	else :
 		move.y = sign(dir.y) * knockback
 		move.x *= 0.1
+	
+	$TileHitSounds.hit(tile, drillbuff < 1.0, true)
 
 	DrillSprite.show()
 	DrillSprite.frame = 0

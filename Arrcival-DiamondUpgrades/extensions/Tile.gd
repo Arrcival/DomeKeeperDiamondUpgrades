@@ -24,11 +24,6 @@ func _ready():
 				res_sprite.flip_h = randf() > 0.5
 				initResourceSprite(Vector2(2, 3))
 				baseHealth += Data.of("map.sandAdditionalHealth")
-			CONSTARRC.DIAMOND:
-				set_meta("destructable", true)
-				res_sprite.flip_h = randf() > 0.5
-				initResourceSprite(Vector2(4, 4))
-				baseHealth += Data.of("map.sandAdditionalHealth") # to edit later
 			CONST.WATER:
 				set_meta("destructable", true)
 				res_sprite.flip_h = randf() > 0.5
@@ -39,7 +34,17 @@ func _ready():
 				initResourceSprite(Vector2(4, 1))
 				baseHealth += Data.of("map.gadgetAdditionalHealth")
 				forceMultiplier = 1.0
+			CONST.POWERCORE:
+				set_meta("destructable", true)
+				initResourceSprite(Vector2(4, 1))
+				baseHealth += Data.of("map.gadgetAdditionalHealth")
+				forceMultiplier = 1.0
 			CONST.RELIC:
+				set_meta("destructable", true)
+				initResourceSprite(Vector2(4, 2))
+				baseHealth += Data.of("map.relicAdditionalHealth")
+				forceMultiplier = 1.0
+			CONST.RELICSWITCH:
 				set_meta("destructable", true)
 				initResourceSprite(Vector2(4, 2))
 				baseHealth += Data.of("map.relicAdditionalHealth")
@@ -48,6 +53,11 @@ func _ready():
 				set_meta("destructable", true)
 				initResourceSprite(Vector2(5, 0))
 				forceMultiplier = 1.0
+			CONSTARRC.DIAMOND:
+				set_meta("destructable", true)
+				res_sprite.flip_h = randf() > 0.5
+				initResourceSprite(Vector2(4, 4))
+				baseHealth += Data.of("map.sandAdditionalHealth") # to edit later
 	
 	var healthMultiplier:float = Data.of("map.tileHealthBaseMultiplier")
 	if forceMultiplier != 0.0:
@@ -73,4 +83,3 @@ func _ready():
 	health = max_health
 	
 	Style.init(res_sprite)
-
