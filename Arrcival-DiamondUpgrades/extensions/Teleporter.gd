@@ -2,12 +2,9 @@ extends "res://content/gadgets/teleporter/Teleporter.gd"
 
 const CONSTARRC = preload("res://mods-unpacked/Arrcival-DiamondUpgrades/Consts.gd")
 
-func _on_ResourceSucker_body_entered(body):
-	._on_ResourceSucker_body_entered(body)
-	if body.type == CONSTARRC.DIAMOND:
-		resourcesInSucker.append(body)
-
-func _on_ResourceSucker_body_exited(body):
-	._on_ResourceSucker_body_exited(body)
-	if body.type == CONSTARRC.DIAMOND:
-		resourcesInSucker.erase(body)
+func canTeleportDrop(body):
+	return body.type == CONST.IRON \
+	or body.type == CONST.WATER \
+	or body.type == CONST.SAND \
+	or body.type == CONSTARRC.DIAMOND \
+	or body.type == "pack"

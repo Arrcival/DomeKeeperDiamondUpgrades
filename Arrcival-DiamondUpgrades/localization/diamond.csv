@@ -1,8 +1,8 @@
 keys,en
 upgrades.diamondlaser.title,Diamond laser
-upgrades.diamondlaser.desc,"So because the laser generator has diamond in it, it's stronger? Well, I'm in..."
+upgrades.diamondlaser.desc,"Reinforce the laser structure with diamonds"
 upgrades.diamondsword.title,Diamond sword
-upgrades.diamondsword.desc,"Yup, diamond can be very sharp."
+upgrades.diamondsword.desc,"Yup, diamond can be very very sharp."
 upgrades.diamondartillery.title,Diamond artillery
 upgrades.diamondartillery.desc,"Pew pew diamond bullets!"
 upgrades.diamondtesla.title,Diamond tesla
@@ -16,28 +16,30 @@ upgrades.diamonddome3.desc,"Permanently increase the structural health of your d
 upgrades.diamonddome4.title,Diamond health
 upgrades.diamonddome4.desc,"Permanently increase the structural health of your dome. (Diamond coating huh?)"
 upgrades.diamondkeeper1.title,Diamond engineer
-upgrades.diamondkeeper1.desc,"The famous diamond drill and diamond jetpack"
+upgrades.diamondkeeper1.desc,"Diamond drill and diamond jetpack?"
 upgrades.diamondkeeper2.title,Diamond assessor
-upgrades.diamondkeeper2.desc,"I never knew throwing diamonds at rocks would be working so well..."
-properties.sword.dpsmod,Damage Modifier {.percent}
-properties.keeper1.speedmod,Speed Modifier {.percent}
-properties.keeper1.drillmod,Drill Strength Modifier {.percent}
-properties.keeper2.speedmod,Speed Modifier {.percent}
-properties.keeper2.spheredamagemod,Sphere Strength Modifier {.percent}
+upgrades.diamondkeeper2.desc,"Replaces spheres with actual diamonds"
+properties.sword.dpsmod,Damage modifier {.percent}
+properties.keeper1.speedmod,Speed modifier {.percent}
+properties.keeper1.drillmod,Drill strength modifier {.percent}
+properties.keeper2.speedmod,Speed modifier {.percent}
+properties.keeper2.spheredamagemod,Sphere strength modifier {.percent}
 ,
 upgrades.diamondshield.title,Diamond shield
-upgrades.diamondshield.desc,"Diamond is really the hardest component found down there"
+upgrades.diamondshield.desc,"I mean, it kinda makes sense that protecting your dome with one of the hardest component found MAY help resisting some hits..."
 upgrades.diamondrepellent.title,Diamond repellent
-upgrades.diamondrepellent.desc,"Infuse your repellent with diamond"
+upgrades.diamondrepellent.desc,"Infuse your repellent with diamond!"
 upgrades.diamondorchard.title,Diamond repellent
 upgrades.diamondorchard.desc,"With the power of chemistry, you can now eat diamond in your fruits!"
+upgrades.diamonddroneyard.title,Diamond droneyard
+upgrades.diamonddroneyard.desc,"Who would have thought that diamonds make those drones go faster?"
 ,
 upgrades.diamondstunlaser.title,Diamond stun laser
-upgrades.diamondstunlaser.desc,"Magic beaaaaaaaaaaam!"
+upgrades.diamondstunlaser.desc,"Magic beaaaaaaaaaaaaaaaaaaaaaaaam"
 upgrades.diamondautocannon.title,Diamond cannon
-upgrades.diamondautocannon.desc,"Throwing tiny diamonds at monsters have never been more efficient than now"
+upgrades.diamondautocannon.desc,"Throwing tiny diamonds (but very sharp!) at monsters have never been more efficient than now"
 upgrades.diamondblastmining.title,Diamond explosions
-upgrades.diamondblastmining.desc,"Diamond sharpnels works well!"
+upgrades.diamondblastmining.desc,"Adds diamond sharpnels to explosions."
 upgrades.diamondprobedetectdiamond.title,Detect Diamonds
 upgrades.diamondprobedetectdiamond.desc,"The probe now also detects diamonds."
 upgrades.diamondprobe.title,Diamond probes
@@ -45,15 +47,32 @@ upgrades.diamondprobe.desc,"I call it *unlimited upgrades*"
 upgrades.diamondteleporter.title,Diamond teleporter
 upgrades.diamondteleporter.desc,"Gotta go fast"
 upgrades.diamondlift.title,Diamond lift
-upgrades.diamondlift.desc,"Imagine carrying ressources, can't be you right?"
+upgrades.diamondlift.desc,"Imagine carrying ressources, can't be me"
 upgrades.diamondcondenser.title,Diamond condenser
 upgrades.diamondcondenser.desc,"Diamond helps condensing water in the air faster (I have no clue how it works)"
-upgrades.diamondprospectionmeterdiamond.title,Diamond Meter
-upgrades.diamondprospectionmeterdiamond.desc,Displays the distance to the nearest diamond deposits.
-upgrades.diamondprospectionmeter.title,Diamond Meter Upgrade
-upgrades.diamondprospectionmeter.desc,Refresh the meters quicker
-upgrades.diamonddrillbot.title,Diamond drilling
-upgrades.diamonddrillbot.desc,Adds a layer of diamond to his cute little nose
+upgrades.diamondprospectionmeterdiamond.title,Diamond meter
+upgrades.diamondprospectionmeterdiamond.desc,"Displays the distance to the nearest diamond deposits."
+upgrades.diamondprospectionmeter.title,Diamond meter upgrade
+upgrades.diamondprospectionmeter.desc,"Refresh the meters quicker"
+upgrades.diamonddrillbot.title,Diamond drillberts
+upgrades.diamonddrillbot.desc,Adds a diamond layer to his cute little nose
 upgrades.diamondconverter.title,Diamond converter
-upgrades.diamondconverter.desc,"This really makes no sense"
-properties.converter.speedmod,Converter Duration Modifier {.percent}
+upgrades.diamondconverter.desc,"This really makes no sense..."
+properties.converter.speedmod,Converter duration modifier {.percent}
+upgrades.diamondchainsaw.title,Diamond chainsaw
+upgrades.diamondchainsaw.desc,"Once again, diamond is really good at making things sharp."
+upgrades.diamonddrillsides.title,Diamond drill sides
+upgrades.diamonddrillsides.desc,"Mining goes brrr"
+upgrades.diamondmushroomfarm.title,Diamond mushroom farm
+upgrades.diamondmushroomfarm.desc,"It's not like you read all of those descriptions right?"
+upgrades.diamondrocketlauncher.title,Diamond rocket launcher
+upgrades.diamondrocketlauncher.desc,"Rocket goes BOOM"
+upgrades.diamondshockwave.title,Diamond shockwave
+upgrades.diamondshockwave.desc,"So let's make one of the strongest gadgets in the game even stronger..."
+upgrades.diamondsuitblaster.title,Diamond suit blaster
+upgrades.diamondsuitblaster.desc,"Become a human bomb."
+upgrades.diamonddomearmor.title,Diamond dome armor
+upgrades.diamonddomearmor.desc,"How can a mod based on diamonds justificate an upgrade using diamonds where an another upgrade shows a diamond......."
+upgrades.diamondstationextension.title,Diamond underground station
+upgrades.diamondstationextension.desc,"How to detect even more diamonds?"
+,

@@ -1,9 +1,10 @@
 extends "res://game/GameWorld.gd"
 
-var diamondTilesPerLayer = 2
+var diamondTilesPerLayer = 3
 
 func prepareCleanData():
-	.prepareCleanData()
+	super.prepareCleanData()
 	Data.apply("inventory.diamond", 0)
 	Data.apply("inventory.floatingDiamond", 0)
 	Data.apply("inventory.totalDiamond", 0)
+

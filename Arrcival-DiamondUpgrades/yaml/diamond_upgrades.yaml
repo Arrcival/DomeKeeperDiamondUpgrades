@@ -1,0 +1,843 @@
+diamonddome1:
+  limit: [hostile]
+  cost: diamond=1
+  propertyChanges:
+    - dome.maxhealth += 100
+  predecessors: [dome1]
+  repeatable: true
+
+diamonddome2:
+  limit: [hostile]
+  cost: diamond=1
+  propertyChanges:
+    - dome.maxhealth += 100
+  predecessors: [dome2]
+  repeatable: true
+
+diamonddome3:
+  limit: [hostile]
+  cost: diamond=1
+  propertyChanges:
+    - dome.maxhealth += 100
+  predecessors: [dome3]
+  repeatable: true
+
+diamonddome4:
+  limit: [hostile]
+  cost: diamond=1
+  propertyChanges:
+    - dome.maxhealth += 100
+  predecessors: [dome4]
+  repeatable: true
+
+keeper1:
+  type: keeper
+  scenes: 
+    keeper: content/keeper/keeper1/Keeper1.tscn
+  addslots: [keepersuit, keepersupplement]
+  unlockslimits: [keeper1]
+  propertyChanges:
+    - keeper1.drillStrength = 2
+    - keeper1.maxSpeed = 56
+    - keeper1.speedLossPerCarry = 5.7
+    - keeper1.jetpackStage = 0
+    - keeper1.acceleration = 5
+    - keeper1.deceleration = 4
+    - keeper1.slowdownRecovery = 4
+    - keeper1.tileKnockback = 7
+    - keeper1.tileHitCooldown = 0.35
+    - keeper1.hardtilesmodifier = 1.0
+    - keeper1.destroyindestructibletiles = false/h
+    - keeper1.speedMod = 1.0
+    - keeper1.drillMod = 1.0
+diamondkeeper1:
+  cost: diamond=1
+  propertyChanges:
+    - keeper1.speedMod += 0.05
+    - keeper1.drillMod += 0.1
+  predecessors: [keeper1]
+  repeatable: true
+
+keeper2:
+  type: keeper
+  scenes: 
+    keeper: content/keeper/keeper2/Keeper2.tscn
+  addslots: [keepersuit, keepersupplement]
+  unlockslimits: [keeper2]
+  propertyChanges:
+    - keeper2.maxSpeed = 65
+    - keeper2.minspeed = 1.0/h
+    - keeper2.acceleration = 70
+    - keeper2.deceleration = 3
+    - keeper2.totalspheres = 1
+    - keeper2.spherereload = 10.0
+    - keeper2.directminingdamage = 0.4
+    - keeper2.directmininghardness = 1.0
+    - keeper2.directminingstage = 1
+    - keeper2.spherebasedamage = 1.2
+    - keeper2.spherefractiondamage = 0.03/h
+    - keeper2.spherebaselifetime = 9.0
+    - keeper2.sphereadditionalfirsthitdamage = 2.0
+    - keeper2.spherespeed = 200.0
+    - keeper2.actioncooldown = 0.0/h
+    - keeper2.actionstage = 0/h
+    - keeper2.spheresplit = false/h
+    - keeper2.splitlifetime = 0.0/h
+    - keeper2.explodespheres = false/h
+    - keeper2.explodespheresradius = 0.0/h
+    - keeper2.reflectsphere = false/h
+    - keeper2.reflectspeed = 0.0/h
+    - keeper2.reflectnexthitdamage = 0.0/h
+    - keeper2.reflectlifetime = 0.0/h
+    - keeper2.bundleduration = 15.0
+    - keeper2.bundlespeed = 30.0
+    - keeper2.bundlestopcenter = false/h
+    - keeper2.bundleguide = false/h
+    - keeper2.pinballdestroyadjacenttiles = false/h
+    - keeper2.speedMod = 1.0/h
+    - keeper2.sphereDamageMod = 1.0/h
+keeper2rotationalmining1:
+  limit: [mining]
+  cost: iron=6
+  propertyChanges:
+    - keeper2.directminingdamage += 0.25
+    - keeper2.directmininghardness = 0.4
+    - keeper2.directminingstage = 2
+  predecessors: [keeper2]
+keeper2RotationalMining2:
+  cost: iron=20
+  propertyChanges:
+    - keeper2.directminingdamage += 0.55
+    - keeper2.directminingstage = 3
+    - keeper2.directmininghardness = 0.1
+  predecessors: [keeper2rotationalmining1]
+diamondkeeper2:
+  cost: diamond=1
+  propertyChanges:
+    - keeper2.speedMod += 0.1
+    - keeper2.sphereDamageMod += 0.25
+    - keeper2.directminingdamage += 0.1
+  predecessors: [keeper2]
+  repeatable: true
+
+diamondlaser:
+  cost: diamond=2
+  propertyChanges: 
+    - laser.dpsmod += 0.2
+    - laser.movespeed += 0.02
+  predecessors: [laser]
+  repeatable:
+    - times = 4
+    - cost.diamond += 0
+
+sword:
+  type: weapon
+  addslots: [swordsupplement]
+  limit: [hostile, primaryweapon]
+  propertyChanges: 
+    - sword.sliceDamage = 22
+    - sword.sliceBrake = 0.7
+    - sword.sliceAcceleration = 1.0
+    - sword.brake = 4.0
+    - sword.stabDamage = 20
+    - sword.extendSpeed = 250
+    - sword.retractSpeed = 300
+    - sword.extendMove = 2.0
+    - sword.stabRange = 550
+    - sword.stabCooldown = 3.0
+    - sword.javelin = false/h
+    - sword.electricDamage = 0/h
+    - sword.blade = 0/h
+    - sword.reflection = 0/h
+    - sword.stabSpeed = 1.0/h
+    - sword.stabExplosive = 0/h
+    - sword.stabExplosiveDamage = 0/h
+    - sword.stabContinuousStabbing = false/h
+    - sword.stabManualSpeedup = false/h
+    - sword.sliceBounceBack = 0.0/h
+    - sword.stabArrowHead = 0/h
+    - sword.aimline = false/h
+    - sword.reflectionAcceleration = 1.0/h
+    - sword.reflectprojectiles = false/h
+    - sword.reflectProjectilesExplosive = false/h
+    - sword.reflectProjectilesDamageMod = 1.0/h
+    - sword.dpsmod = 1.0/h
+
+diamondsword:
+  cost: diamond=2
+  propertyChanges: 
+    - sword.dpsmod += 0.2
+    - sword.sliceAcceleration += 0.2
+    - sword.brake += 1.0
+  predecessors: [sword]
+  repeatable: true
+
+artillerydirecthit1:
+  cost: iron=6
+  propertyChanges:
+    - artillery.direct = true/h
+    - artillery.grenadedamage += 30
+    - artillery.grenadereloadspeed += 0.25
+    - artillery.cannonbarrelsize = 1/h
+    - artillery.directhitdamage = 2.0
+    - artillery.soundlevel = 1/h
+  predecessors: [artillery]
+  locks: [artillerySplash1]
+artilleryDirectHit2:
+  cost: iron=12
+  propertyChanges: 
+    - artillery.grenadedamage += 40
+    - artillery.grenadereloadspeed += 0.25
+    - artillery.cannonbarrelsize = 2/h
+    - artillery.directhitdamage = 3.0
+    - artillery.soundlevel = 2/h
+  predecessors: [artilleryDirectHit1]
+artilleryDirectHit3:
+  cost: iron=20
+  propertyChanges: 
+    - artillery.grenadedamage += 50
+    - artillery.grenadereloadspeed += 0.25
+    - artillery.cannonbarrelsize = 3/h
+    - artillery.directhitdamage = 4.0
+    - artillery.soundlevel = 3/h
+  predecessors: [artilleryDirectHit2]
+artilleryDirectHit4:
+  cost: iron=30
+  propertyChanges: 
+    - artillery.grenadedamage += 70
+    - artillery.grenadereloadspeed += 0.25
+    - artillery.cannonbarrelsize = 4/h
+    - artillery.directhitdamage = 6.0
+    - artillery.soundlevel = 4/h
+  predecessors: [artilleryDirectHit3]
+  locks: [artillerySplash4,artilleryGrenadeFastReload]
+artillerysplash1:
+  cost: iron=6
+  propertyChanges:
+    - artillery.splash = true/h
+    - artillery.grenadedamage += 20.0
+    - artillery.grenadesexplosionradius = 80.0
+    - artillery.cannonbarrelsize = 1/h
+    - artillery.soundlevel = 1/h
+  predecessors: [artillery]
+  locks: [artilleryDirectHit1]
+artillerySplash3:
+  cost: iron=20
+  propertyChanges: 
+    - artillery.grenadesexplosionradius = 120.0
+    - artillery.grenadedamage += 30.0
+    - artillery.cannonbarrelsize = 3/h
+    - artillery.soundlevel = 3/h
+  predecessors: [artillerySplash2]
+artillerySplash4:
+  cost: iron=30
+  propertyChanges: 
+    - artillery.grenades += 2
+    - artillery.directhitdamage = 1.2
+    - artillery.timeBetweenGrenades = 0.5
+    - artillery.grenadedamage += 20.0
+    - artillery.grenadesexplosionradius = 140.0
+    - artillery.grenadereloadspeed += 0.5
+    - artillery.cannonbarrelsize = 5/h
+    - artillery.soundlevel = 3/h
+  predecessors: [artillerySplash3]
+  locks: [artilleryDirectHit4,artilleryGrenadeFastReload]
+artillerymachinegunhoming1:
+  cost: iron=14
+  propertyChanges: 
+    - artillery.machinegundamage += 7.5
+    - artillery.machinegunreloadspeed = 0.4
+    - artillery.machinegunhoming = true
+    - artillery.machinegunbulletspeed = 500.0
+    - artillery.machinegunbarrelsize = 5/h
+    - artillery.machinegunsound = 1/h
+  predecessors: [artilleryMachineGun2]
+  locks: [artilleryMachineGun3]
+artilleryMachineGunHoming2:
+  cost: iron=26
+  propertyChanges: 
+    - artillery.machinegundamage += 10.0
+    - artillery.machinegunbulletspeed = 500.0
+    - artillery.machinegunbarrelsize = 6/h
+    - artillery.machinegunsound = 2/h
+  predecessors: [artilleryMachineGunHoming1]
+diamondartillery:
+  cost: diamond=1
+  propertyChanges: 
+    - artillery.grenadedamage += 3.0
+    - artillery.grenadereloadspeed -= 0.05
+    - artillery.machinegundamage += 1
+    - artillery.rotationspeedwhilemachinegun += 0.02
+  predecessors: [artillery]
+  repeatable:
+    - times = 10
+    - cost.diamond += 0
+
+teslaspeed1:
+  cost: iron=4
+  propertyChanges:
+    - tesla.reticlemaxspeed += 50.0
+    - tesla.ringIdleSpeed = 0.4
+    - tesla.outerMeshId = 1
+  predecessors: [tesla]
+teslaSpeed2:
+  cost: iron=6
+  propertyChanges:
+    - tesla.reticlemaxspeed += 60.0
+    - tesla.ringIdleSpeed = 0.7
+    - tesla.outerMeshId = 2
+  predecessors: [teslaSpeed1]
+teslaSpeed3:
+  cost: iron=12
+  propertyChanges:
+    - tesla.reticlemaxspeed += 70.0
+    - tesla.ringIdleSpeed = 1.3
+    - tesla.outerMeshId = 3
+  predecessors: [teslaSpeed2]
+teslaSpeed4:
+  cost: iron=20
+  propertyChanges:
+    - tesla.reticlemaxspeed += 80.0
+    - tesla.ringIdleSpeed = 1.8
+    - tesla.outerMeshId = 4
+  predecessors: [teslaSpeed3]
+teslapower1:
+  cost: iron=6
+  propertyChanges:
+    - tesla.damage += 20
+    - tesla.powerVfx = 1
+  predecessors: [tesla]
+teslaPower2:
+  cost: iron=12
+  propertyChanges:
+    - tesla.damage += 30
+    - tesla.powerVfx = 2
+  predecessors: [teslaPower1]
+teslaPower3:
+  cost: iron=18
+  propertyChanges:
+    - tesla.damage += 35
+    - tesla.powerVfx = 3
+  predecessors: [teslaPower2]
+teslaPower4:
+  cost: iron=26
+  propertyChanges:
+    - tesla.damage += 40
+    - tesla.powerVfx = 4
+  predecessors: [teslaPower3]
+diamondtesla:
+  cost: diamond=1
+  propertyChanges:
+    - tesla.reticlemaxspeed += 5.0
+    - tesla.damage += 3
+  predecessors: [tesla]
+  repeatable:
+    - times = 20
+    - cost.diamond += 0
+
+diamonddroneyard:
+  cost: diamond=1
+  propertyChanges:
+    - droneyard.dronespeed += 5
+  predecessors: [droneyard]
+  repeatable: true
+
+shieldstrength1:
+  cost: iron=4, water=2
+  propertyChanges: 
+    - shield.maxStrength += 30
+    - shield.stage += 1
+  predecessors: [shield]
+shieldstrength2:
+  cost: iron=8, water=3
+  propertyChanges: 
+    - shield.maxStrength += 30
+    - shield.stage += 1
+  predecessors: [shieldStrength1]
+shieldstrength3:
+  cost: iron=10, water=4
+  propertyChanges: 
+    - shield.maxStrength += 40
+    - shield.stage += 1
+  predecessors: [shieldStrength2]
+
+diamondshield:
+  cost: diamond=1
+  propertyChanges: 
+    - shield.maxStrength += 5
+  predecessors: [shield]
+  repeatable: true
+
+repellentdelay1:
+  cost: iron=4, water=2
+  propertyChanges: 
+    - repellent.wavedelay += 0.07
+    - repellent.growthtime = 1.2
+    - repellent.stage = 2/h
+  predecessors: [repellent]
+repellentdelay2:
+  cost: iron=8, water=3
+  propertyChanges: 
+    - repellent.wavedelay += 0.08
+    - repellent.growthtime = 1.0
+    - repellent.stage = 3/h
+  predecessors: [repellentDelay1]
+repellentdelay3:
+  cost: iron=15, water=4
+  propertyChanges: 
+    - repellent.wavedelay += 0.1
+    - repellent.growthtime = 0.9
+    - repellent.stage = 4/h
+  predecessors: [repellentDelay2]
+diamondrepellent:
+  cost: diamond=1
+  propertyChanges: 
+    - repellent.wavedelay += 0.03
+  predecessors: [repellent]
+  repeatable: true
+
+
+
+diamondorchard:
+  cost: diamond=1
+  propertyChanges: 
+    - orchard.buffduration += 0.1
+  predecessors: [orchard]
+  repeatable:
+    - times = 20
+    - cost.diamond += 0
+
+
+
+
+stunlaserduration1:
+  cost: iron=1, water=1
+  propertyChanges:
+    - stunLaser.fireTime += 3.0
+  - stunLaser.cooldown = 2.0
+  predecessors: [stunLaser]
+stunlaserduration2:
+  cost: iron=3, water=1
+  propertyChanges:
+    - stunLaser.fireTime += 4.0
+  - stunLaser.cooldown = 1.0
+  predecessors: [stunLaserDuration1]
+stunlaserduration3:
+  cost: iron=5, water=2
+  propertyChanges:
+    - stunLaser.fireTime += 10.0
+  - stunLaser.cooldown = 0.5
+  predecessors: [stunLaserDuration2]
+diamondstunlaser:
+  cost: diamond=1
+  propertyChanges:
+    - stunLaser.fireTime += 0.5
+    - stunLaser.speed += 0.05
+  predecessors: [stunLaser]
+  repeatable: true
+
+
+autocannonimproved:
+  cost: iron=4, water=2
+  propertyChanges:
+    - autocannon.damage += 3.0
+    - autocannon.timebetweenshots = 1.5
+    - autocannon.speed += 0.15
+  predecessors: [autocannon]
+autocannondamage1:
+  cost: iron=6, water=2
+  propertyChanges:
+    - autocannon.damage += 13.0
+    - autocannon.bullet = 2/h
+    - autocannon.cannonstyle = 1/h
+  locks: [autocannonRateOfFire1]
+  predecessors: [autocannonImproved]
+diamondautocannon:
+  cost: diamond=1
+  propertyChanges:
+    - autocannon.damage += 1.0
+  predecessors: [autocannon]
+  repeatable: true
+
+
+blastMiningBlast1:
+  cost: iron=2, water=2
+  propertyChanges: 
+    - blastMining.radius += 0.65
+    - blastMining.bombsize += 1
+    - blastMining.growthTime += 0.1
+  predecessors: [blastMining]
+blastMiningBlast2:
+  cost: iron=5, water=3
+  propertyChanges: 
+    - blastMining.radius += 0.9
+    - blastMining.bombsize += 1
+    - blastMining.growthTime += 0.1
+  predecessors: [blastMiningBlast1]
+blastMiningBlast3:
+  cost: iron=10, water=5
+  propertyChanges: 
+    - blastMining.radius += 1
+    - blastMining.bombsize += 1
+    - blastMining.growthTime += 0.1
+  predecessors: [blastMiningBlast2]
+diamondblastMining:
+  cost: diamond=1
+  propertyChanges:
+    - blastMining.growthTime -= 0.05
+    - blastMining.radius += 0.5
+  predecessors: [blastMining]
+  repeatable:
+    - times = 6
+    - cost.diamond += 0
+
+
+probe:
+  type: gadget
+  scenes:
+    keepersuit: content/gadgets/probe/Probe.tscn
+    cellar: content/gadgets/probe/ProbeStation.tscn
+    hud: content/gadgets/probe/hud/ProbeHud.tscn
+  addslots: [probesupplement]
+  takeslots: [cellar, keepersuit]
+  propertyChanges:
+    - probe.charges = 1
+    - probe.range = 4
+    - probe.impulseSpeed = 35
+    - probe.markerRetention = 10.0
+    - probe.autorecharge = false/h
+    - probe.detectchambers = false/h
+    - probe.hasStation = true/h
+    - probe.permanentRevealResources = false/h
+    - probe.permanentRevealRock = false/h
+    - probe.rechargeAfterBattle = false/h
+	  - probe.detectdiamonds = false/h
+probeRange1:
+  cost: iron=2, water=2
+  propertyChanges:
+    - probe.range += 2
+    - probe.impulseSpeed += 15
+  predecessors: [probeCharges]
+probeRange2:
+  cost: iron=4, water=2
+  propertyChanges:
+    - probe.range += 2
+    - probe.impulseSpeed += 15
+  predecessors: [probeRange1]
+probeRange3:
+  cost: iron=8, water=2
+  propertyChanges:
+    - probe.range += 2
+    - probe.impulseSpeed += 15
+  predecessors: [probeRange2]
+diamondprobe:
+  cost: diamond=1
+  propertyChanges:
+    - probe.range += 1
+    - probe.impulseSpeed += 5
+  predecessors: [probe]
+  repeatable: true
+
+
+
+diamondteleporter:
+  cost: diamond=1
+  propertyChanges:
+    - teleporter.teleportDuration -= 0.1
+  predecessors: [teleporter]
+  repeatable:
+    - times = 7
+    - cost.diamond += 0
+
+
+liftcarrykeeper1:
+  cost: iron=2, water=2
+  propertyChanges: 
+    - lift.keeperupwardsspeed += 30.0
+  predecessors: [lift]
+liftcarrykeeper2:
+  cost: iron=5, water=3
+  propertyChanges: 
+    - lift.keeperupwardsspeed += 40.0
+  predecessors: [liftCarryKeeper1]
+diamondlift:
+  cost: diamond=1
+  propertyChanges:
+    - lift.orbs += 1
+    - lift.speed += 3
+    - lift.keeperupwardsspeed += 5.0
+  predecessors: [lift]
+  repeatable:
+    - times = 5
+    - cost.diamond += 0
+
+condenserSpeed1:
+  cost: iron=4, water=1
+  propertyChanges: 
+    - condenser.growthTime -= 0.6
+  predecessors: [condenser]
+condenserSpeed2:
+  cost: iron=8, water=2
+  propertyChanges: 
+    - condenser.growthTime -= 0.4
+  predecessors: [condenserSpeed1]
+  locks: [condenserAutoCollect]
+diamondcondenser:
+  cost: diamond=1
+  propertyChanges:
+    - condenser.growthTime -= 0.1
+  predecessors: [condenser]
+  repeatable:
+    - times = 6
+    - cost.diamond += 0
+
+prospectionmeter:
+  type: gadget
+  scenes:
+    hud: content/gadgets/prospectionMeter/ProspectionMeterHud.tscn
+  addslots: [prospectionmetersupplement]
+  takeslots: [keepersuit]
+  propertyChanges:
+    - prospectionMeter.iron = 1
+    - prospectionMeter.water = 0
+    - prospectionMeter.sand = 0
+    - prospectionMeter.gadget = 0
+    - prospectionMeter.range = 5
+    - prospectionMeter.scandelay = 1.8
+	  - prospectionMeter.diamond = 0
+diamondprospectionmeterdiamond:
+  cost: iron=4, water=2
+  propertyChanges: 
+    - prospectionMeter.diamond = 1
+  predecessors: [prospectionmeterwater1, prospectionmetersand1]
+  predecessorsAny: true
+diamondprospectionmeter:
+  cost: diamond=1
+  propertyChanges: 
+    - prospectionMeter.range += 1
+  predecessors: [prospectionmeter]
+  repeatable:
+    - times = 6
+    - cost.diamond += 0
+
+
+drillBotSleepLess:
+  cost: iron=2,water=1
+  propertyChanges: 
+    - drillbot.amount += 100
+  predecessors: [drillbot]
+diamonddrillbot:
+  cost: diamond=1
+  propertyChanges:
+    - drillbot.amount += 50
+    - drillbot.drillstrength += 1.0
+  predecessors: [drillbot]
+  repeatable: true
+
+converter:
+  type: gadget
+  scenes: 
+    cellar: content/gadgets/converter/Converter.tscn
+  addslots: [convertersupplement]
+  takeslots: [cellar]
+  propertyChanges: 
+    - converter.watertoiron = 3
+    - converter.ironwatertime = 0.8
+    - converter.ironperwater = 4
+    - converter.ironpercobalt = 0
+    - converter.cobalttoiron = 0
+    - converter.ironcobalttime = 0/h
+    - converter.irontoiron = 0.0/h
+    - converter.ironirontime = 0.0/h
+    - converter.queue = false
+    - converter.speedMod = 1.0/h
+diamondconverter:
+  cost: diamond=1
+  propertyChanges:
+    - converter.speedMod -= 0.05
+  predecessors: [converter]
+  repeatable:
+    - times = 10
+    - cost.diamond += 0
+
+suitblasterRadius1:
+  cost: iron=1,water=1
+  propertyChanges: 
+    - suitblaster.radius += 0.5
+  predecessors: [suitblasterMaxCharge]
+suitblasterRadius2:
+  cost: iron=4,water=2
+  propertyChanges: 
+    - suitblaster.radius += 0.5
+  predecessors: [suitblasterRadius1]
+suitblasterSpeed1:
+  cost: iron=2,water=2
+  propertyChanges: 
+    - suitblaster.chargespeed += 1.0
+  predecessors: [suitblaster]
+suitblasterSpeed2:
+  cost: iron=5,water=3
+  propertyChanges: 
+    - suitblaster.chargespeed += 1.5
+  predecessors: [suitblasterSpeed1]
+diamondsuitblaster:
+  cost: diamond=1
+  propertyChanges:
+    - suitblaster.chargespeed += 0.2
+    - suitblaster.radius += 0.25
+  predecessors: [suitblaster]
+  repeatable: true
+
+drillsidespeed1:
+  cost: iron=4, water=2
+  propertyChanges: 
+    - drill.sidetimepertile -= 1.5
+    - drill.extensionspeed += 20.0
+    - drill.drillrampup += 1.0
+    - drill.maindrillcooldown = 3.0
+    - drill.sidedrillcooldown -= 1.0
+  predecessors: [drillsides]
+drillsidespeed2:
+  cost: iron=8, water=2
+  propertyChanges: 
+    - drill.extensionspeed += 30.0
+    - drill.sidetimepertile -= 1.2
+    - drill.drillrampup += 1.5
+    - drill.maindrillcooldown = 2.0
+    - drill.sidedrillcooldown -= 1.0
+  predecessors: [drillsidespeed1]
+diamonddrillsides:
+  cost: diamond=1
+  propertyChanges: 
+    - drill.sidetimepertile -= 0.1
+    - drill.extensionspeed += 5.0
+    - drill.drillrampup += 0.2
+  predecessors: [drillsides]
+  repeatable:
+    - times = 5
+    - cost.diamond += 0
+
+chainsawdamage1:
+  cost: iron=2, water=1
+  propertyChanges: 
+    - chainsaw.damage += 10
+    - chainsaw.stage += 1
+  predecessors: [chainsaw]
+chainsawdamage2:
+  cost: iron=4, water=2
+  propertyChanges: 
+    - chainsaw.damage += 20
+    - chainsaw.stage += 1
+  predecessors: [chainsawdamage1]
+chainsawdamage3:
+  cost: iron=8, water=3
+  propertyChanges: 
+    - chainsaw.damage += 40
+    - chainsaw.stage += 1
+  predecessors: [chainsawdamage2]
+diamondchainsaw:
+  cost: diamond=1
+  propertyChanges: 
+    - chainsaw.speed += 0.05
+    - chainsaw.damage += 5
+  predecessors: [chainsaw]
+  repeatable:
+    - times = 5
+    - cost.diamond += 0
+
+diamonddomearmor:
+  cost: diamond=1
+  propertyChanges: 
+    - dome.maxhealth += 50
+    - dome.health += 50
+    - dome.projectiledamagereduction += 0.01
+    - dome.meleedamageReduction += 0.01
+  predecessors: [domearmor]
+  repeatable:
+    - times = 20
+    - cost.diamond += 0
+
+
+stationextensionRevealDistance1:
+  cost: iron=1,water=1
+  propertyChanges: 
+    - stationextension.tilerevealdistance += 3
+  predecessors: [stationextension]
+stationextensionRevealDistance2:
+  cost: iron=2,water=2
+  propertyChanges: 
+    - stationextension.tilerevealdistance += 4
+  predecessors: [stationextensionRevealDistance1]
+diamondstationextension:
+  cost: diamond=1
+  propertyChanges: 
+    - stationextension.tilerevealdistance += 1
+  predecessors: [stationextension]
+  repeatable:
+    - times = 5
+    - cost.diamond += 0
+
+mushroomfarmSpeed1:
+  cost: iron=2,water=2
+  propertyChanges: 
+    - mushroomfarm.speedbuff += 10
+    - mushroomfarm.speedbuffduration += 4
+  predecessors: [mushroomfarm]
+mushroomfarmSpeed2:
+  cost: iron=5,water=3
+  propertyChanges: 
+    - mushroomfarm.speedbuff += 15
+    - mushroomfarm.speedbuffduration += 2
+  predecessors: [mushroomfarmSpeed1]
+mushroomfarmDrill1:
+  cost: iron=2,water=2
+  propertyChanges: 
+    - mushroomfarm.drillbuff += 0.3
+    - mushroomfarm.drillbuffduration += 8
+  predecessors: [mushroomfarm]
+mushroomfarmDrill2:
+  cost: iron=5,water=3
+  propertyChanges: 
+    - mushroomfarm.drillbuff += 0.2
+    - mushroomfarm.drillbuffduration += 8
+  predecessors: [mushroomfarmDrill1]
+diamondmushroomfarm:
+  cost: diamond=1
+  propertyChanges: 
+    - mushroomfarm.speedbuff += 3
+    - mushroomfarm.speedbuffduration += 1
+    - mushroomfarm.drillbuff += 0.03
+    - mushroomfarm.drillbuffduration += 1
+  predecessors: [mushroomfarm]
+  repeatable: true
+
+diamondshockwave:
+  cost: diamond=1
+  propertyChanges: 
+    - shockwave.damage += 5.0
+    - shockwave.cooldown -= 0.2
+  predecessors: [shockwave]
+  repeatable:
+    - times = 20
+    - cost.diamond += 0
+
+rocketlauncherdamage1:
+  cost: iron=4,water=3
+  propertyChanges: 
+    - rocketlauncher.damageperrocket += 60
+    - rocketlauncher.rocketstage = 2
+  predecessors: [rocketlauncher]
+rocketlauncherdamage2:
+  cost: iron=10,water=4
+  propertyChanges: 
+    - rocketlauncher.damageperrocket += 140
+    - rocketlauncher.rocketstage = 3
+  predecessors: [rocketlauncherdamage1]
+diamondrocketlauncher:
+  cost: diamond=1
+  propertyChanges: 
+    - rocketlauncher.damageperrocket += 5
+  predecessors: [rocketlauncher]
+  repeatable: true
+
+

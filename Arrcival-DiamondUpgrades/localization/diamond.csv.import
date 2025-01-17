@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://dhlmtqy8ni128"
+
+[deps]
+
+files=["res://mods-unpacked/Arrcival-DiamondUpgrades/localization/diamond.en.translation"]
+
+source_file="res://mods-unpacked/Arrcival-DiamondUpgrades/localization/diamond.csv"
+dest_files=["res://mods-unpacked/Arrcival-DiamondUpgrades/localization/diamond.en.translation"]
+
+[params]
+
+compress=true
+delimiter=0

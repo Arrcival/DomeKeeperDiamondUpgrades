@@ -1,52 +1,50 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=11 format=3 uid="uid://c0013x6016uiw"]
 
-[ext_resource path="res://content/drop/MineralDrop.tscn" type="PackedScene" id=1]
-[ext_resource path="res://mods-unpacked/Arrcival-DiamondUpgrades/content/drop/diamond/diamond_carried.png" type="Texture" id=2]
-[ext_resource path="res://mods-unpacked/Arrcival-DiamondUpgrades/content/drop/diamond/diamond_small.png" type="Texture" id=3]
-[ext_resource path="res://content/drop/sand/sand_shred_particles.tscn" type="PackedScene" id=4]
-[ext_resource path="res://mods-unpacked/Arrcival-DiamondUpgrades/content/drop/diamond/diamond_focused.png" type="Texture" id=5]
-[ext_resource path="res://content/sounds/drops/Metaltest_02.wav" type="AudioStream" id=6]
-[ext_resource path="res://content/sounds/drops/Metaltest_01.wav" type="AudioStream" id=7]
-[ext_resource path="res://content/sounds/drops/Metaltest_03.wav" type="AudioStream" id=8]
+[ext_resource type="PackedScene" path="res://content/drop/MineralDrop.tscn" id="1"]
+[ext_resource type="Texture2D" uid="uid://m7oukbux42mo" path="res://mods-unpacked/Arrcival-DiamondUpgrades/content/drop/diamond/diamond_carried.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://cj8e32fmdmru5" path="res://mods-unpacked/Arrcival-DiamondUpgrades/content/drop/diamond/diamond_small.png" id="3"]
+[ext_resource type="PackedScene" path="res://content/drop/sand/sand_shred_particles.tscn" id="4"]
+[ext_resource type="Texture2D" uid="uid://bysbdsrs5riui" path="res://mods-unpacked/Arrcival-DiamondUpgrades/content/drop/diamond/diamond_focused.png" id="5"]
+[ext_resource type="AudioStream" uid="uid://dsus6nir5y1yv" path="res://content/sounds/drops/Metaltest_02.wav" id="6"]
+[ext_resource type="AudioStream" uid="uid://byw587svv8akd" path="res://content/sounds/drops/Metaltest_01.wav" id="7"]
+[ext_resource type="AudioStream" uid="uid://dc3lr524tvj4e" path="res://content/sounds/drops/Metaltest_03.wav" id="8"]
 
-[sub_resource type="PhysicsMaterial" id=1]
+[sub_resource type="PhysicsMaterial" id="1"]
 resource_local_to_scene = true
 friction = 0.15
 bounce = 0.05
 
-[sub_resource type="CircleShape2D" id=2]
+[sub_resource type="CircleShape2D" id="2"]
 radius = 3.0
 
-[node name="DiamondDrop" groups=["saveable"] instance=ExtResource( 1 )]
-physics_material_override = SubResource( 1 )
+[node name="DiamondDrop" groups=["saveable"] instance=ExtResource("1")]
+physics_material_override = SubResource("1")
 type = "diamond"
 
-[node name="Sprite" parent="." index="0"]
-position = Vector2( 0.5, 0 )
-texture = ExtResource( 3 )
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("3")
 
 [node name="CarrySprite" parent="." index="1"]
-position = Vector2( 0.5, 0 )
-texture = ExtResource( 2 )
+visible = false
+texture = ExtResource("2")
 
 [node name="FocusSprite" parent="." index="2"]
 visible = false
-position = Vector2( 0.5, 0 )
-texture = ExtResource( 5 )
+texture = ExtResource("5")
 
-[node name="BumpSound" parent="." index="6"]
+[node name="BumpSound" parent="." index="4"]
 volume_db = -10.142
 pitch_scale = 1.23
-bus = "NoMusic"
-streams = [ ExtResource( 7 ), ExtResource( 6 ), ExtResource( 8 ) ]
+bus = &"NoMusic"
+streams = Array[AudioStream]([ExtResource("7"), ExtResource("6"), ExtResource("8")])
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="7"]
-position = Vector2( -0.5, -1 )
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="5"]
+position = Vector2(-0.5, -1)
 rotation = 3.14159
-polygon = PoolVector2Array( -5, 4, -5, 2, -0.5, -5, 4, 2, 4, 4 )
+polygon = PackedVector2Array(-5, 4, -5, 2, -0.5, -5, 4, 2, 4, 4)
 
-[node name="ShredParticles" parent="." index="8" instance=ExtResource( 4 )]
-position = Vector2( 0, -1 )
+[node name="ShredParticles" parent="." index="6" instance=ExtResource("4")]
+position = Vector2(0, -1)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="9"]
-shape = SubResource( 2 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="7"]
+shape = SubResource("2")
