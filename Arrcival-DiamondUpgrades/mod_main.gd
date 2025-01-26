@@ -29,6 +29,7 @@ func _init(modLoader = ModLoader):
 	loadExtension(ext_dir, "MiningSummary.gd")
 	loadExtension(ext_dir, "Pinball.gd")
 	loadExtension(ext_dir, "ProbeImpulse.gd")
+	loadExtension(ext_dir, "ResourcePackerEffect.gd")
 	loadExtension(ext_dir, "SaveGame.gd")
 	loadExtension(ext_dir, "Shredder.gd")
 	loadExtension(ext_dir, "Squidley.gd")
