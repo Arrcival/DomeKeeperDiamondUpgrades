@@ -24,9 +24,9 @@ func generate_resources(rand):
 			if diamondsGenerated >= diamondPerLayers:
 				break
 
-		# debugging purposes
-		if GameWorld.devMode or OS.is_debug_build():
-			$MapData.set_resourcev(Vector2(0, 2) , CONSTARRC.TILE_DIAMOND)
+	# debugging purposes
+	if GameWorld.devMode or OS.is_debug_build():
+		$MapData.set_resourcev(Vector2(0, 2) , CONSTARRC.TILE_DIAMOND)
 
 
 func printGeneratedDiamond(cell):

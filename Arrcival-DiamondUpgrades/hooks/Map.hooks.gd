@@ -12,8 +12,12 @@ func isResourceTile(chain: ModLoaderHookChain, typeId:int) -> bool:
 	return chain.execute_next([typeId]) or typeId == CONSTARRC.TILE_DIAMOND
 
 func revealTile(chain: ModLoaderHookChain, coord:Vector2):
-	
 	var main_node : Node = chain.reference_object
+	var typeId:int = main_node.tileData.get_resource(coord.x, coord.y)
+	if typeId != CONSTARRC.TILE_DIAMOND:
+		chain.execute_next([coord])
+		return
+
 	var invalids := []
 	if main_node.tileRevealedListeners.has(coord):
 		for listener in main_node.tileRevealedListeners[coord]:
@@ -23,10 +27,6 @@ func revealTile(chain: ModLoaderHookChain, coord:Vector2):
 				invalids.append(listener)
 		for invalid in invalids:
 			main_node.tileRevealedListeners.erase(invalid)
-	
-	var typeId:int = main_node.tileData.get_resource(coord.x, coord.y)
-	if typeId == Data.TILE_EMPTY:
-		return
 	
 	if main_node.tiles.has(coord):
 		return
@@ -41,19 +41,8 @@ func revealTile(chain: ModLoaderHookChain, coord:Vector2):
 	tile.hardness = main_node.tileData.get_hardness(coord.x, coord.y)
 
 	tile.type = Data.TILE_ID_TO_STRING_MAP.get(typeId, "dirt")
-	match tile.type:
-		CONST.IRON:
-			tile.richness = Data.ofOr("map.ironrichness", 2)
-			main_node.revealTileVisually(coord)
-		CONST.SAND:
-			tile.richness = Data.ofOr("map.cobaltrichness", 2)
-			main_node.revealTileVisually(coord)
-		CONST.WATER:
-			tile.richness = Data.ofOr("map.waterrichness", 2.5)
-			main_node.revealTileVisually(coord)
-		CONSTARRC.DIAMOND:
-			tile.richness = 2
-			main_node.revealTileVisually(coord)
+	tile.richness = 2
+	main_node.revealTileVisually(coord)
 	main_node.tiles[coord] = tile 
 	
 	if main_node.tilesByType.has(tile.type):

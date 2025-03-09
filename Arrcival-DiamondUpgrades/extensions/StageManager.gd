@@ -21,6 +21,7 @@ func _startNewStage():
 	
 	var buttonsContainer = HBoxContainer.new()
 	
+	buttons.clear()
 	for i in range(1, 6):
 		var e = preload("res://stages/loadout/LoadoutChoice.tscn").instantiate()
 		e.setChoice(str(i), "diamond_amount_" + str(i), null)
