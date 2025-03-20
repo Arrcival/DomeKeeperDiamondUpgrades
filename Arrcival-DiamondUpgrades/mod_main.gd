@@ -43,7 +43,7 @@ func _init(modLoader = ModLoader):
 	ModLoaderMod.add_translation(dir + "localization/diamond.en.translation")
 	
 	#loadHook("res://systems/achievements/Achievements.gd", hooks_dir, "Achievements.hooks.gd") # doesn't work
-	#loadHook("res://content/dome/Dome.gd", hooks_dir, "Dome.hooks.gd") # Dome.gd can't be hooked -> bug vanilla
+	loadHook("res://content/dome/Dome.gd", hooks_dir, "Dome.hooks.gd")
 	loadHook("res://content/map/Map.gd", hooks_dir, "Map.hooks.gd")
 	loadHook("res://content/map/MapData.gd", hooks_dir, "MapData.hooks.gd")
 	loadHook("res://content/map/tile/Tile.gd", hooks_dir, "Tile.hooks.gd")
