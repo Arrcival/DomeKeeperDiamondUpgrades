@@ -7,7 +7,7 @@ func _ready(chain: ModLoaderHookChain):
 
 	var main_node : Node = chain.reference_object
 	
-	if main_node.res_sprite:
+	if main_node.res_sprite and main_node.type == CONSTARRC.DIAMOND:
 		main_node.res_sprite.texture = load("res://mods-unpacked/Arrcival-DiamondUpgrades/content/map/border/diamond_resources_sheet.png")
 		Style.init(main_node.res_sprite)
 

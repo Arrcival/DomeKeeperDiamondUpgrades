@@ -10,7 +10,7 @@ func _startNewStage():
 	if not loadoutStage:
 		return
 
-	var ui_node: Node = loadoutStage.find_child("UI")
+	var ui_node: Node = loadoutStage.find_child("GameModeMarginContainer").find_child("VBoxContainer")
 	
 	var diamondVBox = VBoxContainer.new()
 	var labelTitle = Label.new()
@@ -43,8 +43,6 @@ func _startNewStage():
 		Style.init(e)
 		buttons.append(e)
 	diamondVBox.add_child(buttonsContainer)
-	diamondVBox.position = Vector2(1300, 500)
-	diamondVBox.size = Vector2(220, 220)
 	diamondVBox.name = "DiamondSettings"
 	ui_node.add_child(diamondVBox)
 	Style.init(diamondVBox)
