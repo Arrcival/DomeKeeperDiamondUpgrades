@@ -20,6 +20,46 @@ func deleteMetaState():
 	else:
 		Logger.info("failed to delete savegame")
 
+func loadRollingSavegame():
+	var save_slots = [] # Save slots added as {"slot": slot, "time": mod_time}
+	var backupLoaded = false
+	var backupLoadFailed = false
+	
+	#get all existing save files
+	for slot in range(MAX_SLOTS):
+		var save_file = SAVE_SLOT_FILE_TEMPLATE % slot
+		if FileAccess.file_exists(save_file):
+			var mod_time = FileAccess.get_modified_time(save_file)
+			save_slots.append({"slot": slot, "time": mod_time})
+	#save_slots.sort_custom(func(a, b): return a["time"] > b["time"])
+	
+	# Check for number of savegames
+	if save_slots.size() == 0:
+		Logger.error("No valid savegame found")
+		backupLoadFailed = true
+
+	#Load latest working savegame
+	for i in range(save_slots.size()):
+		var slot = save_slots[i]["slot"]
+		var error = await loadGame(slot)
+		if error == OK:
+			Logger.info("Loaded save in slot " + str(slot))
+			if i > 0: 
+				backupLoaded = true
+			break
+		else:
+			Logger.error("Failed to load save in slot " + str(slot))
+			if i == save_slots.size() - 1:
+				backupLoadFailed = true
+	
+	#Display error popups
+	if backupLoaded:
+		StageManager.loadSaveFallbackPopup()
+		return
+	if backupLoadFailed:
+		StageManager.loadSaveFailed()
+		Logger.error("Failed to load any valid savegame.")
+		return
 
 func loadMetaStateFile(slot:int = 0) -> Array:
 	var metastate := {}
