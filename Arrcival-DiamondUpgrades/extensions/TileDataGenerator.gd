@@ -1,11 +1,11 @@
 extends "res://content/map/generation/TileDataGenerator.gd"
 
-const CONSTARRC = preload("res://mods-unpacked/Arrcival-DiamondUpgrades/Consts.gd")
+const CONST_DIAMOND = preload("res://mods-unpacked/Arrcival-DiamondUpgrades/Consts.gd")
 
 func generate_resources(rand):
 	super.generate_resources(rand)
 
-	var diamondPerLayers = GameWorld.diamondTilesPerLayer
+	var diamondPerLayers = int(ModLoaderConfig.get_current_config(CONST_DIAMOND.MOD_ID).data[CONST_DIAMOND.CONFIG_ID_DIAMONDS_PER_LAYER])
 	
 	for i in range(0, 10):
 		var cells = $MapData.get_biome_cells_by_index(i)
@@ -18,7 +18,7 @@ func generate_resources(rand):
 		for cell in biomeCells:
 			var ressourceCell = $MapData.get_resourcev(cell)
 			if ressourceCell >= Data.TILE_DIRT_START && ressourceCell <= Data.TILE_DIRT_START + Data.HARDNESS_VERY_HARD:
-				$MapData.set_resourcev(cell, CONSTARRC.TILE_DIAMOND)
+				$MapData.set_resourcev(cell, CONST_DIAMOND.TILE_DIAMOND)
 				printGeneratedDiamond(cell)
 				diamondsGenerated += 1
 			if diamondsGenerated >= diamondPerLayers:
@@ -26,7 +26,7 @@ func generate_resources(rand):
 
 	# debugging purposes
 	if GameWorld.devMode or OS.is_debug_build():
-		$MapData.set_resourcev(Vector2(0, 2) , CONSTARRC.TILE_DIAMOND)
+		$MapData.set_resourcev(Vector2(0, 2) , CONST_DIAMOND.TILE_DIAMOND)
 
 
 func printGeneratedDiamond(cell):

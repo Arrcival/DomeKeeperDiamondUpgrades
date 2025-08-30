@@ -8,8 +8,6 @@ const HOOKS_DIR = "hooks/"
 
 const PHOSPHO_MOD_ID = "Snek-Obel1sk"
 
-const CONSTARRC = preload("res://mods-unpacked/Arrcival-DiamondUpgrades/Consts.gd")
-
 func _init(modLoader = ModLoader):
 	ModLoaderLog.info("init starting", MYMODNAME_LOG)
 	var dir = ModLoaderMod.get_unpacked_dir() + MYMODNAME_MOD_DIR
@@ -30,10 +28,8 @@ func _init(modLoader = ModLoader):
 	loadExtension(ext_dir, "Pinball.gd")
 	loadExtension(ext_dir, "ProbeImpulse.gd")
 	loadExtension(ext_dir, "ResourcePackerEffect.gd")
-	#loadExtension(ext_dir, "SaveGame.gd")
 	loadExtension(ext_dir, "Shredder.gd")
 	loadExtension(ext_dir, "Squidley.gd")
-	loadExtension(ext_dir, "StageManager.gd")
 	loadExtension(ext_dir, "Sword.gd")
 	loadExtension(ext_dir, "Tech2.gd")
 	loadExtension(ext_dir, "TechTreePopup.gd")

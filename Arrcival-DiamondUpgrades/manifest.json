@@ -1,5 +1,7 @@
 {
-	"dependencies": [],
+	"dependencies": [
+		"Arrcival-ModConfiguration"
+	],
 	"description": "This mod adds diamonds and diamond upgrades.",
 	"extra": {
 		"godot": {
@@ -15,7 +17,20 @@
 				"7.0.0"
 			],
 			"config_schema": {
-
+				"$schema": "https://json-schema.org/draft/2020-12/schema",
+				"description": "",
+				"properties": {
+					"diamonds_per_layer": {
+						"default": 3,
+						"maximum": 10,
+						"minimum": 0,
+						"multipleOf": 1,
+						"title": "Diamonds per layer",
+						"type": "number"
+					}
+				},
+				"title": "Diamond mod configuration schema",
+				"type": "object"
 			},
 			"description_rich": "",
 			"image": null,
@@ -27,6 +42,6 @@
 	},
 	"name": "DiamondUpgrades",
 	"namespace": "Arrcival",
-	"version_number": "2.1.5",
+	"version_number": "2.2.0",
 	"website_url": "https://"
 }
