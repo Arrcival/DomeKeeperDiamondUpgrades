@@ -2,7 +2,7 @@ extends "res://content/gadgets/teleporter/Teleporter.gd"
 
 const CONSTARRC = preload("res://mods-unpacked/Arrcival-DiamondUpgrades/Consts.gd")
 
-func canTeleportDrop(body):
+func canTeleportDrop(body) -> bool:
 	if body.type == CONSTARRC.DIAMOND:
 		return true
-	super.canTeleportDrop(body)
+	return super.canTeleportDrop(body)
